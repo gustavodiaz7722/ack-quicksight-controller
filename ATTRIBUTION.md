@@ -22,7 +22,13 @@ License version 2.0, we include the full text of the package's License below.
 
 * `github.com/aws-controllers-k8s/runtime`
 * `github.com/aws/aws-sdk-go`
+* `github.com/aws/aws-sdk-go-v2`
+* `github.com/aws/aws-sdk-go-v2/service/quicksight`
+* `github.com/aws/smithy-go`
+* `github.com/go-logr/logr`
 * `github.com/spf13/pflag`
+* `github.com/stretchr/testify`
+* `k8s.io/api`
 * `k8s.io/apimachinery`
 * `k8s.io/client-go`
 * `sigs.k8s.io/controller-runtime`
@@ -1676,6 +1682,33 @@ Subdependencies:
 
 License Identifier: Apache-2.0
 
+### github.com/aws/aws-sdk-go-v2
+
+License Identifier: Apache-2.0
+
+Subdependencies:
+* `github.com/aws/smithy-go`
+
+#### github.com/aws/smithy-go
+
+License Identifier: Apache-2.0
+
+### github.com/aws/aws-sdk-go-v2/service/quicksight
+
+License Identifier: Apache-2.0
+
+Subdependencies:
+* `github.com/aws/aws-sdk-go-v2`
+* `github.com/aws/aws-sdk-go-v2/internal/configsources`
+* `github.com/aws/aws-sdk-go-v2/internal/endpoints/v2`
+* `github.com/aws/smithy-go`
+
+
+
+### github.com/go-logr/logr
+
+License Identifier: Apache-2.0
+
 ### github.com/spf13/pflag
 
 License Identifier: BSD-3-Clause
@@ -1709,130 +1742,7 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-### k8s.io/apimachinery
-
-License Identifier: Apache-2.0
-
-Subdependencies:
-* `github.com/armon/go-socks5`
-* `github.com/davecgh/go-spew`
-* `github.com/fxamacker/cbor/v2`
-* `github.com/google/gnostic-models`
-* `github.com/google/go-cmp`
-* `github.com/google/uuid`
-* `github.com/moby/spdystream`
-* `github.com/mxk/go-flowrate`
-* `github.com/pmezard/go-difflib`
-* `github.com/spf13/pflag`
-* `github.com/stretchr/testify`
-* `golang.org/x/net`
-* `golang.org/x/time`
-* `gopkg.in/evanphx/json-patch.v4`
-* `gopkg.in/inf.v0`
-* `k8s.io/klog/v2`
-* `k8s.io/kube-openapi`
-* `k8s.io/utils`
-* `sigs.k8s.io/json`
-* `sigs.k8s.io/randfill`
-* `sigs.k8s.io/structured-merge-diff/v6`
-* `sigs.k8s.io/yaml`
-* `github.com/go-logr/logr`
-* `github.com/go-openapi/jsonpointer`
-* `github.com/go-openapi/jsonreference`
-* `github.com/go-openapi/swag`
-* `github.com/josharian/intern`
-* `github.com/json-iterator/go`
-* `github.com/mailru/easyjson`
-* `github.com/modern-go/concurrent`
-* `github.com/modern-go/reflect2`
-* `github.com/onsi/ginkgo/v2`
-* `github.com/onsi/gomega`
-* `github.com/rogpeppe/go-internal`
-* `github.com/x448/float16`
-* `go.yaml.in/yaml/v2`
-* `go.yaml.in/yaml/v3`
-* `golang.org/x/text`
-* `google.golang.org/protobuf`
-* `gopkg.in/yaml.v3`
-
-#### github.com/armon/go-socks5
-
-License Identifier: MIT
-
-The MIT License (MIT)
-
-Copyright (c) 2014 Armon Dadgar
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-
-
-
-
-
-
-
-
-
-
-#### github.com/moby/spdystream
-
-License Identifier: Apache-2.0
-
-#### github.com/mxk/go-flowrate
-
-License Identifier: BSD-3-Clause
-
-Copyright (c) 2014 The Go-FlowRate Authors. All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are
-met:
-
- * Redistributions of source code must retain the above copyright
-   notice, this list of conditions and the following disclaimer.
-
- * Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the
-   distribution.
-
- * Neither the name of the go-flowrate project nor the names of its
-   contributors may be used to endorse or promote products derived
-   from this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-
-
-
-
-#### github.com/stretchr/testify
+### github.com/stretchr/testify
 
 License Identifier: MIT
 
@@ -1859,12 +1769,124 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
+Subdependencies:
+* `github.com/davecgh/go-spew`
+* `github.com/pmezard/go-difflib`
+* `github.com/stretchr/objx`
+* `gopkg.in/yaml.v3`
+
+### k8s.io/api
+
+License Identifier: Apache-2.0
+
+Subdependencies:
+* `k8s.io/apimachinery`
+* `k8s.io/klog/v2`
+* `github.com/davecgh/go-spew`
+* `github.com/fxamacker/cbor/v2`
+* `github.com/go-logr/logr`
+* `github.com/google/go-cmp`
+* `github.com/json-iterator/go`
+* `github.com/kr/pretty`
+* `github.com/modern-go/concurrent`
+* `github.com/modern-go/reflect2`
+* `github.com/spf13/pflag`
+* `github.com/x448/float16`
+* `go.yaml.in/yaml/v2`
+* `golang.org/x/net`
+* `golang.org/x/text`
+* `gopkg.in/check.v1`
+* `gopkg.in/inf.v0`
+* `k8s.io/kube-openapi`
+* `k8s.io/utils`
+* `sigs.k8s.io/json`
+* `sigs.k8s.io/randfill`
+* `sigs.k8s.io/structured-merge-diff/v6`
+* `sigs.k8s.io/yaml`
+
+#### k8s.io/apimachinery
+
+License Identifier: Apache-2.0
 
 
 
 
 
 
+
+
+
+
+
+
+
+#### github.com/kr/pretty
+
+Copyright 2012 Keith Rarick
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+
+
+
+
+
+
+
+
+#### go.yaml.in/yaml/v2
+
+License Identifier: Apache-2.0
+
+
+
+
+
+#### gopkg.in/check.v1
+
+License Identifier: BSD-2-Clause
+
+Gocheck - A rich testing framework for Go
+ 
+Copyright (c) 2010-2013 Gustavo Niemeyer <gustavo@niemeyer.net>
+
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met: 
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer. 
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution. 
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 
@@ -1883,112 +1905,6 @@ License Identifier: Apache-2.0
 License Identifier: Apache-2.0
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#### github.com/onsi/ginkgo/v2
-
-Copyright (c) 2013-2014 Onsi Fakhouri
-
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-#### github.com/onsi/gomega
-
-Copyright (c) 2013-2014 Onsi Fakhouri
-
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-#### github.com/rogpeppe/go-internal
-
-License Identifier: BSD-3-Clause
-
-Copyright (c) 2018 The Go Authors. All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are
-met:
-
-   * Redistributions of source code must retain the above copyright
-notice, this list of conditions and the following disclaimer.
-   * Redistributions in binary form must reproduce the above
-copyright notice, this list of conditions and the following disclaimer
-in the documentation and/or other materials provided with the
-distribution.
-   * Neither the name of Google Inc. nor the names of its
-contributors may be used to endorse or promote products derived from
-this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-
-
-#### go.yaml.in/yaml/v2
-
-License Identifier: Apache-2.0
-
-#### go.yaml.in/yaml/v3
-
-License Identifier: Apache-2.0
 
 ### k8s.io/client-go
 
@@ -2214,6 +2130,66 @@ THE SOFTWARE.
 
 License Identifier: Apache-2.0
 
+
+
+
+
+
+
+#### github.com/moby/spdystream
+
+License Identifier: Apache-2.0
+
+
+
+
+
+#### github.com/mxk/go-flowrate
+
+License Identifier: BSD-3-Clause
+
+Copyright (c) 2014 The Go-FlowRate Authors. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+ * Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+
+ * Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the
+   distribution.
+
+ * Neither the name of the go-flowrate project nor the names of its
+   contributors may be used to endorse or promote products derived
+   from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+
+
+
+
+
+
+
+#### go.yaml.in/yaml/v3
+
+License Identifier: Apache-2.0
+
 ### sigs.k8s.io/controller-runtime
 
 License Identifier: Apache-2.0
@@ -2327,9 +2303,51 @@ Subdependencies:
 
 
 
+#### github.com/onsi/ginkgo/v2
 
+Copyright (c) 2013-2014 Onsi Fakhouri
 
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
 
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+#### github.com/onsi/gomega
+
+Copyright (c) 2013-2014 Onsi Fakhouri
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 
