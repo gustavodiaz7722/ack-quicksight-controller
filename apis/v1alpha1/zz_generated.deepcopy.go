@@ -2715,11 +2715,6 @@ func (in *DataSourceStatus) DeepCopyInto(out *DataSourceStatus) {
 		in, out := &in.LastUpdatedTime, &out.LastUpdatedTime
 		*out = (*in).DeepCopy()
 	}
-	if in.RequestID != nil {
-		in, out := &in.RequestID, &out.RequestID
-		*out = new(string)
-		**out = **in
-	}
 	if in.Status != nil {
 		in, out := &in.Status, &out.Status
 		*out = new(int64)

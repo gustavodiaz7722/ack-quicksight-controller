@@ -23,6 +23,11 @@ ignore:
       - VPCConnection
       - Brand
       - ActionConnector
+  field_paths:
+      # RequestId is just the AWS API request ID for tracking, not resource data
+      - CreateDataSourceOutput.RequestId
+      - UpdateDataSourceOutput.RequestId
+      - DeleteDataSourceOutput.RequestId
 
 operations:
   DescribeDataSource:

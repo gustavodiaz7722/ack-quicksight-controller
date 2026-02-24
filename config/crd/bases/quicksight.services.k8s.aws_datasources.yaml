@@ -1335,9 +1335,6 @@ spec:
                 description: The last time that this data source was updated.
                 format: date-time
                 type: string
-              requestID:
-                description: The Amazon Web Services request ID for this operation.
-                type: string
               status:
                 description: The HTTP status of the request.
                 format: int64

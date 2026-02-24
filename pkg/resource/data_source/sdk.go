@@ -777,11 +777,6 @@ func (rm *resourceManager) sdkCreate(
 	} else {
 		ko.Spec.DataSourceID = nil
 	}
-	if resp.RequestId != nil {
-		ko.Status.RequestID = resp.RequestId
-	} else {
-		ko.Status.RequestID = nil
-	}
 	statusCopy := int64(resp.Status)
 	ko.Status.Status = &statusCopy
 
@@ -2487,11 +2482,6 @@ func (rm *resourceManager) sdkUpdate(
 		ko.Spec.DataSourceID = resp.DataSourceId
 	} else {
 		ko.Spec.DataSourceID = nil
-	}
-	if resp.RequestId != nil {
-		ko.Status.RequestID = resp.RequestId
-	} else {
-		ko.Status.RequestID = nil
 	}
 	statusCopy := int64(resp.Status)
 	ko.Status.Status = &statusCopy
