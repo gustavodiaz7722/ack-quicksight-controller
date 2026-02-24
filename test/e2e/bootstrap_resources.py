@@ -15,14 +15,22 @@
 for them.
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from acktest.bootstrapping import Resources
+from acktest.bootstrapping.s3 import Bucket
+from acktest.bootstrapping.iam import Role
 from e2e import bootstrap_directory
 
 @dataclass
 class BootstrapResources(Resources):
     SubscriptionAccountId: str = None
     SubscriptionEdition: str = None
+    
+    # S3 bucket for DataSource tests
+    DataSourceBucket: Bucket = field(default=None)
+    
+    # IAM role for QuickSight to access S3
+    QuickSightS3Role: Role = field(default=None)
 
 _bootstrap_resources = None
 
