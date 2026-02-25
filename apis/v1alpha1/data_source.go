@@ -93,7 +93,7 @@ type DataSourceStatus struct {
 	LastUpdatedTime *metav1.Time `json:"lastUpdatedTime,omitempty"`
 	// The HTTP status of the request.
 	// +kubebuilder:validation:Optional
-	Status *int64 `json:"status,omitempty"`
+	Status *string `json:"status,omitempty"`
 }
 
 // DataSource is the Schema for the DataSources API

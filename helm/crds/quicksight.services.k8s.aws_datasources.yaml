@@ -1328,7 +1328,7 @@ spec:
                 properties:
                   message:
                     type: string
-                  type_:
+                  type:
                     type: string
                 type: object
               lastUpdatedTime:
@@ -1337,8 +1337,7 @@ spec:
                 type: string
               status:
                 description: The HTTP status of the request.
-                format: int64
-                type: integer
+                type: string
             type: object
         type: object
     served: true

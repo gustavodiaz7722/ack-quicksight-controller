@@ -682,6 +682,11 @@ func (rm *resourceManager) sdkFind(
 	} else {
 		ko.Spec.SSLProperties = nil
 	}
+	if resp.DataSource.Status != "" {
+		ko.Status.Status = aws.String(string(resp.DataSource.Status))
+	} else {
+		ko.Status.Status = nil
+	}
 	if resp.DataSource.Type != "" {
 		ko.Spec.Type = aws.String(string(resp.DataSource.Type))
 	} else {
@@ -777,8 +782,6 @@ func (rm *resourceManager) sdkCreate(
 	} else {
 		ko.Spec.DataSourceID = nil
 	}
-	statusCopy := int64(resp.Status)
-	ko.Status.Status = &statusCopy
 
 	rm.setStatusDefaults(ko)
 
@@ -2483,8 +2486,6 @@ func (rm *resourceManager) sdkUpdate(
 	} else {
 		ko.Spec.DataSourceID = nil
 	}
-	statusCopy := int64(resp.Status)
-	ko.Status.Status = &statusCopy
 
 	rm.setStatusDefaults(ko)
 	return &resource{ko}, nil

@@ -629,7 +629,7 @@ type DataSourceCredentials struct {
 // Error information for the data source creation or update.
 type DataSourceErrorInfo struct {
 	Message *string `json:"message,omitempty"`
-	Type    *string `json:"type_,omitempty"`
+	Type    *string `json:"type,omitempty"`
 }
 
 // The parameters that Quick Sight uses to connect to your underlying data source.

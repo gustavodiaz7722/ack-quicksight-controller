@@ -28,6 +28,11 @@ ignore:
       - CreateDataSourceOutput.RequestId
       - UpdateDataSourceOutput.RequestId
       - DeleteDataSourceOutput.RequestId
+      # HTTP status codes are not useful for users
+      - CreateDataSourceOutput.Status
+      - UpdateDataSourceOutput.Status
+      - DeleteDataSourceOutput.Status
+      - DescribeDataSourceOutput.Status
 
 operations:
   DescribeDataSource:
@@ -58,11 +63,13 @@ resources:
         from:
           operation: DescribeDataSource
           path: DataSource.ErrorInfo
+      ErrorInfo.Type:
+        go_tag: json:"type,omitempty"
       Status:
         is_read_only: true
-        set:
-          - method: ReadOne
-            ignore: true
+        from:
+          operation: DescribeDataSource
+          path: DataSource.Status
       # Cross-resource references for IAM Roles
       DataSourceParameters.AthenaParameters.RoleARN:
         references:
