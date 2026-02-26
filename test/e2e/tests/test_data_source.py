@@ -121,6 +121,11 @@ class TestDataSource:
         assert "status" in cr
         assert "ackResourceMetadata" in cr["status"]
         assert "arn" in cr["status"]["ackResourceMetadata"]
+        
+        cr_status = cr["status"]["status"]
+        aws_status = ds["Status"]
+        assert cr_status == aws_status, f"CR status '{cr_status}' should match AWS status '{aws_status}'"
+        assert aws_status in ["CREATION_SUCCESSFUL", "UPDATE_SUCCESSFUL"], f"Expected successful status, got '{aws_status}'"
 
     def test_update_name(self, quicksight_client, simple_data_source):
         (ref, cr, aws_account_id) = simple_data_source
@@ -159,6 +164,12 @@ class TestDataSource:
         
         assert response["DataSource"]["Name"] == new_name
         assert response["DataSource"]["Name"] != initial_name
+        
+        ds = response["DataSource"]
+        cr_status = cr["status"]["status"]
+        aws_status = ds["Status"]
+        assert cr_status == aws_status, f"CR status '{cr_status}' should match AWS status '{aws_status}'"
+        assert aws_status in ["CREATION_SUCCESSFUL", "UPDATE_SUCCESSFUL"], f"Expected successful status, got '{aws_status}'"
 
     def test_update_role_arn(self, quicksight_client, simple_data_source):
         (ref, cr, aws_account_id) = simple_data_source
