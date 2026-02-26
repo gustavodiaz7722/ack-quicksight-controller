@@ -40,6 +40,12 @@ operations:
 
 resources:
   DataSource:
+    synced:
+      when:
+        - path: Status.Status
+          in:
+            - CREATION_SUCCESSFUL
+            - UPDATE_SUCCESSFUL
     fields:
       DataSourceId:
         is_primary_key: true
@@ -131,5 +137,7 @@ resources:
         template_path: hooks/data_source/sdk_create_post_set_output.go.tpl
       sdk_update_pre_build_request:
         template_path: hooks/data_source/sdk_update_pre_build_request.go.tpl
+      sdk_update_post_set_output:
+        template_path: hooks/data_source/sdk_update_post_set_output.go.tpl
       sdk_read_one_post_set_output:
         template_path: hooks/data_source/sdk_read_one_post_set_output.go.tpl

@@ -1,7 +1,10 @@
 {{/* 
   This hook is called after setting the output fields from the CreateDataSource API call.
-  It checks if tags were specified and if so, marks the resource as not synced to trigger a requeue.
+  It sets the Status field from CreationStatus and marks resource as not synced if tags were specified.
 */}}
+if resp.CreationStatus != "" {
+    ko.Status.Status = aws.String(string(resp.CreationStatus))
+}
 if ko.Spec.Tags != nil {
     ackcondition.SetSynced(&resource{ko}, corev1.ConditionFalse, nil, nil)
 }

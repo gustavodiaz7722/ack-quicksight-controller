@@ -785,9 +785,13 @@ func (rm *resourceManager) sdkCreate(
 
 	rm.setStatusDefaults(ko)
 
+	if resp.CreationStatus != "" {
+		ko.Status.Status = aws.String(string(resp.CreationStatus))
+	}
 	if ko.Spec.Tags != nil {
 		ackcondition.SetSynced(&resource{ko}, corev1.ConditionFalse, nil, nil)
 	}
+
 	return &resource{ko}, nil
 }
 
@@ -2488,6 +2492,11 @@ func (rm *resourceManager) sdkUpdate(
 	}
 
 	rm.setStatusDefaults(ko)
+
+	if resp.UpdateStatus != "" {
+		ko.Status.Status = aws.String(string(resp.UpdateStatus))
+	}
+
 	return &resource{ko}, nil
 }
 
