@@ -34,19 +34,19 @@ type DataSourceSpec struct {
 	// The credentials Amazon Quick Sight that uses to connect to your underlying
 	// source. Currently, only credentials based on user name and password are supported.
 	Credentials *DataSourceCredentials `json:"credentials,omitempty"`
-	// An ID for the data source. This ID is unique per Amazon Web Services Region
-	// for each Amazon Web Services account.
-	// +kubebuilder:validation:Required
-	DataSourceID *string `json:"dataSourceID"`
-	// The parameters that Amazon Quick Sight uses to connect to your underlying
-	// source.
-	DataSourceParameters *DataSourceParameters `json:"dataSourceParameters,omitempty"`
 	// When you create the data source, Amazon Quick Sight adds the data source
 	// to these folders.
 	FolderARNs []*string `json:"folderARNs,omitempty"`
+	// An ID for the data source. This ID is unique per Amazon Web Services Region
+	// for each Amazon Web Services account.
+	// +kubebuilder:validation:Required
+	ID *string `json:"id"`
 	// A display name for the data source.
 	// +kubebuilder:validation:Required
 	Name *string `json:"name"`
+	// The parameters that Amazon Quick Sight uses to connect to your underlying
+	// source.
+	Parameters *DataSourceParameters `json:"parameters,omitempty"`
 	// A list of resource permissions on the data source.
 	Permissions []*ResourcePermission `json:"permissions,omitempty"`
 	// Secure Socket Layer (SSL) properties that apply when Amazon Quick Sight connects

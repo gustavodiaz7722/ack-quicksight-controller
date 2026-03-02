@@ -678,12 +678,22 @@ spec:
                         type: string
                     type: object
                 type: object
-              dataSourceID:
+              folderARNs:
+                description: |-
+                  When you create the data source, Amazon Quick Sight adds the data source
+                  to these folders.
+                items:
+                  type: string
+                type: array
+              id:
                 description: |-
                   An ID for the data source. This ID is unique per Amazon Web Services Region
                   for each Amazon Web Services account.
                 type: string
-              dataSourceParameters:
+              name:
+                description: A display name for the data source.
+                type: string
+              parameters:
                 description: |-
                   The parameters that Amazon Quick Sight uses to connect to your underlying
                   source.
@@ -1179,16 +1189,6 @@ spec:
                         type: integer
                     type: object
                 type: object
-              folderARNs:
-                description: |-
-                  When you create the data source, Amazon Quick Sight adds the data source
-                  to these folders.
-                items:
-                  type: string
-                type: array
-              name:
-                description: A display name for the data source.
-                type: string
               permissions:
                 description: A list of resource permissions on the data source.
                 items:
@@ -1244,7 +1244,7 @@ spec:
                 type: object
             required:
             - awsAccountID
-            - dataSourceID
+            - id
             - name
             - type
             type: object

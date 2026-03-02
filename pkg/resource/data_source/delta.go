@@ -135,884 +135,6 @@ func newResourceDelta(
 			}
 		}
 	}
-	if ackcompare.HasNilDifference(a.ko.Spec.DataSourceID, b.ko.Spec.DataSourceID) {
-		delta.Add("Spec.DataSourceID", a.ko.Spec.DataSourceID, b.ko.Spec.DataSourceID)
-	} else if a.ko.Spec.DataSourceID != nil && b.ko.Spec.DataSourceID != nil {
-		if *a.ko.Spec.DataSourceID != *b.ko.Spec.DataSourceID {
-			delta.Add("Spec.DataSourceID", a.ko.Spec.DataSourceID, b.ko.Spec.DataSourceID)
-		}
-	}
-	if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters, b.ko.Spec.DataSourceParameters) {
-		delta.Add("Spec.DataSourceParameters", a.ko.Spec.DataSourceParameters, b.ko.Spec.DataSourceParameters)
-	} else if a.ko.Spec.DataSourceParameters != nil && b.ko.Spec.DataSourceParameters != nil {
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.AmazonElasticsearchParameters, b.ko.Spec.DataSourceParameters.AmazonElasticsearchParameters) {
-			delta.Add("Spec.DataSourceParameters.AmazonElasticsearchParameters", a.ko.Spec.DataSourceParameters.AmazonElasticsearchParameters, b.ko.Spec.DataSourceParameters.AmazonElasticsearchParameters)
-		} else if a.ko.Spec.DataSourceParameters.AmazonElasticsearchParameters != nil && b.ko.Spec.DataSourceParameters.AmazonElasticsearchParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.AmazonElasticsearchParameters.Domain, b.ko.Spec.DataSourceParameters.AmazonElasticsearchParameters.Domain) {
-				delta.Add("Spec.DataSourceParameters.AmazonElasticsearchParameters.Domain", a.ko.Spec.DataSourceParameters.AmazonElasticsearchParameters.Domain, b.ko.Spec.DataSourceParameters.AmazonElasticsearchParameters.Domain)
-			} else if a.ko.Spec.DataSourceParameters.AmazonElasticsearchParameters.Domain != nil && b.ko.Spec.DataSourceParameters.AmazonElasticsearchParameters.Domain != nil {
-				if *a.ko.Spec.DataSourceParameters.AmazonElasticsearchParameters.Domain != *b.ko.Spec.DataSourceParameters.AmazonElasticsearchParameters.Domain {
-					delta.Add("Spec.DataSourceParameters.AmazonElasticsearchParameters.Domain", a.ko.Spec.DataSourceParameters.AmazonElasticsearchParameters.Domain, b.ko.Spec.DataSourceParameters.AmazonElasticsearchParameters.Domain)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.AmazonOpenSearchParameters, b.ko.Spec.DataSourceParameters.AmazonOpenSearchParameters) {
-			delta.Add("Spec.DataSourceParameters.AmazonOpenSearchParameters", a.ko.Spec.DataSourceParameters.AmazonOpenSearchParameters, b.ko.Spec.DataSourceParameters.AmazonOpenSearchParameters)
-		} else if a.ko.Spec.DataSourceParameters.AmazonOpenSearchParameters != nil && b.ko.Spec.DataSourceParameters.AmazonOpenSearchParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.AmazonOpenSearchParameters.Domain, b.ko.Spec.DataSourceParameters.AmazonOpenSearchParameters.Domain) {
-				delta.Add("Spec.DataSourceParameters.AmazonOpenSearchParameters.Domain", a.ko.Spec.DataSourceParameters.AmazonOpenSearchParameters.Domain, b.ko.Spec.DataSourceParameters.AmazonOpenSearchParameters.Domain)
-			} else if a.ko.Spec.DataSourceParameters.AmazonOpenSearchParameters.Domain != nil && b.ko.Spec.DataSourceParameters.AmazonOpenSearchParameters.Domain != nil {
-				if *a.ko.Spec.DataSourceParameters.AmazonOpenSearchParameters.Domain != *b.ko.Spec.DataSourceParameters.AmazonOpenSearchParameters.Domain {
-					delta.Add("Spec.DataSourceParameters.AmazonOpenSearchParameters.Domain", a.ko.Spec.DataSourceParameters.AmazonOpenSearchParameters.Domain, b.ko.Spec.DataSourceParameters.AmazonOpenSearchParameters.Domain)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.AthenaParameters, b.ko.Spec.DataSourceParameters.AthenaParameters) {
-			delta.Add("Spec.DataSourceParameters.AthenaParameters", a.ko.Spec.DataSourceParameters.AthenaParameters, b.ko.Spec.DataSourceParameters.AthenaParameters)
-		} else if a.ko.Spec.DataSourceParameters.AthenaParameters != nil && b.ko.Spec.DataSourceParameters.AthenaParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.AthenaParameters.IdentityCenterConfiguration, b.ko.Spec.DataSourceParameters.AthenaParameters.IdentityCenterConfiguration) {
-				delta.Add("Spec.DataSourceParameters.AthenaParameters.IdentityCenterConfiguration", a.ko.Spec.DataSourceParameters.AthenaParameters.IdentityCenterConfiguration, b.ko.Spec.DataSourceParameters.AthenaParameters.IdentityCenterConfiguration)
-			} else if a.ko.Spec.DataSourceParameters.AthenaParameters.IdentityCenterConfiguration != nil && b.ko.Spec.DataSourceParameters.AthenaParameters.IdentityCenterConfiguration != nil {
-				if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation, b.ko.Spec.DataSourceParameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation) {
-					delta.Add("Spec.DataSourceParameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation", a.ko.Spec.DataSourceParameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation, b.ko.Spec.DataSourceParameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation)
-				} else if a.ko.Spec.DataSourceParameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation != nil && b.ko.Spec.DataSourceParameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation != nil {
-					if *a.ko.Spec.DataSourceParameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation != *b.ko.Spec.DataSourceParameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation {
-						delta.Add("Spec.DataSourceParameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation", a.ko.Spec.DataSourceParameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation, b.ko.Spec.DataSourceParameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation)
-					}
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.AthenaParameters.RoleARN, b.ko.Spec.DataSourceParameters.AthenaParameters.RoleARN) {
-				delta.Add("Spec.DataSourceParameters.AthenaParameters.RoleARN", a.ko.Spec.DataSourceParameters.AthenaParameters.RoleARN, b.ko.Spec.DataSourceParameters.AthenaParameters.RoleARN)
-			} else if a.ko.Spec.DataSourceParameters.AthenaParameters.RoleARN != nil && b.ko.Spec.DataSourceParameters.AthenaParameters.RoleARN != nil {
-				if *a.ko.Spec.DataSourceParameters.AthenaParameters.RoleARN != *b.ko.Spec.DataSourceParameters.AthenaParameters.RoleARN {
-					delta.Add("Spec.DataSourceParameters.AthenaParameters.RoleARN", a.ko.Spec.DataSourceParameters.AthenaParameters.RoleARN, b.ko.Spec.DataSourceParameters.AthenaParameters.RoleARN)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.AthenaParameters.WorkGroup, b.ko.Spec.DataSourceParameters.AthenaParameters.WorkGroup) {
-				delta.Add("Spec.DataSourceParameters.AthenaParameters.WorkGroup", a.ko.Spec.DataSourceParameters.AthenaParameters.WorkGroup, b.ko.Spec.DataSourceParameters.AthenaParameters.WorkGroup)
-			} else if a.ko.Spec.DataSourceParameters.AthenaParameters.WorkGroup != nil && b.ko.Spec.DataSourceParameters.AthenaParameters.WorkGroup != nil {
-				if *a.ko.Spec.DataSourceParameters.AthenaParameters.WorkGroup != *b.ko.Spec.DataSourceParameters.AthenaParameters.WorkGroup {
-					delta.Add("Spec.DataSourceParameters.AthenaParameters.WorkGroup", a.ko.Spec.DataSourceParameters.AthenaParameters.WorkGroup, b.ko.Spec.DataSourceParameters.AthenaParameters.WorkGroup)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.AuroraParameters, b.ko.Spec.DataSourceParameters.AuroraParameters) {
-			delta.Add("Spec.DataSourceParameters.AuroraParameters", a.ko.Spec.DataSourceParameters.AuroraParameters, b.ko.Spec.DataSourceParameters.AuroraParameters)
-		} else if a.ko.Spec.DataSourceParameters.AuroraParameters != nil && b.ko.Spec.DataSourceParameters.AuroraParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.AuroraParameters.Database, b.ko.Spec.DataSourceParameters.AuroraParameters.Database) {
-				delta.Add("Spec.DataSourceParameters.AuroraParameters.Database", a.ko.Spec.DataSourceParameters.AuroraParameters.Database, b.ko.Spec.DataSourceParameters.AuroraParameters.Database)
-			} else if a.ko.Spec.DataSourceParameters.AuroraParameters.Database != nil && b.ko.Spec.DataSourceParameters.AuroraParameters.Database != nil {
-				if *a.ko.Spec.DataSourceParameters.AuroraParameters.Database != *b.ko.Spec.DataSourceParameters.AuroraParameters.Database {
-					delta.Add("Spec.DataSourceParameters.AuroraParameters.Database", a.ko.Spec.DataSourceParameters.AuroraParameters.Database, b.ko.Spec.DataSourceParameters.AuroraParameters.Database)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.AuroraParameters.Host, b.ko.Spec.DataSourceParameters.AuroraParameters.Host) {
-				delta.Add("Spec.DataSourceParameters.AuroraParameters.Host", a.ko.Spec.DataSourceParameters.AuroraParameters.Host, b.ko.Spec.DataSourceParameters.AuroraParameters.Host)
-			} else if a.ko.Spec.DataSourceParameters.AuroraParameters.Host != nil && b.ko.Spec.DataSourceParameters.AuroraParameters.Host != nil {
-				if *a.ko.Spec.DataSourceParameters.AuroraParameters.Host != *b.ko.Spec.DataSourceParameters.AuroraParameters.Host {
-					delta.Add("Spec.DataSourceParameters.AuroraParameters.Host", a.ko.Spec.DataSourceParameters.AuroraParameters.Host, b.ko.Spec.DataSourceParameters.AuroraParameters.Host)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.AuroraParameters.Port, b.ko.Spec.DataSourceParameters.AuroraParameters.Port) {
-				delta.Add("Spec.DataSourceParameters.AuroraParameters.Port", a.ko.Spec.DataSourceParameters.AuroraParameters.Port, b.ko.Spec.DataSourceParameters.AuroraParameters.Port)
-			} else if a.ko.Spec.DataSourceParameters.AuroraParameters.Port != nil && b.ko.Spec.DataSourceParameters.AuroraParameters.Port != nil {
-				if *a.ko.Spec.DataSourceParameters.AuroraParameters.Port != *b.ko.Spec.DataSourceParameters.AuroraParameters.Port {
-					delta.Add("Spec.DataSourceParameters.AuroraParameters.Port", a.ko.Spec.DataSourceParameters.AuroraParameters.Port, b.ko.Spec.DataSourceParameters.AuroraParameters.Port)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters, b.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters) {
-			delta.Add("Spec.DataSourceParameters.AuroraPostgreSQLParameters", a.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters, b.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters)
-		} else if a.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters != nil && b.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Database, b.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Database) {
-				delta.Add("Spec.DataSourceParameters.AuroraPostgreSQLParameters.Database", a.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Database, b.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Database)
-			} else if a.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Database != nil && b.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Database != nil {
-				if *a.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Database != *b.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Database {
-					delta.Add("Spec.DataSourceParameters.AuroraPostgreSQLParameters.Database", a.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Database, b.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Database)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Host, b.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Host) {
-				delta.Add("Spec.DataSourceParameters.AuroraPostgreSQLParameters.Host", a.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Host, b.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Host)
-			} else if a.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Host != nil && b.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Host != nil {
-				if *a.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Host != *b.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Host {
-					delta.Add("Spec.DataSourceParameters.AuroraPostgreSQLParameters.Host", a.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Host, b.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Host)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Port, b.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Port) {
-				delta.Add("Spec.DataSourceParameters.AuroraPostgreSQLParameters.Port", a.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Port, b.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Port)
-			} else if a.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Port != nil && b.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Port != nil {
-				if *a.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Port != *b.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Port {
-					delta.Add("Spec.DataSourceParameters.AuroraPostgreSQLParameters.Port", a.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Port, b.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Port)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.AWSIOtAnalyticsParameters, b.ko.Spec.DataSourceParameters.AWSIOtAnalyticsParameters) {
-			delta.Add("Spec.DataSourceParameters.AWSIOtAnalyticsParameters", a.ko.Spec.DataSourceParameters.AWSIOtAnalyticsParameters, b.ko.Spec.DataSourceParameters.AWSIOtAnalyticsParameters)
-		} else if a.ko.Spec.DataSourceParameters.AWSIOtAnalyticsParameters != nil && b.ko.Spec.DataSourceParameters.AWSIOtAnalyticsParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.AWSIOtAnalyticsParameters.DataSetName, b.ko.Spec.DataSourceParameters.AWSIOtAnalyticsParameters.DataSetName) {
-				delta.Add("Spec.DataSourceParameters.AWSIOtAnalyticsParameters.DataSetName", a.ko.Spec.DataSourceParameters.AWSIOtAnalyticsParameters.DataSetName, b.ko.Spec.DataSourceParameters.AWSIOtAnalyticsParameters.DataSetName)
-			} else if a.ko.Spec.DataSourceParameters.AWSIOtAnalyticsParameters.DataSetName != nil && b.ko.Spec.DataSourceParameters.AWSIOtAnalyticsParameters.DataSetName != nil {
-				if *a.ko.Spec.DataSourceParameters.AWSIOtAnalyticsParameters.DataSetName != *b.ko.Spec.DataSourceParameters.AWSIOtAnalyticsParameters.DataSetName {
-					delta.Add("Spec.DataSourceParameters.AWSIOtAnalyticsParameters.DataSetName", a.ko.Spec.DataSourceParameters.AWSIOtAnalyticsParameters.DataSetName, b.ko.Spec.DataSourceParameters.AWSIOtAnalyticsParameters.DataSetName)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.BigQueryParameters, b.ko.Spec.DataSourceParameters.BigQueryParameters) {
-			delta.Add("Spec.DataSourceParameters.BigQueryParameters", a.ko.Spec.DataSourceParameters.BigQueryParameters, b.ko.Spec.DataSourceParameters.BigQueryParameters)
-		} else if a.ko.Spec.DataSourceParameters.BigQueryParameters != nil && b.ko.Spec.DataSourceParameters.BigQueryParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.BigQueryParameters.DataSetRegion, b.ko.Spec.DataSourceParameters.BigQueryParameters.DataSetRegion) {
-				delta.Add("Spec.DataSourceParameters.BigQueryParameters.DataSetRegion", a.ko.Spec.DataSourceParameters.BigQueryParameters.DataSetRegion, b.ko.Spec.DataSourceParameters.BigQueryParameters.DataSetRegion)
-			} else if a.ko.Spec.DataSourceParameters.BigQueryParameters.DataSetRegion != nil && b.ko.Spec.DataSourceParameters.BigQueryParameters.DataSetRegion != nil {
-				if *a.ko.Spec.DataSourceParameters.BigQueryParameters.DataSetRegion != *b.ko.Spec.DataSourceParameters.BigQueryParameters.DataSetRegion {
-					delta.Add("Spec.DataSourceParameters.BigQueryParameters.DataSetRegion", a.ko.Spec.DataSourceParameters.BigQueryParameters.DataSetRegion, b.ko.Spec.DataSourceParameters.BigQueryParameters.DataSetRegion)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.BigQueryParameters.ProjectID, b.ko.Spec.DataSourceParameters.BigQueryParameters.ProjectID) {
-				delta.Add("Spec.DataSourceParameters.BigQueryParameters.ProjectID", a.ko.Spec.DataSourceParameters.BigQueryParameters.ProjectID, b.ko.Spec.DataSourceParameters.BigQueryParameters.ProjectID)
-			} else if a.ko.Spec.DataSourceParameters.BigQueryParameters.ProjectID != nil && b.ko.Spec.DataSourceParameters.BigQueryParameters.ProjectID != nil {
-				if *a.ko.Spec.DataSourceParameters.BigQueryParameters.ProjectID != *b.ko.Spec.DataSourceParameters.BigQueryParameters.ProjectID {
-					delta.Add("Spec.DataSourceParameters.BigQueryParameters.ProjectID", a.ko.Spec.DataSourceParameters.BigQueryParameters.ProjectID, b.ko.Spec.DataSourceParameters.BigQueryParameters.ProjectID)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.ConfluenceParameters, b.ko.Spec.DataSourceParameters.ConfluenceParameters) {
-			delta.Add("Spec.DataSourceParameters.ConfluenceParameters", a.ko.Spec.DataSourceParameters.ConfluenceParameters, b.ko.Spec.DataSourceParameters.ConfluenceParameters)
-		} else if a.ko.Spec.DataSourceParameters.ConfluenceParameters != nil && b.ko.Spec.DataSourceParameters.ConfluenceParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.ConfluenceParameters.ConfluenceURL, b.ko.Spec.DataSourceParameters.ConfluenceParameters.ConfluenceURL) {
-				delta.Add("Spec.DataSourceParameters.ConfluenceParameters.ConfluenceURL", a.ko.Spec.DataSourceParameters.ConfluenceParameters.ConfluenceURL, b.ko.Spec.DataSourceParameters.ConfluenceParameters.ConfluenceURL)
-			} else if a.ko.Spec.DataSourceParameters.ConfluenceParameters.ConfluenceURL != nil && b.ko.Spec.DataSourceParameters.ConfluenceParameters.ConfluenceURL != nil {
-				if *a.ko.Spec.DataSourceParameters.ConfluenceParameters.ConfluenceURL != *b.ko.Spec.DataSourceParameters.ConfluenceParameters.ConfluenceURL {
-					delta.Add("Spec.DataSourceParameters.ConfluenceParameters.ConfluenceURL", a.ko.Spec.DataSourceParameters.ConfluenceParameters.ConfluenceURL, b.ko.Spec.DataSourceParameters.ConfluenceParameters.ConfluenceURL)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.CustomConnectionParameters, b.ko.Spec.DataSourceParameters.CustomConnectionParameters) {
-			delta.Add("Spec.DataSourceParameters.CustomConnectionParameters", a.ko.Spec.DataSourceParameters.CustomConnectionParameters, b.ko.Spec.DataSourceParameters.CustomConnectionParameters)
-		} else if a.ko.Spec.DataSourceParameters.CustomConnectionParameters != nil && b.ko.Spec.DataSourceParameters.CustomConnectionParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.CustomConnectionParameters.ConnectionType, b.ko.Spec.DataSourceParameters.CustomConnectionParameters.ConnectionType) {
-				delta.Add("Spec.DataSourceParameters.CustomConnectionParameters.ConnectionType", a.ko.Spec.DataSourceParameters.CustomConnectionParameters.ConnectionType, b.ko.Spec.DataSourceParameters.CustomConnectionParameters.ConnectionType)
-			} else if a.ko.Spec.DataSourceParameters.CustomConnectionParameters.ConnectionType != nil && b.ko.Spec.DataSourceParameters.CustomConnectionParameters.ConnectionType != nil {
-				if *a.ko.Spec.DataSourceParameters.CustomConnectionParameters.ConnectionType != *b.ko.Spec.DataSourceParameters.CustomConnectionParameters.ConnectionType {
-					delta.Add("Spec.DataSourceParameters.CustomConnectionParameters.ConnectionType", a.ko.Spec.DataSourceParameters.CustomConnectionParameters.ConnectionType, b.ko.Spec.DataSourceParameters.CustomConnectionParameters.ConnectionType)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.DatabricksParameters, b.ko.Spec.DataSourceParameters.DatabricksParameters) {
-			delta.Add("Spec.DataSourceParameters.DatabricksParameters", a.ko.Spec.DataSourceParameters.DatabricksParameters, b.ko.Spec.DataSourceParameters.DatabricksParameters)
-		} else if a.ko.Spec.DataSourceParameters.DatabricksParameters != nil && b.ko.Spec.DataSourceParameters.DatabricksParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.DatabricksParameters.Host, b.ko.Spec.DataSourceParameters.DatabricksParameters.Host) {
-				delta.Add("Spec.DataSourceParameters.DatabricksParameters.Host", a.ko.Spec.DataSourceParameters.DatabricksParameters.Host, b.ko.Spec.DataSourceParameters.DatabricksParameters.Host)
-			} else if a.ko.Spec.DataSourceParameters.DatabricksParameters.Host != nil && b.ko.Spec.DataSourceParameters.DatabricksParameters.Host != nil {
-				if *a.ko.Spec.DataSourceParameters.DatabricksParameters.Host != *b.ko.Spec.DataSourceParameters.DatabricksParameters.Host {
-					delta.Add("Spec.DataSourceParameters.DatabricksParameters.Host", a.ko.Spec.DataSourceParameters.DatabricksParameters.Host, b.ko.Spec.DataSourceParameters.DatabricksParameters.Host)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.DatabricksParameters.Port, b.ko.Spec.DataSourceParameters.DatabricksParameters.Port) {
-				delta.Add("Spec.DataSourceParameters.DatabricksParameters.Port", a.ko.Spec.DataSourceParameters.DatabricksParameters.Port, b.ko.Spec.DataSourceParameters.DatabricksParameters.Port)
-			} else if a.ko.Spec.DataSourceParameters.DatabricksParameters.Port != nil && b.ko.Spec.DataSourceParameters.DatabricksParameters.Port != nil {
-				if *a.ko.Spec.DataSourceParameters.DatabricksParameters.Port != *b.ko.Spec.DataSourceParameters.DatabricksParameters.Port {
-					delta.Add("Spec.DataSourceParameters.DatabricksParameters.Port", a.ko.Spec.DataSourceParameters.DatabricksParameters.Port, b.ko.Spec.DataSourceParameters.DatabricksParameters.Port)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.DatabricksParameters.SQLEndpointPath, b.ko.Spec.DataSourceParameters.DatabricksParameters.SQLEndpointPath) {
-				delta.Add("Spec.DataSourceParameters.DatabricksParameters.SQLEndpointPath", a.ko.Spec.DataSourceParameters.DatabricksParameters.SQLEndpointPath, b.ko.Spec.DataSourceParameters.DatabricksParameters.SQLEndpointPath)
-			} else if a.ko.Spec.DataSourceParameters.DatabricksParameters.SQLEndpointPath != nil && b.ko.Spec.DataSourceParameters.DatabricksParameters.SQLEndpointPath != nil {
-				if *a.ko.Spec.DataSourceParameters.DatabricksParameters.SQLEndpointPath != *b.ko.Spec.DataSourceParameters.DatabricksParameters.SQLEndpointPath {
-					delta.Add("Spec.DataSourceParameters.DatabricksParameters.SQLEndpointPath", a.ko.Spec.DataSourceParameters.DatabricksParameters.SQLEndpointPath, b.ko.Spec.DataSourceParameters.DatabricksParameters.SQLEndpointPath)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.ExasolParameters, b.ko.Spec.DataSourceParameters.ExasolParameters) {
-			delta.Add("Spec.DataSourceParameters.ExasolParameters", a.ko.Spec.DataSourceParameters.ExasolParameters, b.ko.Spec.DataSourceParameters.ExasolParameters)
-		} else if a.ko.Spec.DataSourceParameters.ExasolParameters != nil && b.ko.Spec.DataSourceParameters.ExasolParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.ExasolParameters.Host, b.ko.Spec.DataSourceParameters.ExasolParameters.Host) {
-				delta.Add("Spec.DataSourceParameters.ExasolParameters.Host", a.ko.Spec.DataSourceParameters.ExasolParameters.Host, b.ko.Spec.DataSourceParameters.ExasolParameters.Host)
-			} else if a.ko.Spec.DataSourceParameters.ExasolParameters.Host != nil && b.ko.Spec.DataSourceParameters.ExasolParameters.Host != nil {
-				if *a.ko.Spec.DataSourceParameters.ExasolParameters.Host != *b.ko.Spec.DataSourceParameters.ExasolParameters.Host {
-					delta.Add("Spec.DataSourceParameters.ExasolParameters.Host", a.ko.Spec.DataSourceParameters.ExasolParameters.Host, b.ko.Spec.DataSourceParameters.ExasolParameters.Host)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.ExasolParameters.Port, b.ko.Spec.DataSourceParameters.ExasolParameters.Port) {
-				delta.Add("Spec.DataSourceParameters.ExasolParameters.Port", a.ko.Spec.DataSourceParameters.ExasolParameters.Port, b.ko.Spec.DataSourceParameters.ExasolParameters.Port)
-			} else if a.ko.Spec.DataSourceParameters.ExasolParameters.Port != nil && b.ko.Spec.DataSourceParameters.ExasolParameters.Port != nil {
-				if *a.ko.Spec.DataSourceParameters.ExasolParameters.Port != *b.ko.Spec.DataSourceParameters.ExasolParameters.Port {
-					delta.Add("Spec.DataSourceParameters.ExasolParameters.Port", a.ko.Spec.DataSourceParameters.ExasolParameters.Port, b.ko.Spec.DataSourceParameters.ExasolParameters.Port)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.ImpalaParameters, b.ko.Spec.DataSourceParameters.ImpalaParameters) {
-			delta.Add("Spec.DataSourceParameters.ImpalaParameters", a.ko.Spec.DataSourceParameters.ImpalaParameters, b.ko.Spec.DataSourceParameters.ImpalaParameters)
-		} else if a.ko.Spec.DataSourceParameters.ImpalaParameters != nil && b.ko.Spec.DataSourceParameters.ImpalaParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.ImpalaParameters.Database, b.ko.Spec.DataSourceParameters.ImpalaParameters.Database) {
-				delta.Add("Spec.DataSourceParameters.ImpalaParameters.Database", a.ko.Spec.DataSourceParameters.ImpalaParameters.Database, b.ko.Spec.DataSourceParameters.ImpalaParameters.Database)
-			} else if a.ko.Spec.DataSourceParameters.ImpalaParameters.Database != nil && b.ko.Spec.DataSourceParameters.ImpalaParameters.Database != nil {
-				if *a.ko.Spec.DataSourceParameters.ImpalaParameters.Database != *b.ko.Spec.DataSourceParameters.ImpalaParameters.Database {
-					delta.Add("Spec.DataSourceParameters.ImpalaParameters.Database", a.ko.Spec.DataSourceParameters.ImpalaParameters.Database, b.ko.Spec.DataSourceParameters.ImpalaParameters.Database)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.ImpalaParameters.Host, b.ko.Spec.DataSourceParameters.ImpalaParameters.Host) {
-				delta.Add("Spec.DataSourceParameters.ImpalaParameters.Host", a.ko.Spec.DataSourceParameters.ImpalaParameters.Host, b.ko.Spec.DataSourceParameters.ImpalaParameters.Host)
-			} else if a.ko.Spec.DataSourceParameters.ImpalaParameters.Host != nil && b.ko.Spec.DataSourceParameters.ImpalaParameters.Host != nil {
-				if *a.ko.Spec.DataSourceParameters.ImpalaParameters.Host != *b.ko.Spec.DataSourceParameters.ImpalaParameters.Host {
-					delta.Add("Spec.DataSourceParameters.ImpalaParameters.Host", a.ko.Spec.DataSourceParameters.ImpalaParameters.Host, b.ko.Spec.DataSourceParameters.ImpalaParameters.Host)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.ImpalaParameters.Port, b.ko.Spec.DataSourceParameters.ImpalaParameters.Port) {
-				delta.Add("Spec.DataSourceParameters.ImpalaParameters.Port", a.ko.Spec.DataSourceParameters.ImpalaParameters.Port, b.ko.Spec.DataSourceParameters.ImpalaParameters.Port)
-			} else if a.ko.Spec.DataSourceParameters.ImpalaParameters.Port != nil && b.ko.Spec.DataSourceParameters.ImpalaParameters.Port != nil {
-				if *a.ko.Spec.DataSourceParameters.ImpalaParameters.Port != *b.ko.Spec.DataSourceParameters.ImpalaParameters.Port {
-					delta.Add("Spec.DataSourceParameters.ImpalaParameters.Port", a.ko.Spec.DataSourceParameters.ImpalaParameters.Port, b.ko.Spec.DataSourceParameters.ImpalaParameters.Port)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.ImpalaParameters.SQLEndpointPath, b.ko.Spec.DataSourceParameters.ImpalaParameters.SQLEndpointPath) {
-				delta.Add("Spec.DataSourceParameters.ImpalaParameters.SQLEndpointPath", a.ko.Spec.DataSourceParameters.ImpalaParameters.SQLEndpointPath, b.ko.Spec.DataSourceParameters.ImpalaParameters.SQLEndpointPath)
-			} else if a.ko.Spec.DataSourceParameters.ImpalaParameters.SQLEndpointPath != nil && b.ko.Spec.DataSourceParameters.ImpalaParameters.SQLEndpointPath != nil {
-				if *a.ko.Spec.DataSourceParameters.ImpalaParameters.SQLEndpointPath != *b.ko.Spec.DataSourceParameters.ImpalaParameters.SQLEndpointPath {
-					delta.Add("Spec.DataSourceParameters.ImpalaParameters.SQLEndpointPath", a.ko.Spec.DataSourceParameters.ImpalaParameters.SQLEndpointPath, b.ko.Spec.DataSourceParameters.ImpalaParameters.SQLEndpointPath)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.JiraParameters, b.ko.Spec.DataSourceParameters.JiraParameters) {
-			delta.Add("Spec.DataSourceParameters.JiraParameters", a.ko.Spec.DataSourceParameters.JiraParameters, b.ko.Spec.DataSourceParameters.JiraParameters)
-		} else if a.ko.Spec.DataSourceParameters.JiraParameters != nil && b.ko.Spec.DataSourceParameters.JiraParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.JiraParameters.SiteBaseURL, b.ko.Spec.DataSourceParameters.JiraParameters.SiteBaseURL) {
-				delta.Add("Spec.DataSourceParameters.JiraParameters.SiteBaseURL", a.ko.Spec.DataSourceParameters.JiraParameters.SiteBaseURL, b.ko.Spec.DataSourceParameters.JiraParameters.SiteBaseURL)
-			} else if a.ko.Spec.DataSourceParameters.JiraParameters.SiteBaseURL != nil && b.ko.Spec.DataSourceParameters.JiraParameters.SiteBaseURL != nil {
-				if *a.ko.Spec.DataSourceParameters.JiraParameters.SiteBaseURL != *b.ko.Spec.DataSourceParameters.JiraParameters.SiteBaseURL {
-					delta.Add("Spec.DataSourceParameters.JiraParameters.SiteBaseURL", a.ko.Spec.DataSourceParameters.JiraParameters.SiteBaseURL, b.ko.Spec.DataSourceParameters.JiraParameters.SiteBaseURL)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.MariaDBParameters, b.ko.Spec.DataSourceParameters.MariaDBParameters) {
-			delta.Add("Spec.DataSourceParameters.MariaDBParameters", a.ko.Spec.DataSourceParameters.MariaDBParameters, b.ko.Spec.DataSourceParameters.MariaDBParameters)
-		} else if a.ko.Spec.DataSourceParameters.MariaDBParameters != nil && b.ko.Spec.DataSourceParameters.MariaDBParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.MariaDBParameters.Database, b.ko.Spec.DataSourceParameters.MariaDBParameters.Database) {
-				delta.Add("Spec.DataSourceParameters.MariaDBParameters.Database", a.ko.Spec.DataSourceParameters.MariaDBParameters.Database, b.ko.Spec.DataSourceParameters.MariaDBParameters.Database)
-			} else if a.ko.Spec.DataSourceParameters.MariaDBParameters.Database != nil && b.ko.Spec.DataSourceParameters.MariaDBParameters.Database != nil {
-				if *a.ko.Spec.DataSourceParameters.MariaDBParameters.Database != *b.ko.Spec.DataSourceParameters.MariaDBParameters.Database {
-					delta.Add("Spec.DataSourceParameters.MariaDBParameters.Database", a.ko.Spec.DataSourceParameters.MariaDBParameters.Database, b.ko.Spec.DataSourceParameters.MariaDBParameters.Database)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.MariaDBParameters.Host, b.ko.Spec.DataSourceParameters.MariaDBParameters.Host) {
-				delta.Add("Spec.DataSourceParameters.MariaDBParameters.Host", a.ko.Spec.DataSourceParameters.MariaDBParameters.Host, b.ko.Spec.DataSourceParameters.MariaDBParameters.Host)
-			} else if a.ko.Spec.DataSourceParameters.MariaDBParameters.Host != nil && b.ko.Spec.DataSourceParameters.MariaDBParameters.Host != nil {
-				if *a.ko.Spec.DataSourceParameters.MariaDBParameters.Host != *b.ko.Spec.DataSourceParameters.MariaDBParameters.Host {
-					delta.Add("Spec.DataSourceParameters.MariaDBParameters.Host", a.ko.Spec.DataSourceParameters.MariaDBParameters.Host, b.ko.Spec.DataSourceParameters.MariaDBParameters.Host)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.MariaDBParameters.Port, b.ko.Spec.DataSourceParameters.MariaDBParameters.Port) {
-				delta.Add("Spec.DataSourceParameters.MariaDBParameters.Port", a.ko.Spec.DataSourceParameters.MariaDBParameters.Port, b.ko.Spec.DataSourceParameters.MariaDBParameters.Port)
-			} else if a.ko.Spec.DataSourceParameters.MariaDBParameters.Port != nil && b.ko.Spec.DataSourceParameters.MariaDBParameters.Port != nil {
-				if *a.ko.Spec.DataSourceParameters.MariaDBParameters.Port != *b.ko.Spec.DataSourceParameters.MariaDBParameters.Port {
-					delta.Add("Spec.DataSourceParameters.MariaDBParameters.Port", a.ko.Spec.DataSourceParameters.MariaDBParameters.Port, b.ko.Spec.DataSourceParameters.MariaDBParameters.Port)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.MySQLParameters, b.ko.Spec.DataSourceParameters.MySQLParameters) {
-			delta.Add("Spec.DataSourceParameters.MySQLParameters", a.ko.Spec.DataSourceParameters.MySQLParameters, b.ko.Spec.DataSourceParameters.MySQLParameters)
-		} else if a.ko.Spec.DataSourceParameters.MySQLParameters != nil && b.ko.Spec.DataSourceParameters.MySQLParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.MySQLParameters.Database, b.ko.Spec.DataSourceParameters.MySQLParameters.Database) {
-				delta.Add("Spec.DataSourceParameters.MySQLParameters.Database", a.ko.Spec.DataSourceParameters.MySQLParameters.Database, b.ko.Spec.DataSourceParameters.MySQLParameters.Database)
-			} else if a.ko.Spec.DataSourceParameters.MySQLParameters.Database != nil && b.ko.Spec.DataSourceParameters.MySQLParameters.Database != nil {
-				if *a.ko.Spec.DataSourceParameters.MySQLParameters.Database != *b.ko.Spec.DataSourceParameters.MySQLParameters.Database {
-					delta.Add("Spec.DataSourceParameters.MySQLParameters.Database", a.ko.Spec.DataSourceParameters.MySQLParameters.Database, b.ko.Spec.DataSourceParameters.MySQLParameters.Database)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.MySQLParameters.Host, b.ko.Spec.DataSourceParameters.MySQLParameters.Host) {
-				delta.Add("Spec.DataSourceParameters.MySQLParameters.Host", a.ko.Spec.DataSourceParameters.MySQLParameters.Host, b.ko.Spec.DataSourceParameters.MySQLParameters.Host)
-			} else if a.ko.Spec.DataSourceParameters.MySQLParameters.Host != nil && b.ko.Spec.DataSourceParameters.MySQLParameters.Host != nil {
-				if *a.ko.Spec.DataSourceParameters.MySQLParameters.Host != *b.ko.Spec.DataSourceParameters.MySQLParameters.Host {
-					delta.Add("Spec.DataSourceParameters.MySQLParameters.Host", a.ko.Spec.DataSourceParameters.MySQLParameters.Host, b.ko.Spec.DataSourceParameters.MySQLParameters.Host)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.MySQLParameters.Port, b.ko.Spec.DataSourceParameters.MySQLParameters.Port) {
-				delta.Add("Spec.DataSourceParameters.MySQLParameters.Port", a.ko.Spec.DataSourceParameters.MySQLParameters.Port, b.ko.Spec.DataSourceParameters.MySQLParameters.Port)
-			} else if a.ko.Spec.DataSourceParameters.MySQLParameters.Port != nil && b.ko.Spec.DataSourceParameters.MySQLParameters.Port != nil {
-				if *a.ko.Spec.DataSourceParameters.MySQLParameters.Port != *b.ko.Spec.DataSourceParameters.MySQLParameters.Port {
-					delta.Add("Spec.DataSourceParameters.MySQLParameters.Port", a.ko.Spec.DataSourceParameters.MySQLParameters.Port, b.ko.Spec.DataSourceParameters.MySQLParameters.Port)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.OracleParameters, b.ko.Spec.DataSourceParameters.OracleParameters) {
-			delta.Add("Spec.DataSourceParameters.OracleParameters", a.ko.Spec.DataSourceParameters.OracleParameters, b.ko.Spec.DataSourceParameters.OracleParameters)
-		} else if a.ko.Spec.DataSourceParameters.OracleParameters != nil && b.ko.Spec.DataSourceParameters.OracleParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.OracleParameters.Database, b.ko.Spec.DataSourceParameters.OracleParameters.Database) {
-				delta.Add("Spec.DataSourceParameters.OracleParameters.Database", a.ko.Spec.DataSourceParameters.OracleParameters.Database, b.ko.Spec.DataSourceParameters.OracleParameters.Database)
-			} else if a.ko.Spec.DataSourceParameters.OracleParameters.Database != nil && b.ko.Spec.DataSourceParameters.OracleParameters.Database != nil {
-				if *a.ko.Spec.DataSourceParameters.OracleParameters.Database != *b.ko.Spec.DataSourceParameters.OracleParameters.Database {
-					delta.Add("Spec.DataSourceParameters.OracleParameters.Database", a.ko.Spec.DataSourceParameters.OracleParameters.Database, b.ko.Spec.DataSourceParameters.OracleParameters.Database)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.OracleParameters.Host, b.ko.Spec.DataSourceParameters.OracleParameters.Host) {
-				delta.Add("Spec.DataSourceParameters.OracleParameters.Host", a.ko.Spec.DataSourceParameters.OracleParameters.Host, b.ko.Spec.DataSourceParameters.OracleParameters.Host)
-			} else if a.ko.Spec.DataSourceParameters.OracleParameters.Host != nil && b.ko.Spec.DataSourceParameters.OracleParameters.Host != nil {
-				if *a.ko.Spec.DataSourceParameters.OracleParameters.Host != *b.ko.Spec.DataSourceParameters.OracleParameters.Host {
-					delta.Add("Spec.DataSourceParameters.OracleParameters.Host", a.ko.Spec.DataSourceParameters.OracleParameters.Host, b.ko.Spec.DataSourceParameters.OracleParameters.Host)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.OracleParameters.Port, b.ko.Spec.DataSourceParameters.OracleParameters.Port) {
-				delta.Add("Spec.DataSourceParameters.OracleParameters.Port", a.ko.Spec.DataSourceParameters.OracleParameters.Port, b.ko.Spec.DataSourceParameters.OracleParameters.Port)
-			} else if a.ko.Spec.DataSourceParameters.OracleParameters.Port != nil && b.ko.Spec.DataSourceParameters.OracleParameters.Port != nil {
-				if *a.ko.Spec.DataSourceParameters.OracleParameters.Port != *b.ko.Spec.DataSourceParameters.OracleParameters.Port {
-					delta.Add("Spec.DataSourceParameters.OracleParameters.Port", a.ko.Spec.DataSourceParameters.OracleParameters.Port, b.ko.Spec.DataSourceParameters.OracleParameters.Port)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.OracleParameters.UseServiceName, b.ko.Spec.DataSourceParameters.OracleParameters.UseServiceName) {
-				delta.Add("Spec.DataSourceParameters.OracleParameters.UseServiceName", a.ko.Spec.DataSourceParameters.OracleParameters.UseServiceName, b.ko.Spec.DataSourceParameters.OracleParameters.UseServiceName)
-			} else if a.ko.Spec.DataSourceParameters.OracleParameters.UseServiceName != nil && b.ko.Spec.DataSourceParameters.OracleParameters.UseServiceName != nil {
-				if *a.ko.Spec.DataSourceParameters.OracleParameters.UseServiceName != *b.ko.Spec.DataSourceParameters.OracleParameters.UseServiceName {
-					delta.Add("Spec.DataSourceParameters.OracleParameters.UseServiceName", a.ko.Spec.DataSourceParameters.OracleParameters.UseServiceName, b.ko.Spec.DataSourceParameters.OracleParameters.UseServiceName)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.PostgreSQLParameters, b.ko.Spec.DataSourceParameters.PostgreSQLParameters) {
-			delta.Add("Spec.DataSourceParameters.PostgreSQLParameters", a.ko.Spec.DataSourceParameters.PostgreSQLParameters, b.ko.Spec.DataSourceParameters.PostgreSQLParameters)
-		} else if a.ko.Spec.DataSourceParameters.PostgreSQLParameters != nil && b.ko.Spec.DataSourceParameters.PostgreSQLParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.PostgreSQLParameters.Database, b.ko.Spec.DataSourceParameters.PostgreSQLParameters.Database) {
-				delta.Add("Spec.DataSourceParameters.PostgreSQLParameters.Database", a.ko.Spec.DataSourceParameters.PostgreSQLParameters.Database, b.ko.Spec.DataSourceParameters.PostgreSQLParameters.Database)
-			} else if a.ko.Spec.DataSourceParameters.PostgreSQLParameters.Database != nil && b.ko.Spec.DataSourceParameters.PostgreSQLParameters.Database != nil {
-				if *a.ko.Spec.DataSourceParameters.PostgreSQLParameters.Database != *b.ko.Spec.DataSourceParameters.PostgreSQLParameters.Database {
-					delta.Add("Spec.DataSourceParameters.PostgreSQLParameters.Database", a.ko.Spec.DataSourceParameters.PostgreSQLParameters.Database, b.ko.Spec.DataSourceParameters.PostgreSQLParameters.Database)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.PostgreSQLParameters.Host, b.ko.Spec.DataSourceParameters.PostgreSQLParameters.Host) {
-				delta.Add("Spec.DataSourceParameters.PostgreSQLParameters.Host", a.ko.Spec.DataSourceParameters.PostgreSQLParameters.Host, b.ko.Spec.DataSourceParameters.PostgreSQLParameters.Host)
-			} else if a.ko.Spec.DataSourceParameters.PostgreSQLParameters.Host != nil && b.ko.Spec.DataSourceParameters.PostgreSQLParameters.Host != nil {
-				if *a.ko.Spec.DataSourceParameters.PostgreSQLParameters.Host != *b.ko.Spec.DataSourceParameters.PostgreSQLParameters.Host {
-					delta.Add("Spec.DataSourceParameters.PostgreSQLParameters.Host", a.ko.Spec.DataSourceParameters.PostgreSQLParameters.Host, b.ko.Spec.DataSourceParameters.PostgreSQLParameters.Host)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.PostgreSQLParameters.Port, b.ko.Spec.DataSourceParameters.PostgreSQLParameters.Port) {
-				delta.Add("Spec.DataSourceParameters.PostgreSQLParameters.Port", a.ko.Spec.DataSourceParameters.PostgreSQLParameters.Port, b.ko.Spec.DataSourceParameters.PostgreSQLParameters.Port)
-			} else if a.ko.Spec.DataSourceParameters.PostgreSQLParameters.Port != nil && b.ko.Spec.DataSourceParameters.PostgreSQLParameters.Port != nil {
-				if *a.ko.Spec.DataSourceParameters.PostgreSQLParameters.Port != *b.ko.Spec.DataSourceParameters.PostgreSQLParameters.Port {
-					delta.Add("Spec.DataSourceParameters.PostgreSQLParameters.Port", a.ko.Spec.DataSourceParameters.PostgreSQLParameters.Port, b.ko.Spec.DataSourceParameters.PostgreSQLParameters.Port)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.PrestoParameters, b.ko.Spec.DataSourceParameters.PrestoParameters) {
-			delta.Add("Spec.DataSourceParameters.PrestoParameters", a.ko.Spec.DataSourceParameters.PrestoParameters, b.ko.Spec.DataSourceParameters.PrestoParameters)
-		} else if a.ko.Spec.DataSourceParameters.PrestoParameters != nil && b.ko.Spec.DataSourceParameters.PrestoParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.PrestoParameters.Catalog, b.ko.Spec.DataSourceParameters.PrestoParameters.Catalog) {
-				delta.Add("Spec.DataSourceParameters.PrestoParameters.Catalog", a.ko.Spec.DataSourceParameters.PrestoParameters.Catalog, b.ko.Spec.DataSourceParameters.PrestoParameters.Catalog)
-			} else if a.ko.Spec.DataSourceParameters.PrestoParameters.Catalog != nil && b.ko.Spec.DataSourceParameters.PrestoParameters.Catalog != nil {
-				if *a.ko.Spec.DataSourceParameters.PrestoParameters.Catalog != *b.ko.Spec.DataSourceParameters.PrestoParameters.Catalog {
-					delta.Add("Spec.DataSourceParameters.PrestoParameters.Catalog", a.ko.Spec.DataSourceParameters.PrestoParameters.Catalog, b.ko.Spec.DataSourceParameters.PrestoParameters.Catalog)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.PrestoParameters.Host, b.ko.Spec.DataSourceParameters.PrestoParameters.Host) {
-				delta.Add("Spec.DataSourceParameters.PrestoParameters.Host", a.ko.Spec.DataSourceParameters.PrestoParameters.Host, b.ko.Spec.DataSourceParameters.PrestoParameters.Host)
-			} else if a.ko.Spec.DataSourceParameters.PrestoParameters.Host != nil && b.ko.Spec.DataSourceParameters.PrestoParameters.Host != nil {
-				if *a.ko.Spec.DataSourceParameters.PrestoParameters.Host != *b.ko.Spec.DataSourceParameters.PrestoParameters.Host {
-					delta.Add("Spec.DataSourceParameters.PrestoParameters.Host", a.ko.Spec.DataSourceParameters.PrestoParameters.Host, b.ko.Spec.DataSourceParameters.PrestoParameters.Host)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.PrestoParameters.Port, b.ko.Spec.DataSourceParameters.PrestoParameters.Port) {
-				delta.Add("Spec.DataSourceParameters.PrestoParameters.Port", a.ko.Spec.DataSourceParameters.PrestoParameters.Port, b.ko.Spec.DataSourceParameters.PrestoParameters.Port)
-			} else if a.ko.Spec.DataSourceParameters.PrestoParameters.Port != nil && b.ko.Spec.DataSourceParameters.PrestoParameters.Port != nil {
-				if *a.ko.Spec.DataSourceParameters.PrestoParameters.Port != *b.ko.Spec.DataSourceParameters.PrestoParameters.Port {
-					delta.Add("Spec.DataSourceParameters.PrestoParameters.Port", a.ko.Spec.DataSourceParameters.PrestoParameters.Port, b.ko.Spec.DataSourceParameters.PrestoParameters.Port)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.QBusinessParameters, b.ko.Spec.DataSourceParameters.QBusinessParameters) {
-			delta.Add("Spec.DataSourceParameters.QBusinessParameters", a.ko.Spec.DataSourceParameters.QBusinessParameters, b.ko.Spec.DataSourceParameters.QBusinessParameters)
-		} else if a.ko.Spec.DataSourceParameters.QBusinessParameters != nil && b.ko.Spec.DataSourceParameters.QBusinessParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.QBusinessParameters.ApplicationARN, b.ko.Spec.DataSourceParameters.QBusinessParameters.ApplicationARN) {
-				delta.Add("Spec.DataSourceParameters.QBusinessParameters.ApplicationARN", a.ko.Spec.DataSourceParameters.QBusinessParameters.ApplicationARN, b.ko.Spec.DataSourceParameters.QBusinessParameters.ApplicationARN)
-			} else if a.ko.Spec.DataSourceParameters.QBusinessParameters.ApplicationARN != nil && b.ko.Spec.DataSourceParameters.QBusinessParameters.ApplicationARN != nil {
-				if *a.ko.Spec.DataSourceParameters.QBusinessParameters.ApplicationARN != *b.ko.Spec.DataSourceParameters.QBusinessParameters.ApplicationARN {
-					delta.Add("Spec.DataSourceParameters.QBusinessParameters.ApplicationARN", a.ko.Spec.DataSourceParameters.QBusinessParameters.ApplicationARN, b.ko.Spec.DataSourceParameters.QBusinessParameters.ApplicationARN)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.RdsParameters, b.ko.Spec.DataSourceParameters.RdsParameters) {
-			delta.Add("Spec.DataSourceParameters.RdsParameters", a.ko.Spec.DataSourceParameters.RdsParameters, b.ko.Spec.DataSourceParameters.RdsParameters)
-		} else if a.ko.Spec.DataSourceParameters.RdsParameters != nil && b.ko.Spec.DataSourceParameters.RdsParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.RdsParameters.Database, b.ko.Spec.DataSourceParameters.RdsParameters.Database) {
-				delta.Add("Spec.DataSourceParameters.RdsParameters.Database", a.ko.Spec.DataSourceParameters.RdsParameters.Database, b.ko.Spec.DataSourceParameters.RdsParameters.Database)
-			} else if a.ko.Spec.DataSourceParameters.RdsParameters.Database != nil && b.ko.Spec.DataSourceParameters.RdsParameters.Database != nil {
-				if *a.ko.Spec.DataSourceParameters.RdsParameters.Database != *b.ko.Spec.DataSourceParameters.RdsParameters.Database {
-					delta.Add("Spec.DataSourceParameters.RdsParameters.Database", a.ko.Spec.DataSourceParameters.RdsParameters.Database, b.ko.Spec.DataSourceParameters.RdsParameters.Database)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.RdsParameters.InstanceID, b.ko.Spec.DataSourceParameters.RdsParameters.InstanceID) {
-				delta.Add("Spec.DataSourceParameters.RdsParameters.InstanceID", a.ko.Spec.DataSourceParameters.RdsParameters.InstanceID, b.ko.Spec.DataSourceParameters.RdsParameters.InstanceID)
-			} else if a.ko.Spec.DataSourceParameters.RdsParameters.InstanceID != nil && b.ko.Spec.DataSourceParameters.RdsParameters.InstanceID != nil {
-				if *a.ko.Spec.DataSourceParameters.RdsParameters.InstanceID != *b.ko.Spec.DataSourceParameters.RdsParameters.InstanceID {
-					delta.Add("Spec.DataSourceParameters.RdsParameters.InstanceID", a.ko.Spec.DataSourceParameters.RdsParameters.InstanceID, b.ko.Spec.DataSourceParameters.RdsParameters.InstanceID)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.RedshiftParameters, b.ko.Spec.DataSourceParameters.RedshiftParameters) {
-			delta.Add("Spec.DataSourceParameters.RedshiftParameters", a.ko.Spec.DataSourceParameters.RedshiftParameters, b.ko.Spec.DataSourceParameters.RedshiftParameters)
-		} else if a.ko.Spec.DataSourceParameters.RedshiftParameters != nil && b.ko.Spec.DataSourceParameters.RedshiftParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.RedshiftParameters.ClusterID, b.ko.Spec.DataSourceParameters.RedshiftParameters.ClusterID) {
-				delta.Add("Spec.DataSourceParameters.RedshiftParameters.ClusterID", a.ko.Spec.DataSourceParameters.RedshiftParameters.ClusterID, b.ko.Spec.DataSourceParameters.RedshiftParameters.ClusterID)
-			} else if a.ko.Spec.DataSourceParameters.RedshiftParameters.ClusterID != nil && b.ko.Spec.DataSourceParameters.RedshiftParameters.ClusterID != nil {
-				if *a.ko.Spec.DataSourceParameters.RedshiftParameters.ClusterID != *b.ko.Spec.DataSourceParameters.RedshiftParameters.ClusterID {
-					delta.Add("Spec.DataSourceParameters.RedshiftParameters.ClusterID", a.ko.Spec.DataSourceParameters.RedshiftParameters.ClusterID, b.ko.Spec.DataSourceParameters.RedshiftParameters.ClusterID)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.RedshiftParameters.Database, b.ko.Spec.DataSourceParameters.RedshiftParameters.Database) {
-				delta.Add("Spec.DataSourceParameters.RedshiftParameters.Database", a.ko.Spec.DataSourceParameters.RedshiftParameters.Database, b.ko.Spec.DataSourceParameters.RedshiftParameters.Database)
-			} else if a.ko.Spec.DataSourceParameters.RedshiftParameters.Database != nil && b.ko.Spec.DataSourceParameters.RedshiftParameters.Database != nil {
-				if *a.ko.Spec.DataSourceParameters.RedshiftParameters.Database != *b.ko.Spec.DataSourceParameters.RedshiftParameters.Database {
-					delta.Add("Spec.DataSourceParameters.RedshiftParameters.Database", a.ko.Spec.DataSourceParameters.RedshiftParameters.Database, b.ko.Spec.DataSourceParameters.RedshiftParameters.Database)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.RedshiftParameters.Host, b.ko.Spec.DataSourceParameters.RedshiftParameters.Host) {
-				delta.Add("Spec.DataSourceParameters.RedshiftParameters.Host", a.ko.Spec.DataSourceParameters.RedshiftParameters.Host, b.ko.Spec.DataSourceParameters.RedshiftParameters.Host)
-			} else if a.ko.Spec.DataSourceParameters.RedshiftParameters.Host != nil && b.ko.Spec.DataSourceParameters.RedshiftParameters.Host != nil {
-				if *a.ko.Spec.DataSourceParameters.RedshiftParameters.Host != *b.ko.Spec.DataSourceParameters.RedshiftParameters.Host {
-					delta.Add("Spec.DataSourceParameters.RedshiftParameters.Host", a.ko.Spec.DataSourceParameters.RedshiftParameters.Host, b.ko.Spec.DataSourceParameters.RedshiftParameters.Host)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters, b.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters) {
-				delta.Add("Spec.DataSourceParameters.RedshiftParameters.IAMParameters", a.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters, b.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters)
-			} else if a.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters != nil && b.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters != nil {
-				if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser, b.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser) {
-					delta.Add("Spec.DataSourceParameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser", a.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser, b.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser)
-				} else if a.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser != nil && b.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser != nil {
-					if *a.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser != *b.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser {
-						delta.Add("Spec.DataSourceParameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser", a.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser, b.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser)
-					}
-				}
-				if len(a.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseGroups) != len(b.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseGroups) {
-					delta.Add("Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseGroups", a.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseGroups, b.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseGroups)
-				} else if len(a.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseGroups) > 0 {
-					if !ackcompare.SliceStringPEqual(a.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseGroups, b.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseGroups) {
-						delta.Add("Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseGroups", a.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseGroups, b.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseGroups)
-					}
-				}
-				if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseUser, b.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseUser) {
-					delta.Add("Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseUser", a.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseUser, b.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseUser)
-				} else if a.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseUser != nil && b.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseUser != nil {
-					if *a.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseUser != *b.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseUser {
-						delta.Add("Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseUser", a.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseUser, b.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseUser)
-					}
-				}
-				if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.RoleARN, b.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.RoleARN) {
-					delta.Add("Spec.DataSourceParameters.RedshiftParameters.IAMParameters.RoleARN", a.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.RoleARN, b.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.RoleARN)
-				} else if a.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.RoleARN != nil && b.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.RoleARN != nil {
-					if *a.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.RoleARN != *b.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.RoleARN {
-						delta.Add("Spec.DataSourceParameters.RedshiftParameters.IAMParameters.RoleARN", a.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.RoleARN, b.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.RoleARN)
-					}
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.RedshiftParameters.IdentityCenterConfiguration, b.ko.Spec.DataSourceParameters.RedshiftParameters.IdentityCenterConfiguration) {
-				delta.Add("Spec.DataSourceParameters.RedshiftParameters.IdentityCenterConfiguration", a.ko.Spec.DataSourceParameters.RedshiftParameters.IdentityCenterConfiguration, b.ko.Spec.DataSourceParameters.RedshiftParameters.IdentityCenterConfiguration)
-			} else if a.ko.Spec.DataSourceParameters.RedshiftParameters.IdentityCenterConfiguration != nil && b.ko.Spec.DataSourceParameters.RedshiftParameters.IdentityCenterConfiguration != nil {
-				if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation, b.ko.Spec.DataSourceParameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation) {
-					delta.Add("Spec.DataSourceParameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation", a.ko.Spec.DataSourceParameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation, b.ko.Spec.DataSourceParameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation)
-				} else if a.ko.Spec.DataSourceParameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation != nil && b.ko.Spec.DataSourceParameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation != nil {
-					if *a.ko.Spec.DataSourceParameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation != *b.ko.Spec.DataSourceParameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation {
-						delta.Add("Spec.DataSourceParameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation", a.ko.Spec.DataSourceParameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation, b.ko.Spec.DataSourceParameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation)
-					}
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.RedshiftParameters.Port, b.ko.Spec.DataSourceParameters.RedshiftParameters.Port) {
-				delta.Add("Spec.DataSourceParameters.RedshiftParameters.Port", a.ko.Spec.DataSourceParameters.RedshiftParameters.Port, b.ko.Spec.DataSourceParameters.RedshiftParameters.Port)
-			} else if a.ko.Spec.DataSourceParameters.RedshiftParameters.Port != nil && b.ko.Spec.DataSourceParameters.RedshiftParameters.Port != nil {
-				if *a.ko.Spec.DataSourceParameters.RedshiftParameters.Port != *b.ko.Spec.DataSourceParameters.RedshiftParameters.Port {
-					delta.Add("Spec.DataSourceParameters.RedshiftParameters.Port", a.ko.Spec.DataSourceParameters.RedshiftParameters.Port, b.ko.Spec.DataSourceParameters.RedshiftParameters.Port)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters, b.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters) {
-			delta.Add("Spec.DataSourceParameters.S3KnowledgeBaseParameters", a.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters, b.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters)
-		} else if a.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters != nil && b.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.BucketURL, b.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.BucketURL) {
-				delta.Add("Spec.DataSourceParameters.S3KnowledgeBaseParameters.BucketURL", a.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.BucketURL, b.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.BucketURL)
-			} else if a.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.BucketURL != nil && b.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.BucketURL != nil {
-				if *a.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.BucketURL != *b.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.BucketURL {
-					delta.Add("Spec.DataSourceParameters.S3KnowledgeBaseParameters.BucketURL", a.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.BucketURL, b.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.BucketURL)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.MetadataFilesLocation, b.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.MetadataFilesLocation) {
-				delta.Add("Spec.DataSourceParameters.S3KnowledgeBaseParameters.MetadataFilesLocation", a.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.MetadataFilesLocation, b.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.MetadataFilesLocation)
-			} else if a.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.MetadataFilesLocation != nil && b.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.MetadataFilesLocation != nil {
-				if *a.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.MetadataFilesLocation != *b.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.MetadataFilesLocation {
-					delta.Add("Spec.DataSourceParameters.S3KnowledgeBaseParameters.MetadataFilesLocation", a.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.MetadataFilesLocation, b.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.MetadataFilesLocation)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.RoleARN, b.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.RoleARN) {
-				delta.Add("Spec.DataSourceParameters.S3KnowledgeBaseParameters.RoleARN", a.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.RoleARN, b.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.RoleARN)
-			} else if a.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.RoleARN != nil && b.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.RoleARN != nil {
-				if *a.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.RoleARN != *b.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.RoleARN {
-					delta.Add("Spec.DataSourceParameters.S3KnowledgeBaseParameters.RoleARN", a.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.RoleARN, b.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.RoleARN)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.S3Parameters, b.ko.Spec.DataSourceParameters.S3Parameters) {
-			delta.Add("Spec.DataSourceParameters.S3Parameters", a.ko.Spec.DataSourceParameters.S3Parameters, b.ko.Spec.DataSourceParameters.S3Parameters)
-		} else if a.ko.Spec.DataSourceParameters.S3Parameters != nil && b.ko.Spec.DataSourceParameters.S3Parameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation, b.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation) {
-				delta.Add("Spec.DataSourceParameters.S3Parameters.ManifestFileLocation", a.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation, b.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation)
-			} else if a.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation != nil && b.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation != nil {
-				if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Bucket, b.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Bucket) {
-					delta.Add("Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Bucket", a.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Bucket, b.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Bucket)
-				} else if a.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Bucket != nil && b.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Bucket != nil {
-					if *a.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Bucket != *b.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Bucket {
-						delta.Add("Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Bucket", a.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Bucket, b.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Bucket)
-					}
-				}
-				if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Key, b.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Key) {
-					delta.Add("Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Key", a.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Key, b.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Key)
-				} else if a.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Key != nil && b.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Key != nil {
-					if *a.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Key != *b.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Key {
-						delta.Add("Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Key", a.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Key, b.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Key)
-					}
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.S3Parameters.RoleARN, b.ko.Spec.DataSourceParameters.S3Parameters.RoleARN) {
-				delta.Add("Spec.DataSourceParameters.S3Parameters.RoleARN", a.ko.Spec.DataSourceParameters.S3Parameters.RoleARN, b.ko.Spec.DataSourceParameters.S3Parameters.RoleARN)
-			} else if a.ko.Spec.DataSourceParameters.S3Parameters.RoleARN != nil && b.ko.Spec.DataSourceParameters.S3Parameters.RoleARN != nil {
-				if *a.ko.Spec.DataSourceParameters.S3Parameters.RoleARN != *b.ko.Spec.DataSourceParameters.S3Parameters.RoleARN {
-					delta.Add("Spec.DataSourceParameters.S3Parameters.RoleARN", a.ko.Spec.DataSourceParameters.S3Parameters.RoleARN, b.ko.Spec.DataSourceParameters.S3Parameters.RoleARN)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.ServiceNowParameters, b.ko.Spec.DataSourceParameters.ServiceNowParameters) {
-			delta.Add("Spec.DataSourceParameters.ServiceNowParameters", a.ko.Spec.DataSourceParameters.ServiceNowParameters, b.ko.Spec.DataSourceParameters.ServiceNowParameters)
-		} else if a.ko.Spec.DataSourceParameters.ServiceNowParameters != nil && b.ko.Spec.DataSourceParameters.ServiceNowParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.ServiceNowParameters.SiteBaseURL, b.ko.Spec.DataSourceParameters.ServiceNowParameters.SiteBaseURL) {
-				delta.Add("Spec.DataSourceParameters.ServiceNowParameters.SiteBaseURL", a.ko.Spec.DataSourceParameters.ServiceNowParameters.SiteBaseURL, b.ko.Spec.DataSourceParameters.ServiceNowParameters.SiteBaseURL)
-			} else if a.ko.Spec.DataSourceParameters.ServiceNowParameters.SiteBaseURL != nil && b.ko.Spec.DataSourceParameters.ServiceNowParameters.SiteBaseURL != nil {
-				if *a.ko.Spec.DataSourceParameters.ServiceNowParameters.SiteBaseURL != *b.ko.Spec.DataSourceParameters.ServiceNowParameters.SiteBaseURL {
-					delta.Add("Spec.DataSourceParameters.ServiceNowParameters.SiteBaseURL", a.ko.Spec.DataSourceParameters.ServiceNowParameters.SiteBaseURL, b.ko.Spec.DataSourceParameters.ServiceNowParameters.SiteBaseURL)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.SnowflakeParameters, b.ko.Spec.DataSourceParameters.SnowflakeParameters) {
-			delta.Add("Spec.DataSourceParameters.SnowflakeParameters", a.ko.Spec.DataSourceParameters.SnowflakeParameters, b.ko.Spec.DataSourceParameters.SnowflakeParameters)
-		} else if a.ko.Spec.DataSourceParameters.SnowflakeParameters != nil && b.ko.Spec.DataSourceParameters.SnowflakeParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.SnowflakeParameters.AuthenticationType, b.ko.Spec.DataSourceParameters.SnowflakeParameters.AuthenticationType) {
-				delta.Add("Spec.DataSourceParameters.SnowflakeParameters.AuthenticationType", a.ko.Spec.DataSourceParameters.SnowflakeParameters.AuthenticationType, b.ko.Spec.DataSourceParameters.SnowflakeParameters.AuthenticationType)
-			} else if a.ko.Spec.DataSourceParameters.SnowflakeParameters.AuthenticationType != nil && b.ko.Spec.DataSourceParameters.SnowflakeParameters.AuthenticationType != nil {
-				if *a.ko.Spec.DataSourceParameters.SnowflakeParameters.AuthenticationType != *b.ko.Spec.DataSourceParameters.SnowflakeParameters.AuthenticationType {
-					delta.Add("Spec.DataSourceParameters.SnowflakeParameters.AuthenticationType", a.ko.Spec.DataSourceParameters.SnowflakeParameters.AuthenticationType, b.ko.Spec.DataSourceParameters.SnowflakeParameters.AuthenticationType)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.SnowflakeParameters.Database, b.ko.Spec.DataSourceParameters.SnowflakeParameters.Database) {
-				delta.Add("Spec.DataSourceParameters.SnowflakeParameters.Database", a.ko.Spec.DataSourceParameters.SnowflakeParameters.Database, b.ko.Spec.DataSourceParameters.SnowflakeParameters.Database)
-			} else if a.ko.Spec.DataSourceParameters.SnowflakeParameters.Database != nil && b.ko.Spec.DataSourceParameters.SnowflakeParameters.Database != nil {
-				if *a.ko.Spec.DataSourceParameters.SnowflakeParameters.Database != *b.ko.Spec.DataSourceParameters.SnowflakeParameters.Database {
-					delta.Add("Spec.DataSourceParameters.SnowflakeParameters.Database", a.ko.Spec.DataSourceParameters.SnowflakeParameters.Database, b.ko.Spec.DataSourceParameters.SnowflakeParameters.Database)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.SnowflakeParameters.DatabaseAccessControlRole, b.ko.Spec.DataSourceParameters.SnowflakeParameters.DatabaseAccessControlRole) {
-				delta.Add("Spec.DataSourceParameters.SnowflakeParameters.DatabaseAccessControlRole", a.ko.Spec.DataSourceParameters.SnowflakeParameters.DatabaseAccessControlRole, b.ko.Spec.DataSourceParameters.SnowflakeParameters.DatabaseAccessControlRole)
-			} else if a.ko.Spec.DataSourceParameters.SnowflakeParameters.DatabaseAccessControlRole != nil && b.ko.Spec.DataSourceParameters.SnowflakeParameters.DatabaseAccessControlRole != nil {
-				if *a.ko.Spec.DataSourceParameters.SnowflakeParameters.DatabaseAccessControlRole != *b.ko.Spec.DataSourceParameters.SnowflakeParameters.DatabaseAccessControlRole {
-					delta.Add("Spec.DataSourceParameters.SnowflakeParameters.DatabaseAccessControlRole", a.ko.Spec.DataSourceParameters.SnowflakeParameters.DatabaseAccessControlRole, b.ko.Spec.DataSourceParameters.SnowflakeParameters.DatabaseAccessControlRole)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.SnowflakeParameters.Host, b.ko.Spec.DataSourceParameters.SnowflakeParameters.Host) {
-				delta.Add("Spec.DataSourceParameters.SnowflakeParameters.Host", a.ko.Spec.DataSourceParameters.SnowflakeParameters.Host, b.ko.Spec.DataSourceParameters.SnowflakeParameters.Host)
-			} else if a.ko.Spec.DataSourceParameters.SnowflakeParameters.Host != nil && b.ko.Spec.DataSourceParameters.SnowflakeParameters.Host != nil {
-				if *a.ko.Spec.DataSourceParameters.SnowflakeParameters.Host != *b.ko.Spec.DataSourceParameters.SnowflakeParameters.Host {
-					delta.Add("Spec.DataSourceParameters.SnowflakeParameters.Host", a.ko.Spec.DataSourceParameters.SnowflakeParameters.Host, b.ko.Spec.DataSourceParameters.SnowflakeParameters.Host)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters, b.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters) {
-				delta.Add("Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters", a.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters, b.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters)
-			} else if a.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters != nil && b.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters != nil {
-				if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI, b.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI) {
-					delta.Add("Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI", a.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI, b.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI)
-				} else if a.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI != nil && b.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI != nil {
-					if *a.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI != *b.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI {
-						delta.Add("Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI", a.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI, b.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI)
-					}
-				}
-				if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties, b.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties) {
-					delta.Add("Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties", a.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties, b.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties)
-				} else if a.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties != nil && b.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties != nil {
-					if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN, b.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN) {
-						delta.Add("Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN", a.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN, b.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN)
-					} else if a.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN != nil && b.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN != nil {
-						if *a.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN != *b.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN {
-							delta.Add("Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN", a.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN, b.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN)
-						}
-					}
-				}
-				if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.OAuthScope, b.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.OAuthScope) {
-					delta.Add("Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.OAuthScope", a.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.OAuthScope, b.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.OAuthScope)
-				} else if a.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.OAuthScope != nil && b.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.OAuthScope != nil {
-					if *a.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.OAuthScope != *b.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.OAuthScope {
-						delta.Add("Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.OAuthScope", a.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.OAuthScope, b.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.OAuthScope)
-					}
-				}
-				if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.TokenProviderURL, b.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.TokenProviderURL) {
-					delta.Add("Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.TokenProviderURL", a.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.TokenProviderURL, b.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.TokenProviderURL)
-				} else if a.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.TokenProviderURL != nil && b.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.TokenProviderURL != nil {
-					if *a.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.TokenProviderURL != *b.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.TokenProviderURL {
-						delta.Add("Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.TokenProviderURL", a.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.TokenProviderURL, b.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.TokenProviderURL)
-					}
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.SnowflakeParameters.Warehouse, b.ko.Spec.DataSourceParameters.SnowflakeParameters.Warehouse) {
-				delta.Add("Spec.DataSourceParameters.SnowflakeParameters.Warehouse", a.ko.Spec.DataSourceParameters.SnowflakeParameters.Warehouse, b.ko.Spec.DataSourceParameters.SnowflakeParameters.Warehouse)
-			} else if a.ko.Spec.DataSourceParameters.SnowflakeParameters.Warehouse != nil && b.ko.Spec.DataSourceParameters.SnowflakeParameters.Warehouse != nil {
-				if *a.ko.Spec.DataSourceParameters.SnowflakeParameters.Warehouse != *b.ko.Spec.DataSourceParameters.SnowflakeParameters.Warehouse {
-					delta.Add("Spec.DataSourceParameters.SnowflakeParameters.Warehouse", a.ko.Spec.DataSourceParameters.SnowflakeParameters.Warehouse, b.ko.Spec.DataSourceParameters.SnowflakeParameters.Warehouse)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.SparkParameters, b.ko.Spec.DataSourceParameters.SparkParameters) {
-			delta.Add("Spec.DataSourceParameters.SparkParameters", a.ko.Spec.DataSourceParameters.SparkParameters, b.ko.Spec.DataSourceParameters.SparkParameters)
-		} else if a.ko.Spec.DataSourceParameters.SparkParameters != nil && b.ko.Spec.DataSourceParameters.SparkParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.SparkParameters.Host, b.ko.Spec.DataSourceParameters.SparkParameters.Host) {
-				delta.Add("Spec.DataSourceParameters.SparkParameters.Host", a.ko.Spec.DataSourceParameters.SparkParameters.Host, b.ko.Spec.DataSourceParameters.SparkParameters.Host)
-			} else if a.ko.Spec.DataSourceParameters.SparkParameters.Host != nil && b.ko.Spec.DataSourceParameters.SparkParameters.Host != nil {
-				if *a.ko.Spec.DataSourceParameters.SparkParameters.Host != *b.ko.Spec.DataSourceParameters.SparkParameters.Host {
-					delta.Add("Spec.DataSourceParameters.SparkParameters.Host", a.ko.Spec.DataSourceParameters.SparkParameters.Host, b.ko.Spec.DataSourceParameters.SparkParameters.Host)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.SparkParameters.Port, b.ko.Spec.DataSourceParameters.SparkParameters.Port) {
-				delta.Add("Spec.DataSourceParameters.SparkParameters.Port", a.ko.Spec.DataSourceParameters.SparkParameters.Port, b.ko.Spec.DataSourceParameters.SparkParameters.Port)
-			} else if a.ko.Spec.DataSourceParameters.SparkParameters.Port != nil && b.ko.Spec.DataSourceParameters.SparkParameters.Port != nil {
-				if *a.ko.Spec.DataSourceParameters.SparkParameters.Port != *b.ko.Spec.DataSourceParameters.SparkParameters.Port {
-					delta.Add("Spec.DataSourceParameters.SparkParameters.Port", a.ko.Spec.DataSourceParameters.SparkParameters.Port, b.ko.Spec.DataSourceParameters.SparkParameters.Port)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.SQLServerParameters, b.ko.Spec.DataSourceParameters.SQLServerParameters) {
-			delta.Add("Spec.DataSourceParameters.SQLServerParameters", a.ko.Spec.DataSourceParameters.SQLServerParameters, b.ko.Spec.DataSourceParameters.SQLServerParameters)
-		} else if a.ko.Spec.DataSourceParameters.SQLServerParameters != nil && b.ko.Spec.DataSourceParameters.SQLServerParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.SQLServerParameters.Database, b.ko.Spec.DataSourceParameters.SQLServerParameters.Database) {
-				delta.Add("Spec.DataSourceParameters.SQLServerParameters.Database", a.ko.Spec.DataSourceParameters.SQLServerParameters.Database, b.ko.Spec.DataSourceParameters.SQLServerParameters.Database)
-			} else if a.ko.Spec.DataSourceParameters.SQLServerParameters.Database != nil && b.ko.Spec.DataSourceParameters.SQLServerParameters.Database != nil {
-				if *a.ko.Spec.DataSourceParameters.SQLServerParameters.Database != *b.ko.Spec.DataSourceParameters.SQLServerParameters.Database {
-					delta.Add("Spec.DataSourceParameters.SQLServerParameters.Database", a.ko.Spec.DataSourceParameters.SQLServerParameters.Database, b.ko.Spec.DataSourceParameters.SQLServerParameters.Database)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.SQLServerParameters.Host, b.ko.Spec.DataSourceParameters.SQLServerParameters.Host) {
-				delta.Add("Spec.DataSourceParameters.SQLServerParameters.Host", a.ko.Spec.DataSourceParameters.SQLServerParameters.Host, b.ko.Spec.DataSourceParameters.SQLServerParameters.Host)
-			} else if a.ko.Spec.DataSourceParameters.SQLServerParameters.Host != nil && b.ko.Spec.DataSourceParameters.SQLServerParameters.Host != nil {
-				if *a.ko.Spec.DataSourceParameters.SQLServerParameters.Host != *b.ko.Spec.DataSourceParameters.SQLServerParameters.Host {
-					delta.Add("Spec.DataSourceParameters.SQLServerParameters.Host", a.ko.Spec.DataSourceParameters.SQLServerParameters.Host, b.ko.Spec.DataSourceParameters.SQLServerParameters.Host)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.SQLServerParameters.Port, b.ko.Spec.DataSourceParameters.SQLServerParameters.Port) {
-				delta.Add("Spec.DataSourceParameters.SQLServerParameters.Port", a.ko.Spec.DataSourceParameters.SQLServerParameters.Port, b.ko.Spec.DataSourceParameters.SQLServerParameters.Port)
-			} else if a.ko.Spec.DataSourceParameters.SQLServerParameters.Port != nil && b.ko.Spec.DataSourceParameters.SQLServerParameters.Port != nil {
-				if *a.ko.Spec.DataSourceParameters.SQLServerParameters.Port != *b.ko.Spec.DataSourceParameters.SQLServerParameters.Port {
-					delta.Add("Spec.DataSourceParameters.SQLServerParameters.Port", a.ko.Spec.DataSourceParameters.SQLServerParameters.Port, b.ko.Spec.DataSourceParameters.SQLServerParameters.Port)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.StarburstParameters, b.ko.Spec.DataSourceParameters.StarburstParameters) {
-			delta.Add("Spec.DataSourceParameters.StarburstParameters", a.ko.Spec.DataSourceParameters.StarburstParameters, b.ko.Spec.DataSourceParameters.StarburstParameters)
-		} else if a.ko.Spec.DataSourceParameters.StarburstParameters != nil && b.ko.Spec.DataSourceParameters.StarburstParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.StarburstParameters.AuthenticationType, b.ko.Spec.DataSourceParameters.StarburstParameters.AuthenticationType) {
-				delta.Add("Spec.DataSourceParameters.StarburstParameters.AuthenticationType", a.ko.Spec.DataSourceParameters.StarburstParameters.AuthenticationType, b.ko.Spec.DataSourceParameters.StarburstParameters.AuthenticationType)
-			} else if a.ko.Spec.DataSourceParameters.StarburstParameters.AuthenticationType != nil && b.ko.Spec.DataSourceParameters.StarburstParameters.AuthenticationType != nil {
-				if *a.ko.Spec.DataSourceParameters.StarburstParameters.AuthenticationType != *b.ko.Spec.DataSourceParameters.StarburstParameters.AuthenticationType {
-					delta.Add("Spec.DataSourceParameters.StarburstParameters.AuthenticationType", a.ko.Spec.DataSourceParameters.StarburstParameters.AuthenticationType, b.ko.Spec.DataSourceParameters.StarburstParameters.AuthenticationType)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.StarburstParameters.Catalog, b.ko.Spec.DataSourceParameters.StarburstParameters.Catalog) {
-				delta.Add("Spec.DataSourceParameters.StarburstParameters.Catalog", a.ko.Spec.DataSourceParameters.StarburstParameters.Catalog, b.ko.Spec.DataSourceParameters.StarburstParameters.Catalog)
-			} else if a.ko.Spec.DataSourceParameters.StarburstParameters.Catalog != nil && b.ko.Spec.DataSourceParameters.StarburstParameters.Catalog != nil {
-				if *a.ko.Spec.DataSourceParameters.StarburstParameters.Catalog != *b.ko.Spec.DataSourceParameters.StarburstParameters.Catalog {
-					delta.Add("Spec.DataSourceParameters.StarburstParameters.Catalog", a.ko.Spec.DataSourceParameters.StarburstParameters.Catalog, b.ko.Spec.DataSourceParameters.StarburstParameters.Catalog)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.StarburstParameters.DatabaseAccessControlRole, b.ko.Spec.DataSourceParameters.StarburstParameters.DatabaseAccessControlRole) {
-				delta.Add("Spec.DataSourceParameters.StarburstParameters.DatabaseAccessControlRole", a.ko.Spec.DataSourceParameters.StarburstParameters.DatabaseAccessControlRole, b.ko.Spec.DataSourceParameters.StarburstParameters.DatabaseAccessControlRole)
-			} else if a.ko.Spec.DataSourceParameters.StarburstParameters.DatabaseAccessControlRole != nil && b.ko.Spec.DataSourceParameters.StarburstParameters.DatabaseAccessControlRole != nil {
-				if *a.ko.Spec.DataSourceParameters.StarburstParameters.DatabaseAccessControlRole != *b.ko.Spec.DataSourceParameters.StarburstParameters.DatabaseAccessControlRole {
-					delta.Add("Spec.DataSourceParameters.StarburstParameters.DatabaseAccessControlRole", a.ko.Spec.DataSourceParameters.StarburstParameters.DatabaseAccessControlRole, b.ko.Spec.DataSourceParameters.StarburstParameters.DatabaseAccessControlRole)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.StarburstParameters.Host, b.ko.Spec.DataSourceParameters.StarburstParameters.Host) {
-				delta.Add("Spec.DataSourceParameters.StarburstParameters.Host", a.ko.Spec.DataSourceParameters.StarburstParameters.Host, b.ko.Spec.DataSourceParameters.StarburstParameters.Host)
-			} else if a.ko.Spec.DataSourceParameters.StarburstParameters.Host != nil && b.ko.Spec.DataSourceParameters.StarburstParameters.Host != nil {
-				if *a.ko.Spec.DataSourceParameters.StarburstParameters.Host != *b.ko.Spec.DataSourceParameters.StarburstParameters.Host {
-					delta.Add("Spec.DataSourceParameters.StarburstParameters.Host", a.ko.Spec.DataSourceParameters.StarburstParameters.Host, b.ko.Spec.DataSourceParameters.StarburstParameters.Host)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters, b.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters) {
-				delta.Add("Spec.DataSourceParameters.StarburstParameters.OAuthParameters", a.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters, b.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters)
-			} else if a.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters != nil && b.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters != nil {
-				if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI, b.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI) {
-					delta.Add("Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI", a.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI, b.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI)
-				} else if a.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI != nil && b.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI != nil {
-					if *a.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI != *b.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI {
-						delta.Add("Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI", a.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI, b.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI)
-					}
-				}
-				if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties, b.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties) {
-					delta.Add("Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties", a.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties, b.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties)
-				} else if a.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties != nil && b.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties != nil {
-					if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN, b.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN) {
-						delta.Add("Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN", a.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN, b.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN)
-					} else if a.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN != nil && b.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN != nil {
-						if *a.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN != *b.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN {
-							delta.Add("Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN", a.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN, b.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN)
-						}
-					}
-				}
-				if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.OAuthScope, b.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.OAuthScope) {
-					delta.Add("Spec.DataSourceParameters.StarburstParameters.OAuthParameters.OAuthScope", a.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.OAuthScope, b.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.OAuthScope)
-				} else if a.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.OAuthScope != nil && b.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.OAuthScope != nil {
-					if *a.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.OAuthScope != *b.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.OAuthScope {
-						delta.Add("Spec.DataSourceParameters.StarburstParameters.OAuthParameters.OAuthScope", a.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.OAuthScope, b.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.OAuthScope)
-					}
-				}
-				if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.TokenProviderURL, b.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.TokenProviderURL) {
-					delta.Add("Spec.DataSourceParameters.StarburstParameters.OAuthParameters.TokenProviderURL", a.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.TokenProviderURL, b.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.TokenProviderURL)
-				} else if a.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.TokenProviderURL != nil && b.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.TokenProviderURL != nil {
-					if *a.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.TokenProviderURL != *b.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.TokenProviderURL {
-						delta.Add("Spec.DataSourceParameters.StarburstParameters.OAuthParameters.TokenProviderURL", a.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.TokenProviderURL, b.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.TokenProviderURL)
-					}
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.StarburstParameters.Port, b.ko.Spec.DataSourceParameters.StarburstParameters.Port) {
-				delta.Add("Spec.DataSourceParameters.StarburstParameters.Port", a.ko.Spec.DataSourceParameters.StarburstParameters.Port, b.ko.Spec.DataSourceParameters.StarburstParameters.Port)
-			} else if a.ko.Spec.DataSourceParameters.StarburstParameters.Port != nil && b.ko.Spec.DataSourceParameters.StarburstParameters.Port != nil {
-				if *a.ko.Spec.DataSourceParameters.StarburstParameters.Port != *b.ko.Spec.DataSourceParameters.StarburstParameters.Port {
-					delta.Add("Spec.DataSourceParameters.StarburstParameters.Port", a.ko.Spec.DataSourceParameters.StarburstParameters.Port, b.ko.Spec.DataSourceParameters.StarburstParameters.Port)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.StarburstParameters.ProductType, b.ko.Spec.DataSourceParameters.StarburstParameters.ProductType) {
-				delta.Add("Spec.DataSourceParameters.StarburstParameters.ProductType", a.ko.Spec.DataSourceParameters.StarburstParameters.ProductType, b.ko.Spec.DataSourceParameters.StarburstParameters.ProductType)
-			} else if a.ko.Spec.DataSourceParameters.StarburstParameters.ProductType != nil && b.ko.Spec.DataSourceParameters.StarburstParameters.ProductType != nil {
-				if *a.ko.Spec.DataSourceParameters.StarburstParameters.ProductType != *b.ko.Spec.DataSourceParameters.StarburstParameters.ProductType {
-					delta.Add("Spec.DataSourceParameters.StarburstParameters.ProductType", a.ko.Spec.DataSourceParameters.StarburstParameters.ProductType, b.ko.Spec.DataSourceParameters.StarburstParameters.ProductType)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.TeradataParameters, b.ko.Spec.DataSourceParameters.TeradataParameters) {
-			delta.Add("Spec.DataSourceParameters.TeradataParameters", a.ko.Spec.DataSourceParameters.TeradataParameters, b.ko.Spec.DataSourceParameters.TeradataParameters)
-		} else if a.ko.Spec.DataSourceParameters.TeradataParameters != nil && b.ko.Spec.DataSourceParameters.TeradataParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.TeradataParameters.Database, b.ko.Spec.DataSourceParameters.TeradataParameters.Database) {
-				delta.Add("Spec.DataSourceParameters.TeradataParameters.Database", a.ko.Spec.DataSourceParameters.TeradataParameters.Database, b.ko.Spec.DataSourceParameters.TeradataParameters.Database)
-			} else if a.ko.Spec.DataSourceParameters.TeradataParameters.Database != nil && b.ko.Spec.DataSourceParameters.TeradataParameters.Database != nil {
-				if *a.ko.Spec.DataSourceParameters.TeradataParameters.Database != *b.ko.Spec.DataSourceParameters.TeradataParameters.Database {
-					delta.Add("Spec.DataSourceParameters.TeradataParameters.Database", a.ko.Spec.DataSourceParameters.TeradataParameters.Database, b.ko.Spec.DataSourceParameters.TeradataParameters.Database)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.TeradataParameters.Host, b.ko.Spec.DataSourceParameters.TeradataParameters.Host) {
-				delta.Add("Spec.DataSourceParameters.TeradataParameters.Host", a.ko.Spec.DataSourceParameters.TeradataParameters.Host, b.ko.Spec.DataSourceParameters.TeradataParameters.Host)
-			} else if a.ko.Spec.DataSourceParameters.TeradataParameters.Host != nil && b.ko.Spec.DataSourceParameters.TeradataParameters.Host != nil {
-				if *a.ko.Spec.DataSourceParameters.TeradataParameters.Host != *b.ko.Spec.DataSourceParameters.TeradataParameters.Host {
-					delta.Add("Spec.DataSourceParameters.TeradataParameters.Host", a.ko.Spec.DataSourceParameters.TeradataParameters.Host, b.ko.Spec.DataSourceParameters.TeradataParameters.Host)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.TeradataParameters.Port, b.ko.Spec.DataSourceParameters.TeradataParameters.Port) {
-				delta.Add("Spec.DataSourceParameters.TeradataParameters.Port", a.ko.Spec.DataSourceParameters.TeradataParameters.Port, b.ko.Spec.DataSourceParameters.TeradataParameters.Port)
-			} else if a.ko.Spec.DataSourceParameters.TeradataParameters.Port != nil && b.ko.Spec.DataSourceParameters.TeradataParameters.Port != nil {
-				if *a.ko.Spec.DataSourceParameters.TeradataParameters.Port != *b.ko.Spec.DataSourceParameters.TeradataParameters.Port {
-					delta.Add("Spec.DataSourceParameters.TeradataParameters.Port", a.ko.Spec.DataSourceParameters.TeradataParameters.Port, b.ko.Spec.DataSourceParameters.TeradataParameters.Port)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.TrinoParameters, b.ko.Spec.DataSourceParameters.TrinoParameters) {
-			delta.Add("Spec.DataSourceParameters.TrinoParameters", a.ko.Spec.DataSourceParameters.TrinoParameters, b.ko.Spec.DataSourceParameters.TrinoParameters)
-		} else if a.ko.Spec.DataSourceParameters.TrinoParameters != nil && b.ko.Spec.DataSourceParameters.TrinoParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.TrinoParameters.Catalog, b.ko.Spec.DataSourceParameters.TrinoParameters.Catalog) {
-				delta.Add("Spec.DataSourceParameters.TrinoParameters.Catalog", a.ko.Spec.DataSourceParameters.TrinoParameters.Catalog, b.ko.Spec.DataSourceParameters.TrinoParameters.Catalog)
-			} else if a.ko.Spec.DataSourceParameters.TrinoParameters.Catalog != nil && b.ko.Spec.DataSourceParameters.TrinoParameters.Catalog != nil {
-				if *a.ko.Spec.DataSourceParameters.TrinoParameters.Catalog != *b.ko.Spec.DataSourceParameters.TrinoParameters.Catalog {
-					delta.Add("Spec.DataSourceParameters.TrinoParameters.Catalog", a.ko.Spec.DataSourceParameters.TrinoParameters.Catalog, b.ko.Spec.DataSourceParameters.TrinoParameters.Catalog)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.TrinoParameters.Host, b.ko.Spec.DataSourceParameters.TrinoParameters.Host) {
-				delta.Add("Spec.DataSourceParameters.TrinoParameters.Host", a.ko.Spec.DataSourceParameters.TrinoParameters.Host, b.ko.Spec.DataSourceParameters.TrinoParameters.Host)
-			} else if a.ko.Spec.DataSourceParameters.TrinoParameters.Host != nil && b.ko.Spec.DataSourceParameters.TrinoParameters.Host != nil {
-				if *a.ko.Spec.DataSourceParameters.TrinoParameters.Host != *b.ko.Spec.DataSourceParameters.TrinoParameters.Host {
-					delta.Add("Spec.DataSourceParameters.TrinoParameters.Host", a.ko.Spec.DataSourceParameters.TrinoParameters.Host, b.ko.Spec.DataSourceParameters.TrinoParameters.Host)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.TrinoParameters.Port, b.ko.Spec.DataSourceParameters.TrinoParameters.Port) {
-				delta.Add("Spec.DataSourceParameters.TrinoParameters.Port", a.ko.Spec.DataSourceParameters.TrinoParameters.Port, b.ko.Spec.DataSourceParameters.TrinoParameters.Port)
-			} else if a.ko.Spec.DataSourceParameters.TrinoParameters.Port != nil && b.ko.Spec.DataSourceParameters.TrinoParameters.Port != nil {
-				if *a.ko.Spec.DataSourceParameters.TrinoParameters.Port != *b.ko.Spec.DataSourceParameters.TrinoParameters.Port {
-					delta.Add("Spec.DataSourceParameters.TrinoParameters.Port", a.ko.Spec.DataSourceParameters.TrinoParameters.Port, b.ko.Spec.DataSourceParameters.TrinoParameters.Port)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.TwitterParameters, b.ko.Spec.DataSourceParameters.TwitterParameters) {
-			delta.Add("Spec.DataSourceParameters.TwitterParameters", a.ko.Spec.DataSourceParameters.TwitterParameters, b.ko.Spec.DataSourceParameters.TwitterParameters)
-		} else if a.ko.Spec.DataSourceParameters.TwitterParameters != nil && b.ko.Spec.DataSourceParameters.TwitterParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.TwitterParameters.MaxRows, b.ko.Spec.DataSourceParameters.TwitterParameters.MaxRows) {
-				delta.Add("Spec.DataSourceParameters.TwitterParameters.MaxRows", a.ko.Spec.DataSourceParameters.TwitterParameters.MaxRows, b.ko.Spec.DataSourceParameters.TwitterParameters.MaxRows)
-			} else if a.ko.Spec.DataSourceParameters.TwitterParameters.MaxRows != nil && b.ko.Spec.DataSourceParameters.TwitterParameters.MaxRows != nil {
-				if *a.ko.Spec.DataSourceParameters.TwitterParameters.MaxRows != *b.ko.Spec.DataSourceParameters.TwitterParameters.MaxRows {
-					delta.Add("Spec.DataSourceParameters.TwitterParameters.MaxRows", a.ko.Spec.DataSourceParameters.TwitterParameters.MaxRows, b.ko.Spec.DataSourceParameters.TwitterParameters.MaxRows)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.TwitterParameters.Query, b.ko.Spec.DataSourceParameters.TwitterParameters.Query) {
-				delta.Add("Spec.DataSourceParameters.TwitterParameters.Query", a.ko.Spec.DataSourceParameters.TwitterParameters.Query, b.ko.Spec.DataSourceParameters.TwitterParameters.Query)
-			} else if a.ko.Spec.DataSourceParameters.TwitterParameters.Query != nil && b.ko.Spec.DataSourceParameters.TwitterParameters.Query != nil {
-				if *a.ko.Spec.DataSourceParameters.TwitterParameters.Query != *b.ko.Spec.DataSourceParameters.TwitterParameters.Query {
-					delta.Add("Spec.DataSourceParameters.TwitterParameters.Query", a.ko.Spec.DataSourceParameters.TwitterParameters.Query, b.ko.Spec.DataSourceParameters.TwitterParameters.Query)
-				}
-			}
-		}
-		if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.WebCrawlerParameters, b.ko.Spec.DataSourceParameters.WebCrawlerParameters) {
-			delta.Add("Spec.DataSourceParameters.WebCrawlerParameters", a.ko.Spec.DataSourceParameters.WebCrawlerParameters, b.ko.Spec.DataSourceParameters.WebCrawlerParameters)
-		} else if a.ko.Spec.DataSourceParameters.WebCrawlerParameters != nil && b.ko.Spec.DataSourceParameters.WebCrawlerParameters != nil {
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.WebCrawlerParameters.LoginPageURL, b.ko.Spec.DataSourceParameters.WebCrawlerParameters.LoginPageURL) {
-				delta.Add("Spec.DataSourceParameters.WebCrawlerParameters.LoginPageURL", a.ko.Spec.DataSourceParameters.WebCrawlerParameters.LoginPageURL, b.ko.Spec.DataSourceParameters.WebCrawlerParameters.LoginPageURL)
-			} else if a.ko.Spec.DataSourceParameters.WebCrawlerParameters.LoginPageURL != nil && b.ko.Spec.DataSourceParameters.WebCrawlerParameters.LoginPageURL != nil {
-				if *a.ko.Spec.DataSourceParameters.WebCrawlerParameters.LoginPageURL != *b.ko.Spec.DataSourceParameters.WebCrawlerParameters.LoginPageURL {
-					delta.Add("Spec.DataSourceParameters.WebCrawlerParameters.LoginPageURL", a.ko.Spec.DataSourceParameters.WebCrawlerParameters.LoginPageURL, b.ko.Spec.DataSourceParameters.WebCrawlerParameters.LoginPageURL)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordButtonXpath, b.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordButtonXpath) {
-				delta.Add("Spec.DataSourceParameters.WebCrawlerParameters.PasswordButtonXpath", a.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordButtonXpath, b.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordButtonXpath)
-			} else if a.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordButtonXpath != nil && b.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordButtonXpath != nil {
-				if *a.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordButtonXpath != *b.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordButtonXpath {
-					delta.Add("Spec.DataSourceParameters.WebCrawlerParameters.PasswordButtonXpath", a.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordButtonXpath, b.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordButtonXpath)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordFieldXpath, b.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordFieldXpath) {
-				delta.Add("Spec.DataSourceParameters.WebCrawlerParameters.PasswordFieldXpath", a.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordFieldXpath, b.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordFieldXpath)
-			} else if a.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordFieldXpath != nil && b.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordFieldXpath != nil {
-				if *a.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordFieldXpath != *b.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordFieldXpath {
-					delta.Add("Spec.DataSourceParameters.WebCrawlerParameters.PasswordFieldXpath", a.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordFieldXpath, b.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordFieldXpath)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameButtonXpath, b.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameButtonXpath) {
-				delta.Add("Spec.DataSourceParameters.WebCrawlerParameters.UsernameButtonXpath", a.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameButtonXpath, b.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameButtonXpath)
-			} else if a.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameButtonXpath != nil && b.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameButtonXpath != nil {
-				if *a.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameButtonXpath != *b.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameButtonXpath {
-					delta.Add("Spec.DataSourceParameters.WebCrawlerParameters.UsernameButtonXpath", a.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameButtonXpath, b.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameButtonXpath)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameFieldXpath, b.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameFieldXpath) {
-				delta.Add("Spec.DataSourceParameters.WebCrawlerParameters.UsernameFieldXpath", a.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameFieldXpath, b.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameFieldXpath)
-			} else if a.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameFieldXpath != nil && b.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameFieldXpath != nil {
-				if *a.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameFieldXpath != *b.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameFieldXpath {
-					delta.Add("Spec.DataSourceParameters.WebCrawlerParameters.UsernameFieldXpath", a.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameFieldXpath, b.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameFieldXpath)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebCrawlerAuthType, b.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebCrawlerAuthType) {
-				delta.Add("Spec.DataSourceParameters.WebCrawlerParameters.WebCrawlerAuthType", a.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebCrawlerAuthType, b.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebCrawlerAuthType)
-			} else if a.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebCrawlerAuthType != nil && b.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebCrawlerAuthType != nil {
-				if *a.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebCrawlerAuthType != *b.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebCrawlerAuthType {
-					delta.Add("Spec.DataSourceParameters.WebCrawlerParameters.WebCrawlerAuthType", a.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebCrawlerAuthType, b.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebCrawlerAuthType)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyHostName, b.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyHostName) {
-				delta.Add("Spec.DataSourceParameters.WebCrawlerParameters.WebProxyHostName", a.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyHostName, b.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyHostName)
-			} else if a.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyHostName != nil && b.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyHostName != nil {
-				if *a.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyHostName != *b.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyHostName {
-					delta.Add("Spec.DataSourceParameters.WebCrawlerParameters.WebProxyHostName", a.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyHostName, b.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyHostName)
-				}
-			}
-			if ackcompare.HasNilDifference(a.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyPortNumber, b.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyPortNumber) {
-				delta.Add("Spec.DataSourceParameters.WebCrawlerParameters.WebProxyPortNumber", a.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyPortNumber, b.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyPortNumber)
-			} else if a.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyPortNumber != nil && b.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyPortNumber != nil {
-				if *a.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyPortNumber != *b.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyPortNumber {
-					delta.Add("Spec.DataSourceParameters.WebCrawlerParameters.WebProxyPortNumber", a.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyPortNumber, b.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyPortNumber)
-				}
-			}
-		}
-	}
 	if len(a.ko.Spec.FolderARNs) != len(b.ko.Spec.FolderARNs) {
 		delta.Add("Spec.FolderARNs", a.ko.Spec.FolderARNs, b.ko.Spec.FolderARNs)
 	} else if len(a.ko.Spec.FolderARNs) > 0 {
@@ -1020,11 +142,889 @@ func newResourceDelta(
 			delta.Add("Spec.FolderARNs", a.ko.Spec.FolderARNs, b.ko.Spec.FolderARNs)
 		}
 	}
+	if ackcompare.HasNilDifference(a.ko.Spec.ID, b.ko.Spec.ID) {
+		delta.Add("Spec.ID", a.ko.Spec.ID, b.ko.Spec.ID)
+	} else if a.ko.Spec.ID != nil && b.ko.Spec.ID != nil {
+		if *a.ko.Spec.ID != *b.ko.Spec.ID {
+			delta.Add("Spec.ID", a.ko.Spec.ID, b.ko.Spec.ID)
+		}
+	}
 	if ackcompare.HasNilDifference(a.ko.Spec.Name, b.ko.Spec.Name) {
 		delta.Add("Spec.Name", a.ko.Spec.Name, b.ko.Spec.Name)
 	} else if a.ko.Spec.Name != nil && b.ko.Spec.Name != nil {
 		if *a.ko.Spec.Name != *b.ko.Spec.Name {
 			delta.Add("Spec.Name", a.ko.Spec.Name, b.ko.Spec.Name)
+		}
+	}
+	if ackcompare.HasNilDifference(a.ko.Spec.Parameters, b.ko.Spec.Parameters) {
+		delta.Add("Spec.Parameters", a.ko.Spec.Parameters, b.ko.Spec.Parameters)
+	} else if a.ko.Spec.Parameters != nil && b.ko.Spec.Parameters != nil {
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.AmazonElasticsearchParameters, b.ko.Spec.Parameters.AmazonElasticsearchParameters) {
+			delta.Add("Spec.Parameters.AmazonElasticsearchParameters", a.ko.Spec.Parameters.AmazonElasticsearchParameters, b.ko.Spec.Parameters.AmazonElasticsearchParameters)
+		} else if a.ko.Spec.Parameters.AmazonElasticsearchParameters != nil && b.ko.Spec.Parameters.AmazonElasticsearchParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.AmazonElasticsearchParameters.Domain, b.ko.Spec.Parameters.AmazonElasticsearchParameters.Domain) {
+				delta.Add("Spec.Parameters.AmazonElasticsearchParameters.Domain", a.ko.Spec.Parameters.AmazonElasticsearchParameters.Domain, b.ko.Spec.Parameters.AmazonElasticsearchParameters.Domain)
+			} else if a.ko.Spec.Parameters.AmazonElasticsearchParameters.Domain != nil && b.ko.Spec.Parameters.AmazonElasticsearchParameters.Domain != nil {
+				if *a.ko.Spec.Parameters.AmazonElasticsearchParameters.Domain != *b.ko.Spec.Parameters.AmazonElasticsearchParameters.Domain {
+					delta.Add("Spec.Parameters.AmazonElasticsearchParameters.Domain", a.ko.Spec.Parameters.AmazonElasticsearchParameters.Domain, b.ko.Spec.Parameters.AmazonElasticsearchParameters.Domain)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.AmazonOpenSearchParameters, b.ko.Spec.Parameters.AmazonOpenSearchParameters) {
+			delta.Add("Spec.Parameters.AmazonOpenSearchParameters", a.ko.Spec.Parameters.AmazonOpenSearchParameters, b.ko.Spec.Parameters.AmazonOpenSearchParameters)
+		} else if a.ko.Spec.Parameters.AmazonOpenSearchParameters != nil && b.ko.Spec.Parameters.AmazonOpenSearchParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.AmazonOpenSearchParameters.Domain, b.ko.Spec.Parameters.AmazonOpenSearchParameters.Domain) {
+				delta.Add("Spec.Parameters.AmazonOpenSearchParameters.Domain", a.ko.Spec.Parameters.AmazonOpenSearchParameters.Domain, b.ko.Spec.Parameters.AmazonOpenSearchParameters.Domain)
+			} else if a.ko.Spec.Parameters.AmazonOpenSearchParameters.Domain != nil && b.ko.Spec.Parameters.AmazonOpenSearchParameters.Domain != nil {
+				if *a.ko.Spec.Parameters.AmazonOpenSearchParameters.Domain != *b.ko.Spec.Parameters.AmazonOpenSearchParameters.Domain {
+					delta.Add("Spec.Parameters.AmazonOpenSearchParameters.Domain", a.ko.Spec.Parameters.AmazonOpenSearchParameters.Domain, b.ko.Spec.Parameters.AmazonOpenSearchParameters.Domain)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.AthenaParameters, b.ko.Spec.Parameters.AthenaParameters) {
+			delta.Add("Spec.Parameters.AthenaParameters", a.ko.Spec.Parameters.AthenaParameters, b.ko.Spec.Parameters.AthenaParameters)
+		} else if a.ko.Spec.Parameters.AthenaParameters != nil && b.ko.Spec.Parameters.AthenaParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.AthenaParameters.IdentityCenterConfiguration, b.ko.Spec.Parameters.AthenaParameters.IdentityCenterConfiguration) {
+				delta.Add("Spec.Parameters.AthenaParameters.IdentityCenterConfiguration", a.ko.Spec.Parameters.AthenaParameters.IdentityCenterConfiguration, b.ko.Spec.Parameters.AthenaParameters.IdentityCenterConfiguration)
+			} else if a.ko.Spec.Parameters.AthenaParameters.IdentityCenterConfiguration != nil && b.ko.Spec.Parameters.AthenaParameters.IdentityCenterConfiguration != nil {
+				if ackcompare.HasNilDifference(a.ko.Spec.Parameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation, b.ko.Spec.Parameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation) {
+					delta.Add("Spec.Parameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation", a.ko.Spec.Parameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation, b.ko.Spec.Parameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation)
+				} else if a.ko.Spec.Parameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation != nil && b.ko.Spec.Parameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation != nil {
+					if *a.ko.Spec.Parameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation != *b.ko.Spec.Parameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation {
+						delta.Add("Spec.Parameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation", a.ko.Spec.Parameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation, b.ko.Spec.Parameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation)
+					}
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.AthenaParameters.RoleARN, b.ko.Spec.Parameters.AthenaParameters.RoleARN) {
+				delta.Add("Spec.Parameters.AthenaParameters.RoleARN", a.ko.Spec.Parameters.AthenaParameters.RoleARN, b.ko.Spec.Parameters.AthenaParameters.RoleARN)
+			} else if a.ko.Spec.Parameters.AthenaParameters.RoleARN != nil && b.ko.Spec.Parameters.AthenaParameters.RoleARN != nil {
+				if *a.ko.Spec.Parameters.AthenaParameters.RoleARN != *b.ko.Spec.Parameters.AthenaParameters.RoleARN {
+					delta.Add("Spec.Parameters.AthenaParameters.RoleARN", a.ko.Spec.Parameters.AthenaParameters.RoleARN, b.ko.Spec.Parameters.AthenaParameters.RoleARN)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.AthenaParameters.WorkGroup, b.ko.Spec.Parameters.AthenaParameters.WorkGroup) {
+				delta.Add("Spec.Parameters.AthenaParameters.WorkGroup", a.ko.Spec.Parameters.AthenaParameters.WorkGroup, b.ko.Spec.Parameters.AthenaParameters.WorkGroup)
+			} else if a.ko.Spec.Parameters.AthenaParameters.WorkGroup != nil && b.ko.Spec.Parameters.AthenaParameters.WorkGroup != nil {
+				if *a.ko.Spec.Parameters.AthenaParameters.WorkGroup != *b.ko.Spec.Parameters.AthenaParameters.WorkGroup {
+					delta.Add("Spec.Parameters.AthenaParameters.WorkGroup", a.ko.Spec.Parameters.AthenaParameters.WorkGroup, b.ko.Spec.Parameters.AthenaParameters.WorkGroup)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.AuroraParameters, b.ko.Spec.Parameters.AuroraParameters) {
+			delta.Add("Spec.Parameters.AuroraParameters", a.ko.Spec.Parameters.AuroraParameters, b.ko.Spec.Parameters.AuroraParameters)
+		} else if a.ko.Spec.Parameters.AuroraParameters != nil && b.ko.Spec.Parameters.AuroraParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.AuroraParameters.Database, b.ko.Spec.Parameters.AuroraParameters.Database) {
+				delta.Add("Spec.Parameters.AuroraParameters.Database", a.ko.Spec.Parameters.AuroraParameters.Database, b.ko.Spec.Parameters.AuroraParameters.Database)
+			} else if a.ko.Spec.Parameters.AuroraParameters.Database != nil && b.ko.Spec.Parameters.AuroraParameters.Database != nil {
+				if *a.ko.Spec.Parameters.AuroraParameters.Database != *b.ko.Spec.Parameters.AuroraParameters.Database {
+					delta.Add("Spec.Parameters.AuroraParameters.Database", a.ko.Spec.Parameters.AuroraParameters.Database, b.ko.Spec.Parameters.AuroraParameters.Database)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.AuroraParameters.Host, b.ko.Spec.Parameters.AuroraParameters.Host) {
+				delta.Add("Spec.Parameters.AuroraParameters.Host", a.ko.Spec.Parameters.AuroraParameters.Host, b.ko.Spec.Parameters.AuroraParameters.Host)
+			} else if a.ko.Spec.Parameters.AuroraParameters.Host != nil && b.ko.Spec.Parameters.AuroraParameters.Host != nil {
+				if *a.ko.Spec.Parameters.AuroraParameters.Host != *b.ko.Spec.Parameters.AuroraParameters.Host {
+					delta.Add("Spec.Parameters.AuroraParameters.Host", a.ko.Spec.Parameters.AuroraParameters.Host, b.ko.Spec.Parameters.AuroraParameters.Host)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.AuroraParameters.Port, b.ko.Spec.Parameters.AuroraParameters.Port) {
+				delta.Add("Spec.Parameters.AuroraParameters.Port", a.ko.Spec.Parameters.AuroraParameters.Port, b.ko.Spec.Parameters.AuroraParameters.Port)
+			} else if a.ko.Spec.Parameters.AuroraParameters.Port != nil && b.ko.Spec.Parameters.AuroraParameters.Port != nil {
+				if *a.ko.Spec.Parameters.AuroraParameters.Port != *b.ko.Spec.Parameters.AuroraParameters.Port {
+					delta.Add("Spec.Parameters.AuroraParameters.Port", a.ko.Spec.Parameters.AuroraParameters.Port, b.ko.Spec.Parameters.AuroraParameters.Port)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.AuroraPostgreSQLParameters, b.ko.Spec.Parameters.AuroraPostgreSQLParameters) {
+			delta.Add("Spec.Parameters.AuroraPostgreSQLParameters", a.ko.Spec.Parameters.AuroraPostgreSQLParameters, b.ko.Spec.Parameters.AuroraPostgreSQLParameters)
+		} else if a.ko.Spec.Parameters.AuroraPostgreSQLParameters != nil && b.ko.Spec.Parameters.AuroraPostgreSQLParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.AuroraPostgreSQLParameters.Database, b.ko.Spec.Parameters.AuroraPostgreSQLParameters.Database) {
+				delta.Add("Spec.Parameters.AuroraPostgreSQLParameters.Database", a.ko.Spec.Parameters.AuroraPostgreSQLParameters.Database, b.ko.Spec.Parameters.AuroraPostgreSQLParameters.Database)
+			} else if a.ko.Spec.Parameters.AuroraPostgreSQLParameters.Database != nil && b.ko.Spec.Parameters.AuroraPostgreSQLParameters.Database != nil {
+				if *a.ko.Spec.Parameters.AuroraPostgreSQLParameters.Database != *b.ko.Spec.Parameters.AuroraPostgreSQLParameters.Database {
+					delta.Add("Spec.Parameters.AuroraPostgreSQLParameters.Database", a.ko.Spec.Parameters.AuroraPostgreSQLParameters.Database, b.ko.Spec.Parameters.AuroraPostgreSQLParameters.Database)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.AuroraPostgreSQLParameters.Host, b.ko.Spec.Parameters.AuroraPostgreSQLParameters.Host) {
+				delta.Add("Spec.Parameters.AuroraPostgreSQLParameters.Host", a.ko.Spec.Parameters.AuroraPostgreSQLParameters.Host, b.ko.Spec.Parameters.AuroraPostgreSQLParameters.Host)
+			} else if a.ko.Spec.Parameters.AuroraPostgreSQLParameters.Host != nil && b.ko.Spec.Parameters.AuroraPostgreSQLParameters.Host != nil {
+				if *a.ko.Spec.Parameters.AuroraPostgreSQLParameters.Host != *b.ko.Spec.Parameters.AuroraPostgreSQLParameters.Host {
+					delta.Add("Spec.Parameters.AuroraPostgreSQLParameters.Host", a.ko.Spec.Parameters.AuroraPostgreSQLParameters.Host, b.ko.Spec.Parameters.AuroraPostgreSQLParameters.Host)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.AuroraPostgreSQLParameters.Port, b.ko.Spec.Parameters.AuroraPostgreSQLParameters.Port) {
+				delta.Add("Spec.Parameters.AuroraPostgreSQLParameters.Port", a.ko.Spec.Parameters.AuroraPostgreSQLParameters.Port, b.ko.Spec.Parameters.AuroraPostgreSQLParameters.Port)
+			} else if a.ko.Spec.Parameters.AuroraPostgreSQLParameters.Port != nil && b.ko.Spec.Parameters.AuroraPostgreSQLParameters.Port != nil {
+				if *a.ko.Spec.Parameters.AuroraPostgreSQLParameters.Port != *b.ko.Spec.Parameters.AuroraPostgreSQLParameters.Port {
+					delta.Add("Spec.Parameters.AuroraPostgreSQLParameters.Port", a.ko.Spec.Parameters.AuroraPostgreSQLParameters.Port, b.ko.Spec.Parameters.AuroraPostgreSQLParameters.Port)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.AWSIOtAnalyticsParameters, b.ko.Spec.Parameters.AWSIOtAnalyticsParameters) {
+			delta.Add("Spec.Parameters.AWSIOtAnalyticsParameters", a.ko.Spec.Parameters.AWSIOtAnalyticsParameters, b.ko.Spec.Parameters.AWSIOtAnalyticsParameters)
+		} else if a.ko.Spec.Parameters.AWSIOtAnalyticsParameters != nil && b.ko.Spec.Parameters.AWSIOtAnalyticsParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.AWSIOtAnalyticsParameters.DataSetName, b.ko.Spec.Parameters.AWSIOtAnalyticsParameters.DataSetName) {
+				delta.Add("Spec.Parameters.AWSIOtAnalyticsParameters.DataSetName", a.ko.Spec.Parameters.AWSIOtAnalyticsParameters.DataSetName, b.ko.Spec.Parameters.AWSIOtAnalyticsParameters.DataSetName)
+			} else if a.ko.Spec.Parameters.AWSIOtAnalyticsParameters.DataSetName != nil && b.ko.Spec.Parameters.AWSIOtAnalyticsParameters.DataSetName != nil {
+				if *a.ko.Spec.Parameters.AWSIOtAnalyticsParameters.DataSetName != *b.ko.Spec.Parameters.AWSIOtAnalyticsParameters.DataSetName {
+					delta.Add("Spec.Parameters.AWSIOtAnalyticsParameters.DataSetName", a.ko.Spec.Parameters.AWSIOtAnalyticsParameters.DataSetName, b.ko.Spec.Parameters.AWSIOtAnalyticsParameters.DataSetName)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.BigQueryParameters, b.ko.Spec.Parameters.BigQueryParameters) {
+			delta.Add("Spec.Parameters.BigQueryParameters", a.ko.Spec.Parameters.BigQueryParameters, b.ko.Spec.Parameters.BigQueryParameters)
+		} else if a.ko.Spec.Parameters.BigQueryParameters != nil && b.ko.Spec.Parameters.BigQueryParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.BigQueryParameters.DataSetRegion, b.ko.Spec.Parameters.BigQueryParameters.DataSetRegion) {
+				delta.Add("Spec.Parameters.BigQueryParameters.DataSetRegion", a.ko.Spec.Parameters.BigQueryParameters.DataSetRegion, b.ko.Spec.Parameters.BigQueryParameters.DataSetRegion)
+			} else if a.ko.Spec.Parameters.BigQueryParameters.DataSetRegion != nil && b.ko.Spec.Parameters.BigQueryParameters.DataSetRegion != nil {
+				if *a.ko.Spec.Parameters.BigQueryParameters.DataSetRegion != *b.ko.Spec.Parameters.BigQueryParameters.DataSetRegion {
+					delta.Add("Spec.Parameters.BigQueryParameters.DataSetRegion", a.ko.Spec.Parameters.BigQueryParameters.DataSetRegion, b.ko.Spec.Parameters.BigQueryParameters.DataSetRegion)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.BigQueryParameters.ProjectID, b.ko.Spec.Parameters.BigQueryParameters.ProjectID) {
+				delta.Add("Spec.Parameters.BigQueryParameters.ProjectID", a.ko.Spec.Parameters.BigQueryParameters.ProjectID, b.ko.Spec.Parameters.BigQueryParameters.ProjectID)
+			} else if a.ko.Spec.Parameters.BigQueryParameters.ProjectID != nil && b.ko.Spec.Parameters.BigQueryParameters.ProjectID != nil {
+				if *a.ko.Spec.Parameters.BigQueryParameters.ProjectID != *b.ko.Spec.Parameters.BigQueryParameters.ProjectID {
+					delta.Add("Spec.Parameters.BigQueryParameters.ProjectID", a.ko.Spec.Parameters.BigQueryParameters.ProjectID, b.ko.Spec.Parameters.BigQueryParameters.ProjectID)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.ConfluenceParameters, b.ko.Spec.Parameters.ConfluenceParameters) {
+			delta.Add("Spec.Parameters.ConfluenceParameters", a.ko.Spec.Parameters.ConfluenceParameters, b.ko.Spec.Parameters.ConfluenceParameters)
+		} else if a.ko.Spec.Parameters.ConfluenceParameters != nil && b.ko.Spec.Parameters.ConfluenceParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.ConfluenceParameters.ConfluenceURL, b.ko.Spec.Parameters.ConfluenceParameters.ConfluenceURL) {
+				delta.Add("Spec.Parameters.ConfluenceParameters.ConfluenceURL", a.ko.Spec.Parameters.ConfluenceParameters.ConfluenceURL, b.ko.Spec.Parameters.ConfluenceParameters.ConfluenceURL)
+			} else if a.ko.Spec.Parameters.ConfluenceParameters.ConfluenceURL != nil && b.ko.Spec.Parameters.ConfluenceParameters.ConfluenceURL != nil {
+				if *a.ko.Spec.Parameters.ConfluenceParameters.ConfluenceURL != *b.ko.Spec.Parameters.ConfluenceParameters.ConfluenceURL {
+					delta.Add("Spec.Parameters.ConfluenceParameters.ConfluenceURL", a.ko.Spec.Parameters.ConfluenceParameters.ConfluenceURL, b.ko.Spec.Parameters.ConfluenceParameters.ConfluenceURL)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.CustomConnectionParameters, b.ko.Spec.Parameters.CustomConnectionParameters) {
+			delta.Add("Spec.Parameters.CustomConnectionParameters", a.ko.Spec.Parameters.CustomConnectionParameters, b.ko.Spec.Parameters.CustomConnectionParameters)
+		} else if a.ko.Spec.Parameters.CustomConnectionParameters != nil && b.ko.Spec.Parameters.CustomConnectionParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.CustomConnectionParameters.ConnectionType, b.ko.Spec.Parameters.CustomConnectionParameters.ConnectionType) {
+				delta.Add("Spec.Parameters.CustomConnectionParameters.ConnectionType", a.ko.Spec.Parameters.CustomConnectionParameters.ConnectionType, b.ko.Spec.Parameters.CustomConnectionParameters.ConnectionType)
+			} else if a.ko.Spec.Parameters.CustomConnectionParameters.ConnectionType != nil && b.ko.Spec.Parameters.CustomConnectionParameters.ConnectionType != nil {
+				if *a.ko.Spec.Parameters.CustomConnectionParameters.ConnectionType != *b.ko.Spec.Parameters.CustomConnectionParameters.ConnectionType {
+					delta.Add("Spec.Parameters.CustomConnectionParameters.ConnectionType", a.ko.Spec.Parameters.CustomConnectionParameters.ConnectionType, b.ko.Spec.Parameters.CustomConnectionParameters.ConnectionType)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.DatabricksParameters, b.ko.Spec.Parameters.DatabricksParameters) {
+			delta.Add("Spec.Parameters.DatabricksParameters", a.ko.Spec.Parameters.DatabricksParameters, b.ko.Spec.Parameters.DatabricksParameters)
+		} else if a.ko.Spec.Parameters.DatabricksParameters != nil && b.ko.Spec.Parameters.DatabricksParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.DatabricksParameters.Host, b.ko.Spec.Parameters.DatabricksParameters.Host) {
+				delta.Add("Spec.Parameters.DatabricksParameters.Host", a.ko.Spec.Parameters.DatabricksParameters.Host, b.ko.Spec.Parameters.DatabricksParameters.Host)
+			} else if a.ko.Spec.Parameters.DatabricksParameters.Host != nil && b.ko.Spec.Parameters.DatabricksParameters.Host != nil {
+				if *a.ko.Spec.Parameters.DatabricksParameters.Host != *b.ko.Spec.Parameters.DatabricksParameters.Host {
+					delta.Add("Spec.Parameters.DatabricksParameters.Host", a.ko.Spec.Parameters.DatabricksParameters.Host, b.ko.Spec.Parameters.DatabricksParameters.Host)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.DatabricksParameters.Port, b.ko.Spec.Parameters.DatabricksParameters.Port) {
+				delta.Add("Spec.Parameters.DatabricksParameters.Port", a.ko.Spec.Parameters.DatabricksParameters.Port, b.ko.Spec.Parameters.DatabricksParameters.Port)
+			} else if a.ko.Spec.Parameters.DatabricksParameters.Port != nil && b.ko.Spec.Parameters.DatabricksParameters.Port != nil {
+				if *a.ko.Spec.Parameters.DatabricksParameters.Port != *b.ko.Spec.Parameters.DatabricksParameters.Port {
+					delta.Add("Spec.Parameters.DatabricksParameters.Port", a.ko.Spec.Parameters.DatabricksParameters.Port, b.ko.Spec.Parameters.DatabricksParameters.Port)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.DatabricksParameters.SQLEndpointPath, b.ko.Spec.Parameters.DatabricksParameters.SQLEndpointPath) {
+				delta.Add("Spec.Parameters.DatabricksParameters.SQLEndpointPath", a.ko.Spec.Parameters.DatabricksParameters.SQLEndpointPath, b.ko.Spec.Parameters.DatabricksParameters.SQLEndpointPath)
+			} else if a.ko.Spec.Parameters.DatabricksParameters.SQLEndpointPath != nil && b.ko.Spec.Parameters.DatabricksParameters.SQLEndpointPath != nil {
+				if *a.ko.Spec.Parameters.DatabricksParameters.SQLEndpointPath != *b.ko.Spec.Parameters.DatabricksParameters.SQLEndpointPath {
+					delta.Add("Spec.Parameters.DatabricksParameters.SQLEndpointPath", a.ko.Spec.Parameters.DatabricksParameters.SQLEndpointPath, b.ko.Spec.Parameters.DatabricksParameters.SQLEndpointPath)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.ExasolParameters, b.ko.Spec.Parameters.ExasolParameters) {
+			delta.Add("Spec.Parameters.ExasolParameters", a.ko.Spec.Parameters.ExasolParameters, b.ko.Spec.Parameters.ExasolParameters)
+		} else if a.ko.Spec.Parameters.ExasolParameters != nil && b.ko.Spec.Parameters.ExasolParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.ExasolParameters.Host, b.ko.Spec.Parameters.ExasolParameters.Host) {
+				delta.Add("Spec.Parameters.ExasolParameters.Host", a.ko.Spec.Parameters.ExasolParameters.Host, b.ko.Spec.Parameters.ExasolParameters.Host)
+			} else if a.ko.Spec.Parameters.ExasolParameters.Host != nil && b.ko.Spec.Parameters.ExasolParameters.Host != nil {
+				if *a.ko.Spec.Parameters.ExasolParameters.Host != *b.ko.Spec.Parameters.ExasolParameters.Host {
+					delta.Add("Spec.Parameters.ExasolParameters.Host", a.ko.Spec.Parameters.ExasolParameters.Host, b.ko.Spec.Parameters.ExasolParameters.Host)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.ExasolParameters.Port, b.ko.Spec.Parameters.ExasolParameters.Port) {
+				delta.Add("Spec.Parameters.ExasolParameters.Port", a.ko.Spec.Parameters.ExasolParameters.Port, b.ko.Spec.Parameters.ExasolParameters.Port)
+			} else if a.ko.Spec.Parameters.ExasolParameters.Port != nil && b.ko.Spec.Parameters.ExasolParameters.Port != nil {
+				if *a.ko.Spec.Parameters.ExasolParameters.Port != *b.ko.Spec.Parameters.ExasolParameters.Port {
+					delta.Add("Spec.Parameters.ExasolParameters.Port", a.ko.Spec.Parameters.ExasolParameters.Port, b.ko.Spec.Parameters.ExasolParameters.Port)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.ImpalaParameters, b.ko.Spec.Parameters.ImpalaParameters) {
+			delta.Add("Spec.Parameters.ImpalaParameters", a.ko.Spec.Parameters.ImpalaParameters, b.ko.Spec.Parameters.ImpalaParameters)
+		} else if a.ko.Spec.Parameters.ImpalaParameters != nil && b.ko.Spec.Parameters.ImpalaParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.ImpalaParameters.Database, b.ko.Spec.Parameters.ImpalaParameters.Database) {
+				delta.Add("Spec.Parameters.ImpalaParameters.Database", a.ko.Spec.Parameters.ImpalaParameters.Database, b.ko.Spec.Parameters.ImpalaParameters.Database)
+			} else if a.ko.Spec.Parameters.ImpalaParameters.Database != nil && b.ko.Spec.Parameters.ImpalaParameters.Database != nil {
+				if *a.ko.Spec.Parameters.ImpalaParameters.Database != *b.ko.Spec.Parameters.ImpalaParameters.Database {
+					delta.Add("Spec.Parameters.ImpalaParameters.Database", a.ko.Spec.Parameters.ImpalaParameters.Database, b.ko.Spec.Parameters.ImpalaParameters.Database)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.ImpalaParameters.Host, b.ko.Spec.Parameters.ImpalaParameters.Host) {
+				delta.Add("Spec.Parameters.ImpalaParameters.Host", a.ko.Spec.Parameters.ImpalaParameters.Host, b.ko.Spec.Parameters.ImpalaParameters.Host)
+			} else if a.ko.Spec.Parameters.ImpalaParameters.Host != nil && b.ko.Spec.Parameters.ImpalaParameters.Host != nil {
+				if *a.ko.Spec.Parameters.ImpalaParameters.Host != *b.ko.Spec.Parameters.ImpalaParameters.Host {
+					delta.Add("Spec.Parameters.ImpalaParameters.Host", a.ko.Spec.Parameters.ImpalaParameters.Host, b.ko.Spec.Parameters.ImpalaParameters.Host)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.ImpalaParameters.Port, b.ko.Spec.Parameters.ImpalaParameters.Port) {
+				delta.Add("Spec.Parameters.ImpalaParameters.Port", a.ko.Spec.Parameters.ImpalaParameters.Port, b.ko.Spec.Parameters.ImpalaParameters.Port)
+			} else if a.ko.Spec.Parameters.ImpalaParameters.Port != nil && b.ko.Spec.Parameters.ImpalaParameters.Port != nil {
+				if *a.ko.Spec.Parameters.ImpalaParameters.Port != *b.ko.Spec.Parameters.ImpalaParameters.Port {
+					delta.Add("Spec.Parameters.ImpalaParameters.Port", a.ko.Spec.Parameters.ImpalaParameters.Port, b.ko.Spec.Parameters.ImpalaParameters.Port)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.ImpalaParameters.SQLEndpointPath, b.ko.Spec.Parameters.ImpalaParameters.SQLEndpointPath) {
+				delta.Add("Spec.Parameters.ImpalaParameters.SQLEndpointPath", a.ko.Spec.Parameters.ImpalaParameters.SQLEndpointPath, b.ko.Spec.Parameters.ImpalaParameters.SQLEndpointPath)
+			} else if a.ko.Spec.Parameters.ImpalaParameters.SQLEndpointPath != nil && b.ko.Spec.Parameters.ImpalaParameters.SQLEndpointPath != nil {
+				if *a.ko.Spec.Parameters.ImpalaParameters.SQLEndpointPath != *b.ko.Spec.Parameters.ImpalaParameters.SQLEndpointPath {
+					delta.Add("Spec.Parameters.ImpalaParameters.SQLEndpointPath", a.ko.Spec.Parameters.ImpalaParameters.SQLEndpointPath, b.ko.Spec.Parameters.ImpalaParameters.SQLEndpointPath)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.JiraParameters, b.ko.Spec.Parameters.JiraParameters) {
+			delta.Add("Spec.Parameters.JiraParameters", a.ko.Spec.Parameters.JiraParameters, b.ko.Spec.Parameters.JiraParameters)
+		} else if a.ko.Spec.Parameters.JiraParameters != nil && b.ko.Spec.Parameters.JiraParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.JiraParameters.SiteBaseURL, b.ko.Spec.Parameters.JiraParameters.SiteBaseURL) {
+				delta.Add("Spec.Parameters.JiraParameters.SiteBaseURL", a.ko.Spec.Parameters.JiraParameters.SiteBaseURL, b.ko.Spec.Parameters.JiraParameters.SiteBaseURL)
+			} else if a.ko.Spec.Parameters.JiraParameters.SiteBaseURL != nil && b.ko.Spec.Parameters.JiraParameters.SiteBaseURL != nil {
+				if *a.ko.Spec.Parameters.JiraParameters.SiteBaseURL != *b.ko.Spec.Parameters.JiraParameters.SiteBaseURL {
+					delta.Add("Spec.Parameters.JiraParameters.SiteBaseURL", a.ko.Spec.Parameters.JiraParameters.SiteBaseURL, b.ko.Spec.Parameters.JiraParameters.SiteBaseURL)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.MariaDBParameters, b.ko.Spec.Parameters.MariaDBParameters) {
+			delta.Add("Spec.Parameters.MariaDBParameters", a.ko.Spec.Parameters.MariaDBParameters, b.ko.Spec.Parameters.MariaDBParameters)
+		} else if a.ko.Spec.Parameters.MariaDBParameters != nil && b.ko.Spec.Parameters.MariaDBParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.MariaDBParameters.Database, b.ko.Spec.Parameters.MariaDBParameters.Database) {
+				delta.Add("Spec.Parameters.MariaDBParameters.Database", a.ko.Spec.Parameters.MariaDBParameters.Database, b.ko.Spec.Parameters.MariaDBParameters.Database)
+			} else if a.ko.Spec.Parameters.MariaDBParameters.Database != nil && b.ko.Spec.Parameters.MariaDBParameters.Database != nil {
+				if *a.ko.Spec.Parameters.MariaDBParameters.Database != *b.ko.Spec.Parameters.MariaDBParameters.Database {
+					delta.Add("Spec.Parameters.MariaDBParameters.Database", a.ko.Spec.Parameters.MariaDBParameters.Database, b.ko.Spec.Parameters.MariaDBParameters.Database)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.MariaDBParameters.Host, b.ko.Spec.Parameters.MariaDBParameters.Host) {
+				delta.Add("Spec.Parameters.MariaDBParameters.Host", a.ko.Spec.Parameters.MariaDBParameters.Host, b.ko.Spec.Parameters.MariaDBParameters.Host)
+			} else if a.ko.Spec.Parameters.MariaDBParameters.Host != nil && b.ko.Spec.Parameters.MariaDBParameters.Host != nil {
+				if *a.ko.Spec.Parameters.MariaDBParameters.Host != *b.ko.Spec.Parameters.MariaDBParameters.Host {
+					delta.Add("Spec.Parameters.MariaDBParameters.Host", a.ko.Spec.Parameters.MariaDBParameters.Host, b.ko.Spec.Parameters.MariaDBParameters.Host)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.MariaDBParameters.Port, b.ko.Spec.Parameters.MariaDBParameters.Port) {
+				delta.Add("Spec.Parameters.MariaDBParameters.Port", a.ko.Spec.Parameters.MariaDBParameters.Port, b.ko.Spec.Parameters.MariaDBParameters.Port)
+			} else if a.ko.Spec.Parameters.MariaDBParameters.Port != nil && b.ko.Spec.Parameters.MariaDBParameters.Port != nil {
+				if *a.ko.Spec.Parameters.MariaDBParameters.Port != *b.ko.Spec.Parameters.MariaDBParameters.Port {
+					delta.Add("Spec.Parameters.MariaDBParameters.Port", a.ko.Spec.Parameters.MariaDBParameters.Port, b.ko.Spec.Parameters.MariaDBParameters.Port)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.MySQLParameters, b.ko.Spec.Parameters.MySQLParameters) {
+			delta.Add("Spec.Parameters.MySQLParameters", a.ko.Spec.Parameters.MySQLParameters, b.ko.Spec.Parameters.MySQLParameters)
+		} else if a.ko.Spec.Parameters.MySQLParameters != nil && b.ko.Spec.Parameters.MySQLParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.MySQLParameters.Database, b.ko.Spec.Parameters.MySQLParameters.Database) {
+				delta.Add("Spec.Parameters.MySQLParameters.Database", a.ko.Spec.Parameters.MySQLParameters.Database, b.ko.Spec.Parameters.MySQLParameters.Database)
+			} else if a.ko.Spec.Parameters.MySQLParameters.Database != nil && b.ko.Spec.Parameters.MySQLParameters.Database != nil {
+				if *a.ko.Spec.Parameters.MySQLParameters.Database != *b.ko.Spec.Parameters.MySQLParameters.Database {
+					delta.Add("Spec.Parameters.MySQLParameters.Database", a.ko.Spec.Parameters.MySQLParameters.Database, b.ko.Spec.Parameters.MySQLParameters.Database)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.MySQLParameters.Host, b.ko.Spec.Parameters.MySQLParameters.Host) {
+				delta.Add("Spec.Parameters.MySQLParameters.Host", a.ko.Spec.Parameters.MySQLParameters.Host, b.ko.Spec.Parameters.MySQLParameters.Host)
+			} else if a.ko.Spec.Parameters.MySQLParameters.Host != nil && b.ko.Spec.Parameters.MySQLParameters.Host != nil {
+				if *a.ko.Spec.Parameters.MySQLParameters.Host != *b.ko.Spec.Parameters.MySQLParameters.Host {
+					delta.Add("Spec.Parameters.MySQLParameters.Host", a.ko.Spec.Parameters.MySQLParameters.Host, b.ko.Spec.Parameters.MySQLParameters.Host)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.MySQLParameters.Port, b.ko.Spec.Parameters.MySQLParameters.Port) {
+				delta.Add("Spec.Parameters.MySQLParameters.Port", a.ko.Spec.Parameters.MySQLParameters.Port, b.ko.Spec.Parameters.MySQLParameters.Port)
+			} else if a.ko.Spec.Parameters.MySQLParameters.Port != nil && b.ko.Spec.Parameters.MySQLParameters.Port != nil {
+				if *a.ko.Spec.Parameters.MySQLParameters.Port != *b.ko.Spec.Parameters.MySQLParameters.Port {
+					delta.Add("Spec.Parameters.MySQLParameters.Port", a.ko.Spec.Parameters.MySQLParameters.Port, b.ko.Spec.Parameters.MySQLParameters.Port)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.OracleParameters, b.ko.Spec.Parameters.OracleParameters) {
+			delta.Add("Spec.Parameters.OracleParameters", a.ko.Spec.Parameters.OracleParameters, b.ko.Spec.Parameters.OracleParameters)
+		} else if a.ko.Spec.Parameters.OracleParameters != nil && b.ko.Spec.Parameters.OracleParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.OracleParameters.Database, b.ko.Spec.Parameters.OracleParameters.Database) {
+				delta.Add("Spec.Parameters.OracleParameters.Database", a.ko.Spec.Parameters.OracleParameters.Database, b.ko.Spec.Parameters.OracleParameters.Database)
+			} else if a.ko.Spec.Parameters.OracleParameters.Database != nil && b.ko.Spec.Parameters.OracleParameters.Database != nil {
+				if *a.ko.Spec.Parameters.OracleParameters.Database != *b.ko.Spec.Parameters.OracleParameters.Database {
+					delta.Add("Spec.Parameters.OracleParameters.Database", a.ko.Spec.Parameters.OracleParameters.Database, b.ko.Spec.Parameters.OracleParameters.Database)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.OracleParameters.Host, b.ko.Spec.Parameters.OracleParameters.Host) {
+				delta.Add("Spec.Parameters.OracleParameters.Host", a.ko.Spec.Parameters.OracleParameters.Host, b.ko.Spec.Parameters.OracleParameters.Host)
+			} else if a.ko.Spec.Parameters.OracleParameters.Host != nil && b.ko.Spec.Parameters.OracleParameters.Host != nil {
+				if *a.ko.Spec.Parameters.OracleParameters.Host != *b.ko.Spec.Parameters.OracleParameters.Host {
+					delta.Add("Spec.Parameters.OracleParameters.Host", a.ko.Spec.Parameters.OracleParameters.Host, b.ko.Spec.Parameters.OracleParameters.Host)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.OracleParameters.Port, b.ko.Spec.Parameters.OracleParameters.Port) {
+				delta.Add("Spec.Parameters.OracleParameters.Port", a.ko.Spec.Parameters.OracleParameters.Port, b.ko.Spec.Parameters.OracleParameters.Port)
+			} else if a.ko.Spec.Parameters.OracleParameters.Port != nil && b.ko.Spec.Parameters.OracleParameters.Port != nil {
+				if *a.ko.Spec.Parameters.OracleParameters.Port != *b.ko.Spec.Parameters.OracleParameters.Port {
+					delta.Add("Spec.Parameters.OracleParameters.Port", a.ko.Spec.Parameters.OracleParameters.Port, b.ko.Spec.Parameters.OracleParameters.Port)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.OracleParameters.UseServiceName, b.ko.Spec.Parameters.OracleParameters.UseServiceName) {
+				delta.Add("Spec.Parameters.OracleParameters.UseServiceName", a.ko.Spec.Parameters.OracleParameters.UseServiceName, b.ko.Spec.Parameters.OracleParameters.UseServiceName)
+			} else if a.ko.Spec.Parameters.OracleParameters.UseServiceName != nil && b.ko.Spec.Parameters.OracleParameters.UseServiceName != nil {
+				if *a.ko.Spec.Parameters.OracleParameters.UseServiceName != *b.ko.Spec.Parameters.OracleParameters.UseServiceName {
+					delta.Add("Spec.Parameters.OracleParameters.UseServiceName", a.ko.Spec.Parameters.OracleParameters.UseServiceName, b.ko.Spec.Parameters.OracleParameters.UseServiceName)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.PostgreSQLParameters, b.ko.Spec.Parameters.PostgreSQLParameters) {
+			delta.Add("Spec.Parameters.PostgreSQLParameters", a.ko.Spec.Parameters.PostgreSQLParameters, b.ko.Spec.Parameters.PostgreSQLParameters)
+		} else if a.ko.Spec.Parameters.PostgreSQLParameters != nil && b.ko.Spec.Parameters.PostgreSQLParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.PostgreSQLParameters.Database, b.ko.Spec.Parameters.PostgreSQLParameters.Database) {
+				delta.Add("Spec.Parameters.PostgreSQLParameters.Database", a.ko.Spec.Parameters.PostgreSQLParameters.Database, b.ko.Spec.Parameters.PostgreSQLParameters.Database)
+			} else if a.ko.Spec.Parameters.PostgreSQLParameters.Database != nil && b.ko.Spec.Parameters.PostgreSQLParameters.Database != nil {
+				if *a.ko.Spec.Parameters.PostgreSQLParameters.Database != *b.ko.Spec.Parameters.PostgreSQLParameters.Database {
+					delta.Add("Spec.Parameters.PostgreSQLParameters.Database", a.ko.Spec.Parameters.PostgreSQLParameters.Database, b.ko.Spec.Parameters.PostgreSQLParameters.Database)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.PostgreSQLParameters.Host, b.ko.Spec.Parameters.PostgreSQLParameters.Host) {
+				delta.Add("Spec.Parameters.PostgreSQLParameters.Host", a.ko.Spec.Parameters.PostgreSQLParameters.Host, b.ko.Spec.Parameters.PostgreSQLParameters.Host)
+			} else if a.ko.Spec.Parameters.PostgreSQLParameters.Host != nil && b.ko.Spec.Parameters.PostgreSQLParameters.Host != nil {
+				if *a.ko.Spec.Parameters.PostgreSQLParameters.Host != *b.ko.Spec.Parameters.PostgreSQLParameters.Host {
+					delta.Add("Spec.Parameters.PostgreSQLParameters.Host", a.ko.Spec.Parameters.PostgreSQLParameters.Host, b.ko.Spec.Parameters.PostgreSQLParameters.Host)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.PostgreSQLParameters.Port, b.ko.Spec.Parameters.PostgreSQLParameters.Port) {
+				delta.Add("Spec.Parameters.PostgreSQLParameters.Port", a.ko.Spec.Parameters.PostgreSQLParameters.Port, b.ko.Spec.Parameters.PostgreSQLParameters.Port)
+			} else if a.ko.Spec.Parameters.PostgreSQLParameters.Port != nil && b.ko.Spec.Parameters.PostgreSQLParameters.Port != nil {
+				if *a.ko.Spec.Parameters.PostgreSQLParameters.Port != *b.ko.Spec.Parameters.PostgreSQLParameters.Port {
+					delta.Add("Spec.Parameters.PostgreSQLParameters.Port", a.ko.Spec.Parameters.PostgreSQLParameters.Port, b.ko.Spec.Parameters.PostgreSQLParameters.Port)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.PrestoParameters, b.ko.Spec.Parameters.PrestoParameters) {
+			delta.Add("Spec.Parameters.PrestoParameters", a.ko.Spec.Parameters.PrestoParameters, b.ko.Spec.Parameters.PrestoParameters)
+		} else if a.ko.Spec.Parameters.PrestoParameters != nil && b.ko.Spec.Parameters.PrestoParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.PrestoParameters.Catalog, b.ko.Spec.Parameters.PrestoParameters.Catalog) {
+				delta.Add("Spec.Parameters.PrestoParameters.Catalog", a.ko.Spec.Parameters.PrestoParameters.Catalog, b.ko.Spec.Parameters.PrestoParameters.Catalog)
+			} else if a.ko.Spec.Parameters.PrestoParameters.Catalog != nil && b.ko.Spec.Parameters.PrestoParameters.Catalog != nil {
+				if *a.ko.Spec.Parameters.PrestoParameters.Catalog != *b.ko.Spec.Parameters.PrestoParameters.Catalog {
+					delta.Add("Spec.Parameters.PrestoParameters.Catalog", a.ko.Spec.Parameters.PrestoParameters.Catalog, b.ko.Spec.Parameters.PrestoParameters.Catalog)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.PrestoParameters.Host, b.ko.Spec.Parameters.PrestoParameters.Host) {
+				delta.Add("Spec.Parameters.PrestoParameters.Host", a.ko.Spec.Parameters.PrestoParameters.Host, b.ko.Spec.Parameters.PrestoParameters.Host)
+			} else if a.ko.Spec.Parameters.PrestoParameters.Host != nil && b.ko.Spec.Parameters.PrestoParameters.Host != nil {
+				if *a.ko.Spec.Parameters.PrestoParameters.Host != *b.ko.Spec.Parameters.PrestoParameters.Host {
+					delta.Add("Spec.Parameters.PrestoParameters.Host", a.ko.Spec.Parameters.PrestoParameters.Host, b.ko.Spec.Parameters.PrestoParameters.Host)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.PrestoParameters.Port, b.ko.Spec.Parameters.PrestoParameters.Port) {
+				delta.Add("Spec.Parameters.PrestoParameters.Port", a.ko.Spec.Parameters.PrestoParameters.Port, b.ko.Spec.Parameters.PrestoParameters.Port)
+			} else if a.ko.Spec.Parameters.PrestoParameters.Port != nil && b.ko.Spec.Parameters.PrestoParameters.Port != nil {
+				if *a.ko.Spec.Parameters.PrestoParameters.Port != *b.ko.Spec.Parameters.PrestoParameters.Port {
+					delta.Add("Spec.Parameters.PrestoParameters.Port", a.ko.Spec.Parameters.PrestoParameters.Port, b.ko.Spec.Parameters.PrestoParameters.Port)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.QBusinessParameters, b.ko.Spec.Parameters.QBusinessParameters) {
+			delta.Add("Spec.Parameters.QBusinessParameters", a.ko.Spec.Parameters.QBusinessParameters, b.ko.Spec.Parameters.QBusinessParameters)
+		} else if a.ko.Spec.Parameters.QBusinessParameters != nil && b.ko.Spec.Parameters.QBusinessParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.QBusinessParameters.ApplicationARN, b.ko.Spec.Parameters.QBusinessParameters.ApplicationARN) {
+				delta.Add("Spec.Parameters.QBusinessParameters.ApplicationARN", a.ko.Spec.Parameters.QBusinessParameters.ApplicationARN, b.ko.Spec.Parameters.QBusinessParameters.ApplicationARN)
+			} else if a.ko.Spec.Parameters.QBusinessParameters.ApplicationARN != nil && b.ko.Spec.Parameters.QBusinessParameters.ApplicationARN != nil {
+				if *a.ko.Spec.Parameters.QBusinessParameters.ApplicationARN != *b.ko.Spec.Parameters.QBusinessParameters.ApplicationARN {
+					delta.Add("Spec.Parameters.QBusinessParameters.ApplicationARN", a.ko.Spec.Parameters.QBusinessParameters.ApplicationARN, b.ko.Spec.Parameters.QBusinessParameters.ApplicationARN)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.RdsParameters, b.ko.Spec.Parameters.RdsParameters) {
+			delta.Add("Spec.Parameters.RdsParameters", a.ko.Spec.Parameters.RdsParameters, b.ko.Spec.Parameters.RdsParameters)
+		} else if a.ko.Spec.Parameters.RdsParameters != nil && b.ko.Spec.Parameters.RdsParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.RdsParameters.Database, b.ko.Spec.Parameters.RdsParameters.Database) {
+				delta.Add("Spec.Parameters.RdsParameters.Database", a.ko.Spec.Parameters.RdsParameters.Database, b.ko.Spec.Parameters.RdsParameters.Database)
+			} else if a.ko.Spec.Parameters.RdsParameters.Database != nil && b.ko.Spec.Parameters.RdsParameters.Database != nil {
+				if *a.ko.Spec.Parameters.RdsParameters.Database != *b.ko.Spec.Parameters.RdsParameters.Database {
+					delta.Add("Spec.Parameters.RdsParameters.Database", a.ko.Spec.Parameters.RdsParameters.Database, b.ko.Spec.Parameters.RdsParameters.Database)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.RdsParameters.InstanceID, b.ko.Spec.Parameters.RdsParameters.InstanceID) {
+				delta.Add("Spec.Parameters.RdsParameters.InstanceID", a.ko.Spec.Parameters.RdsParameters.InstanceID, b.ko.Spec.Parameters.RdsParameters.InstanceID)
+			} else if a.ko.Spec.Parameters.RdsParameters.InstanceID != nil && b.ko.Spec.Parameters.RdsParameters.InstanceID != nil {
+				if *a.ko.Spec.Parameters.RdsParameters.InstanceID != *b.ko.Spec.Parameters.RdsParameters.InstanceID {
+					delta.Add("Spec.Parameters.RdsParameters.InstanceID", a.ko.Spec.Parameters.RdsParameters.InstanceID, b.ko.Spec.Parameters.RdsParameters.InstanceID)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.RedshiftParameters, b.ko.Spec.Parameters.RedshiftParameters) {
+			delta.Add("Spec.Parameters.RedshiftParameters", a.ko.Spec.Parameters.RedshiftParameters, b.ko.Spec.Parameters.RedshiftParameters)
+		} else if a.ko.Spec.Parameters.RedshiftParameters != nil && b.ko.Spec.Parameters.RedshiftParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.RedshiftParameters.ClusterID, b.ko.Spec.Parameters.RedshiftParameters.ClusterID) {
+				delta.Add("Spec.Parameters.RedshiftParameters.ClusterID", a.ko.Spec.Parameters.RedshiftParameters.ClusterID, b.ko.Spec.Parameters.RedshiftParameters.ClusterID)
+			} else if a.ko.Spec.Parameters.RedshiftParameters.ClusterID != nil && b.ko.Spec.Parameters.RedshiftParameters.ClusterID != nil {
+				if *a.ko.Spec.Parameters.RedshiftParameters.ClusterID != *b.ko.Spec.Parameters.RedshiftParameters.ClusterID {
+					delta.Add("Spec.Parameters.RedshiftParameters.ClusterID", a.ko.Spec.Parameters.RedshiftParameters.ClusterID, b.ko.Spec.Parameters.RedshiftParameters.ClusterID)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.RedshiftParameters.Database, b.ko.Spec.Parameters.RedshiftParameters.Database) {
+				delta.Add("Spec.Parameters.RedshiftParameters.Database", a.ko.Spec.Parameters.RedshiftParameters.Database, b.ko.Spec.Parameters.RedshiftParameters.Database)
+			} else if a.ko.Spec.Parameters.RedshiftParameters.Database != nil && b.ko.Spec.Parameters.RedshiftParameters.Database != nil {
+				if *a.ko.Spec.Parameters.RedshiftParameters.Database != *b.ko.Spec.Parameters.RedshiftParameters.Database {
+					delta.Add("Spec.Parameters.RedshiftParameters.Database", a.ko.Spec.Parameters.RedshiftParameters.Database, b.ko.Spec.Parameters.RedshiftParameters.Database)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.RedshiftParameters.Host, b.ko.Spec.Parameters.RedshiftParameters.Host) {
+				delta.Add("Spec.Parameters.RedshiftParameters.Host", a.ko.Spec.Parameters.RedshiftParameters.Host, b.ko.Spec.Parameters.RedshiftParameters.Host)
+			} else if a.ko.Spec.Parameters.RedshiftParameters.Host != nil && b.ko.Spec.Parameters.RedshiftParameters.Host != nil {
+				if *a.ko.Spec.Parameters.RedshiftParameters.Host != *b.ko.Spec.Parameters.RedshiftParameters.Host {
+					delta.Add("Spec.Parameters.RedshiftParameters.Host", a.ko.Spec.Parameters.RedshiftParameters.Host, b.ko.Spec.Parameters.RedshiftParameters.Host)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.RedshiftParameters.IAMParameters, b.ko.Spec.Parameters.RedshiftParameters.IAMParameters) {
+				delta.Add("Spec.Parameters.RedshiftParameters.IAMParameters", a.ko.Spec.Parameters.RedshiftParameters.IAMParameters, b.ko.Spec.Parameters.RedshiftParameters.IAMParameters)
+			} else if a.ko.Spec.Parameters.RedshiftParameters.IAMParameters != nil && b.ko.Spec.Parameters.RedshiftParameters.IAMParameters != nil {
+				if ackcompare.HasNilDifference(a.ko.Spec.Parameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser, b.ko.Spec.Parameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser) {
+					delta.Add("Spec.Parameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser", a.ko.Spec.Parameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser, b.ko.Spec.Parameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser)
+				} else if a.ko.Spec.Parameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser != nil && b.ko.Spec.Parameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser != nil {
+					if *a.ko.Spec.Parameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser != *b.ko.Spec.Parameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser {
+						delta.Add("Spec.Parameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser", a.ko.Spec.Parameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser, b.ko.Spec.Parameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser)
+					}
+				}
+				if len(a.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseGroups) != len(b.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseGroups) {
+					delta.Add("Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseGroups", a.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseGroups, b.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseGroups)
+				} else if len(a.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseGroups) > 0 {
+					if !ackcompare.SliceStringPEqual(a.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseGroups, b.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseGroups) {
+						delta.Add("Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseGroups", a.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseGroups, b.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseGroups)
+					}
+				}
+				if ackcompare.HasNilDifference(a.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseUser, b.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseUser) {
+					delta.Add("Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseUser", a.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseUser, b.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseUser)
+				} else if a.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseUser != nil && b.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseUser != nil {
+					if *a.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseUser != *b.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseUser {
+						delta.Add("Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseUser", a.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseUser, b.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseUser)
+					}
+				}
+				if ackcompare.HasNilDifference(a.ko.Spec.Parameters.RedshiftParameters.IAMParameters.RoleARN, b.ko.Spec.Parameters.RedshiftParameters.IAMParameters.RoleARN) {
+					delta.Add("Spec.Parameters.RedshiftParameters.IAMParameters.RoleARN", a.ko.Spec.Parameters.RedshiftParameters.IAMParameters.RoleARN, b.ko.Spec.Parameters.RedshiftParameters.IAMParameters.RoleARN)
+				} else if a.ko.Spec.Parameters.RedshiftParameters.IAMParameters.RoleARN != nil && b.ko.Spec.Parameters.RedshiftParameters.IAMParameters.RoleARN != nil {
+					if *a.ko.Spec.Parameters.RedshiftParameters.IAMParameters.RoleARN != *b.ko.Spec.Parameters.RedshiftParameters.IAMParameters.RoleARN {
+						delta.Add("Spec.Parameters.RedshiftParameters.IAMParameters.RoleARN", a.ko.Spec.Parameters.RedshiftParameters.IAMParameters.RoleARN, b.ko.Spec.Parameters.RedshiftParameters.IAMParameters.RoleARN)
+					}
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.RedshiftParameters.IdentityCenterConfiguration, b.ko.Spec.Parameters.RedshiftParameters.IdentityCenterConfiguration) {
+				delta.Add("Spec.Parameters.RedshiftParameters.IdentityCenterConfiguration", a.ko.Spec.Parameters.RedshiftParameters.IdentityCenterConfiguration, b.ko.Spec.Parameters.RedshiftParameters.IdentityCenterConfiguration)
+			} else if a.ko.Spec.Parameters.RedshiftParameters.IdentityCenterConfiguration != nil && b.ko.Spec.Parameters.RedshiftParameters.IdentityCenterConfiguration != nil {
+				if ackcompare.HasNilDifference(a.ko.Spec.Parameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation, b.ko.Spec.Parameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation) {
+					delta.Add("Spec.Parameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation", a.ko.Spec.Parameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation, b.ko.Spec.Parameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation)
+				} else if a.ko.Spec.Parameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation != nil && b.ko.Spec.Parameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation != nil {
+					if *a.ko.Spec.Parameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation != *b.ko.Spec.Parameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation {
+						delta.Add("Spec.Parameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation", a.ko.Spec.Parameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation, b.ko.Spec.Parameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation)
+					}
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.RedshiftParameters.Port, b.ko.Spec.Parameters.RedshiftParameters.Port) {
+				delta.Add("Spec.Parameters.RedshiftParameters.Port", a.ko.Spec.Parameters.RedshiftParameters.Port, b.ko.Spec.Parameters.RedshiftParameters.Port)
+			} else if a.ko.Spec.Parameters.RedshiftParameters.Port != nil && b.ko.Spec.Parameters.RedshiftParameters.Port != nil {
+				if *a.ko.Spec.Parameters.RedshiftParameters.Port != *b.ko.Spec.Parameters.RedshiftParameters.Port {
+					delta.Add("Spec.Parameters.RedshiftParameters.Port", a.ko.Spec.Parameters.RedshiftParameters.Port, b.ko.Spec.Parameters.RedshiftParameters.Port)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.S3KnowledgeBaseParameters, b.ko.Spec.Parameters.S3KnowledgeBaseParameters) {
+			delta.Add("Spec.Parameters.S3KnowledgeBaseParameters", a.ko.Spec.Parameters.S3KnowledgeBaseParameters, b.ko.Spec.Parameters.S3KnowledgeBaseParameters)
+		} else if a.ko.Spec.Parameters.S3KnowledgeBaseParameters != nil && b.ko.Spec.Parameters.S3KnowledgeBaseParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.S3KnowledgeBaseParameters.BucketURL, b.ko.Spec.Parameters.S3KnowledgeBaseParameters.BucketURL) {
+				delta.Add("Spec.Parameters.S3KnowledgeBaseParameters.BucketURL", a.ko.Spec.Parameters.S3KnowledgeBaseParameters.BucketURL, b.ko.Spec.Parameters.S3KnowledgeBaseParameters.BucketURL)
+			} else if a.ko.Spec.Parameters.S3KnowledgeBaseParameters.BucketURL != nil && b.ko.Spec.Parameters.S3KnowledgeBaseParameters.BucketURL != nil {
+				if *a.ko.Spec.Parameters.S3KnowledgeBaseParameters.BucketURL != *b.ko.Spec.Parameters.S3KnowledgeBaseParameters.BucketURL {
+					delta.Add("Spec.Parameters.S3KnowledgeBaseParameters.BucketURL", a.ko.Spec.Parameters.S3KnowledgeBaseParameters.BucketURL, b.ko.Spec.Parameters.S3KnowledgeBaseParameters.BucketURL)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.S3KnowledgeBaseParameters.MetadataFilesLocation, b.ko.Spec.Parameters.S3KnowledgeBaseParameters.MetadataFilesLocation) {
+				delta.Add("Spec.Parameters.S3KnowledgeBaseParameters.MetadataFilesLocation", a.ko.Spec.Parameters.S3KnowledgeBaseParameters.MetadataFilesLocation, b.ko.Spec.Parameters.S3KnowledgeBaseParameters.MetadataFilesLocation)
+			} else if a.ko.Spec.Parameters.S3KnowledgeBaseParameters.MetadataFilesLocation != nil && b.ko.Spec.Parameters.S3KnowledgeBaseParameters.MetadataFilesLocation != nil {
+				if *a.ko.Spec.Parameters.S3KnowledgeBaseParameters.MetadataFilesLocation != *b.ko.Spec.Parameters.S3KnowledgeBaseParameters.MetadataFilesLocation {
+					delta.Add("Spec.Parameters.S3KnowledgeBaseParameters.MetadataFilesLocation", a.ko.Spec.Parameters.S3KnowledgeBaseParameters.MetadataFilesLocation, b.ko.Spec.Parameters.S3KnowledgeBaseParameters.MetadataFilesLocation)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.S3KnowledgeBaseParameters.RoleARN, b.ko.Spec.Parameters.S3KnowledgeBaseParameters.RoleARN) {
+				delta.Add("Spec.Parameters.S3KnowledgeBaseParameters.RoleARN", a.ko.Spec.Parameters.S3KnowledgeBaseParameters.RoleARN, b.ko.Spec.Parameters.S3KnowledgeBaseParameters.RoleARN)
+			} else if a.ko.Spec.Parameters.S3KnowledgeBaseParameters.RoleARN != nil && b.ko.Spec.Parameters.S3KnowledgeBaseParameters.RoleARN != nil {
+				if *a.ko.Spec.Parameters.S3KnowledgeBaseParameters.RoleARN != *b.ko.Spec.Parameters.S3KnowledgeBaseParameters.RoleARN {
+					delta.Add("Spec.Parameters.S3KnowledgeBaseParameters.RoleARN", a.ko.Spec.Parameters.S3KnowledgeBaseParameters.RoleARN, b.ko.Spec.Parameters.S3KnowledgeBaseParameters.RoleARN)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.S3Parameters, b.ko.Spec.Parameters.S3Parameters) {
+			delta.Add("Spec.Parameters.S3Parameters", a.ko.Spec.Parameters.S3Parameters, b.ko.Spec.Parameters.S3Parameters)
+		} else if a.ko.Spec.Parameters.S3Parameters != nil && b.ko.Spec.Parameters.S3Parameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.S3Parameters.ManifestFileLocation, b.ko.Spec.Parameters.S3Parameters.ManifestFileLocation) {
+				delta.Add("Spec.Parameters.S3Parameters.ManifestFileLocation", a.ko.Spec.Parameters.S3Parameters.ManifestFileLocation, b.ko.Spec.Parameters.S3Parameters.ManifestFileLocation)
+			} else if a.ko.Spec.Parameters.S3Parameters.ManifestFileLocation != nil && b.ko.Spec.Parameters.S3Parameters.ManifestFileLocation != nil {
+				if ackcompare.HasNilDifference(a.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Bucket, b.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Bucket) {
+					delta.Add("Spec.Parameters.S3Parameters.ManifestFileLocation.Bucket", a.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Bucket, b.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Bucket)
+				} else if a.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Bucket != nil && b.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Bucket != nil {
+					if *a.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Bucket != *b.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Bucket {
+						delta.Add("Spec.Parameters.S3Parameters.ManifestFileLocation.Bucket", a.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Bucket, b.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Bucket)
+					}
+				}
+				if ackcompare.HasNilDifference(a.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Key, b.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Key) {
+					delta.Add("Spec.Parameters.S3Parameters.ManifestFileLocation.Key", a.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Key, b.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Key)
+				} else if a.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Key != nil && b.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Key != nil {
+					if *a.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Key != *b.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Key {
+						delta.Add("Spec.Parameters.S3Parameters.ManifestFileLocation.Key", a.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Key, b.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Key)
+					}
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.S3Parameters.RoleARN, b.ko.Spec.Parameters.S3Parameters.RoleARN) {
+				delta.Add("Spec.Parameters.S3Parameters.RoleARN", a.ko.Spec.Parameters.S3Parameters.RoleARN, b.ko.Spec.Parameters.S3Parameters.RoleARN)
+			} else if a.ko.Spec.Parameters.S3Parameters.RoleARN != nil && b.ko.Spec.Parameters.S3Parameters.RoleARN != nil {
+				if *a.ko.Spec.Parameters.S3Parameters.RoleARN != *b.ko.Spec.Parameters.S3Parameters.RoleARN {
+					delta.Add("Spec.Parameters.S3Parameters.RoleARN", a.ko.Spec.Parameters.S3Parameters.RoleARN, b.ko.Spec.Parameters.S3Parameters.RoleARN)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.ServiceNowParameters, b.ko.Spec.Parameters.ServiceNowParameters) {
+			delta.Add("Spec.Parameters.ServiceNowParameters", a.ko.Spec.Parameters.ServiceNowParameters, b.ko.Spec.Parameters.ServiceNowParameters)
+		} else if a.ko.Spec.Parameters.ServiceNowParameters != nil && b.ko.Spec.Parameters.ServiceNowParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.ServiceNowParameters.SiteBaseURL, b.ko.Spec.Parameters.ServiceNowParameters.SiteBaseURL) {
+				delta.Add("Spec.Parameters.ServiceNowParameters.SiteBaseURL", a.ko.Spec.Parameters.ServiceNowParameters.SiteBaseURL, b.ko.Spec.Parameters.ServiceNowParameters.SiteBaseURL)
+			} else if a.ko.Spec.Parameters.ServiceNowParameters.SiteBaseURL != nil && b.ko.Spec.Parameters.ServiceNowParameters.SiteBaseURL != nil {
+				if *a.ko.Spec.Parameters.ServiceNowParameters.SiteBaseURL != *b.ko.Spec.Parameters.ServiceNowParameters.SiteBaseURL {
+					delta.Add("Spec.Parameters.ServiceNowParameters.SiteBaseURL", a.ko.Spec.Parameters.ServiceNowParameters.SiteBaseURL, b.ko.Spec.Parameters.ServiceNowParameters.SiteBaseURL)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.SnowflakeParameters, b.ko.Spec.Parameters.SnowflakeParameters) {
+			delta.Add("Spec.Parameters.SnowflakeParameters", a.ko.Spec.Parameters.SnowflakeParameters, b.ko.Spec.Parameters.SnowflakeParameters)
+		} else if a.ko.Spec.Parameters.SnowflakeParameters != nil && b.ko.Spec.Parameters.SnowflakeParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.SnowflakeParameters.AuthenticationType, b.ko.Spec.Parameters.SnowflakeParameters.AuthenticationType) {
+				delta.Add("Spec.Parameters.SnowflakeParameters.AuthenticationType", a.ko.Spec.Parameters.SnowflakeParameters.AuthenticationType, b.ko.Spec.Parameters.SnowflakeParameters.AuthenticationType)
+			} else if a.ko.Spec.Parameters.SnowflakeParameters.AuthenticationType != nil && b.ko.Spec.Parameters.SnowflakeParameters.AuthenticationType != nil {
+				if *a.ko.Spec.Parameters.SnowflakeParameters.AuthenticationType != *b.ko.Spec.Parameters.SnowflakeParameters.AuthenticationType {
+					delta.Add("Spec.Parameters.SnowflakeParameters.AuthenticationType", a.ko.Spec.Parameters.SnowflakeParameters.AuthenticationType, b.ko.Spec.Parameters.SnowflakeParameters.AuthenticationType)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.SnowflakeParameters.Database, b.ko.Spec.Parameters.SnowflakeParameters.Database) {
+				delta.Add("Spec.Parameters.SnowflakeParameters.Database", a.ko.Spec.Parameters.SnowflakeParameters.Database, b.ko.Spec.Parameters.SnowflakeParameters.Database)
+			} else if a.ko.Spec.Parameters.SnowflakeParameters.Database != nil && b.ko.Spec.Parameters.SnowflakeParameters.Database != nil {
+				if *a.ko.Spec.Parameters.SnowflakeParameters.Database != *b.ko.Spec.Parameters.SnowflakeParameters.Database {
+					delta.Add("Spec.Parameters.SnowflakeParameters.Database", a.ko.Spec.Parameters.SnowflakeParameters.Database, b.ko.Spec.Parameters.SnowflakeParameters.Database)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.SnowflakeParameters.DatabaseAccessControlRole, b.ko.Spec.Parameters.SnowflakeParameters.DatabaseAccessControlRole) {
+				delta.Add("Spec.Parameters.SnowflakeParameters.DatabaseAccessControlRole", a.ko.Spec.Parameters.SnowflakeParameters.DatabaseAccessControlRole, b.ko.Spec.Parameters.SnowflakeParameters.DatabaseAccessControlRole)
+			} else if a.ko.Spec.Parameters.SnowflakeParameters.DatabaseAccessControlRole != nil && b.ko.Spec.Parameters.SnowflakeParameters.DatabaseAccessControlRole != nil {
+				if *a.ko.Spec.Parameters.SnowflakeParameters.DatabaseAccessControlRole != *b.ko.Spec.Parameters.SnowflakeParameters.DatabaseAccessControlRole {
+					delta.Add("Spec.Parameters.SnowflakeParameters.DatabaseAccessControlRole", a.ko.Spec.Parameters.SnowflakeParameters.DatabaseAccessControlRole, b.ko.Spec.Parameters.SnowflakeParameters.DatabaseAccessControlRole)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.SnowflakeParameters.Host, b.ko.Spec.Parameters.SnowflakeParameters.Host) {
+				delta.Add("Spec.Parameters.SnowflakeParameters.Host", a.ko.Spec.Parameters.SnowflakeParameters.Host, b.ko.Spec.Parameters.SnowflakeParameters.Host)
+			} else if a.ko.Spec.Parameters.SnowflakeParameters.Host != nil && b.ko.Spec.Parameters.SnowflakeParameters.Host != nil {
+				if *a.ko.Spec.Parameters.SnowflakeParameters.Host != *b.ko.Spec.Parameters.SnowflakeParameters.Host {
+					delta.Add("Spec.Parameters.SnowflakeParameters.Host", a.ko.Spec.Parameters.SnowflakeParameters.Host, b.ko.Spec.Parameters.SnowflakeParameters.Host)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters, b.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters) {
+				delta.Add("Spec.Parameters.SnowflakeParameters.OAuthParameters", a.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters, b.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters)
+			} else if a.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters != nil && b.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters != nil {
+				if ackcompare.HasNilDifference(a.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI, b.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI) {
+					delta.Add("Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI", a.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI, b.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI)
+				} else if a.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI != nil && b.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI != nil {
+					if *a.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI != *b.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI {
+						delta.Add("Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI", a.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI, b.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI)
+					}
+				}
+				if ackcompare.HasNilDifference(a.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties, b.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties) {
+					delta.Add("Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties", a.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties, b.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties)
+				} else if a.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties != nil && b.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties != nil {
+					if ackcompare.HasNilDifference(a.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN, b.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN) {
+						delta.Add("Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN", a.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN, b.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN)
+					} else if a.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN != nil && b.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN != nil {
+						if *a.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN != *b.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN {
+							delta.Add("Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN", a.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN, b.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN)
+						}
+					}
+				}
+				if ackcompare.HasNilDifference(a.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.OAuthScope, b.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.OAuthScope) {
+					delta.Add("Spec.Parameters.SnowflakeParameters.OAuthParameters.OAuthScope", a.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.OAuthScope, b.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.OAuthScope)
+				} else if a.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.OAuthScope != nil && b.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.OAuthScope != nil {
+					if *a.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.OAuthScope != *b.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.OAuthScope {
+						delta.Add("Spec.Parameters.SnowflakeParameters.OAuthParameters.OAuthScope", a.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.OAuthScope, b.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.OAuthScope)
+					}
+				}
+				if ackcompare.HasNilDifference(a.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.TokenProviderURL, b.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.TokenProviderURL) {
+					delta.Add("Spec.Parameters.SnowflakeParameters.OAuthParameters.TokenProviderURL", a.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.TokenProviderURL, b.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.TokenProviderURL)
+				} else if a.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.TokenProviderURL != nil && b.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.TokenProviderURL != nil {
+					if *a.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.TokenProviderURL != *b.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.TokenProviderURL {
+						delta.Add("Spec.Parameters.SnowflakeParameters.OAuthParameters.TokenProviderURL", a.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.TokenProviderURL, b.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.TokenProviderURL)
+					}
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.SnowflakeParameters.Warehouse, b.ko.Spec.Parameters.SnowflakeParameters.Warehouse) {
+				delta.Add("Spec.Parameters.SnowflakeParameters.Warehouse", a.ko.Spec.Parameters.SnowflakeParameters.Warehouse, b.ko.Spec.Parameters.SnowflakeParameters.Warehouse)
+			} else if a.ko.Spec.Parameters.SnowflakeParameters.Warehouse != nil && b.ko.Spec.Parameters.SnowflakeParameters.Warehouse != nil {
+				if *a.ko.Spec.Parameters.SnowflakeParameters.Warehouse != *b.ko.Spec.Parameters.SnowflakeParameters.Warehouse {
+					delta.Add("Spec.Parameters.SnowflakeParameters.Warehouse", a.ko.Spec.Parameters.SnowflakeParameters.Warehouse, b.ko.Spec.Parameters.SnowflakeParameters.Warehouse)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.SparkParameters, b.ko.Spec.Parameters.SparkParameters) {
+			delta.Add("Spec.Parameters.SparkParameters", a.ko.Spec.Parameters.SparkParameters, b.ko.Spec.Parameters.SparkParameters)
+		} else if a.ko.Spec.Parameters.SparkParameters != nil && b.ko.Spec.Parameters.SparkParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.SparkParameters.Host, b.ko.Spec.Parameters.SparkParameters.Host) {
+				delta.Add("Spec.Parameters.SparkParameters.Host", a.ko.Spec.Parameters.SparkParameters.Host, b.ko.Spec.Parameters.SparkParameters.Host)
+			} else if a.ko.Spec.Parameters.SparkParameters.Host != nil && b.ko.Spec.Parameters.SparkParameters.Host != nil {
+				if *a.ko.Spec.Parameters.SparkParameters.Host != *b.ko.Spec.Parameters.SparkParameters.Host {
+					delta.Add("Spec.Parameters.SparkParameters.Host", a.ko.Spec.Parameters.SparkParameters.Host, b.ko.Spec.Parameters.SparkParameters.Host)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.SparkParameters.Port, b.ko.Spec.Parameters.SparkParameters.Port) {
+				delta.Add("Spec.Parameters.SparkParameters.Port", a.ko.Spec.Parameters.SparkParameters.Port, b.ko.Spec.Parameters.SparkParameters.Port)
+			} else if a.ko.Spec.Parameters.SparkParameters.Port != nil && b.ko.Spec.Parameters.SparkParameters.Port != nil {
+				if *a.ko.Spec.Parameters.SparkParameters.Port != *b.ko.Spec.Parameters.SparkParameters.Port {
+					delta.Add("Spec.Parameters.SparkParameters.Port", a.ko.Spec.Parameters.SparkParameters.Port, b.ko.Spec.Parameters.SparkParameters.Port)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.SQLServerParameters, b.ko.Spec.Parameters.SQLServerParameters) {
+			delta.Add("Spec.Parameters.SQLServerParameters", a.ko.Spec.Parameters.SQLServerParameters, b.ko.Spec.Parameters.SQLServerParameters)
+		} else if a.ko.Spec.Parameters.SQLServerParameters != nil && b.ko.Spec.Parameters.SQLServerParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.SQLServerParameters.Database, b.ko.Spec.Parameters.SQLServerParameters.Database) {
+				delta.Add("Spec.Parameters.SQLServerParameters.Database", a.ko.Spec.Parameters.SQLServerParameters.Database, b.ko.Spec.Parameters.SQLServerParameters.Database)
+			} else if a.ko.Spec.Parameters.SQLServerParameters.Database != nil && b.ko.Spec.Parameters.SQLServerParameters.Database != nil {
+				if *a.ko.Spec.Parameters.SQLServerParameters.Database != *b.ko.Spec.Parameters.SQLServerParameters.Database {
+					delta.Add("Spec.Parameters.SQLServerParameters.Database", a.ko.Spec.Parameters.SQLServerParameters.Database, b.ko.Spec.Parameters.SQLServerParameters.Database)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.SQLServerParameters.Host, b.ko.Spec.Parameters.SQLServerParameters.Host) {
+				delta.Add("Spec.Parameters.SQLServerParameters.Host", a.ko.Spec.Parameters.SQLServerParameters.Host, b.ko.Spec.Parameters.SQLServerParameters.Host)
+			} else if a.ko.Spec.Parameters.SQLServerParameters.Host != nil && b.ko.Spec.Parameters.SQLServerParameters.Host != nil {
+				if *a.ko.Spec.Parameters.SQLServerParameters.Host != *b.ko.Spec.Parameters.SQLServerParameters.Host {
+					delta.Add("Spec.Parameters.SQLServerParameters.Host", a.ko.Spec.Parameters.SQLServerParameters.Host, b.ko.Spec.Parameters.SQLServerParameters.Host)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.SQLServerParameters.Port, b.ko.Spec.Parameters.SQLServerParameters.Port) {
+				delta.Add("Spec.Parameters.SQLServerParameters.Port", a.ko.Spec.Parameters.SQLServerParameters.Port, b.ko.Spec.Parameters.SQLServerParameters.Port)
+			} else if a.ko.Spec.Parameters.SQLServerParameters.Port != nil && b.ko.Spec.Parameters.SQLServerParameters.Port != nil {
+				if *a.ko.Spec.Parameters.SQLServerParameters.Port != *b.ko.Spec.Parameters.SQLServerParameters.Port {
+					delta.Add("Spec.Parameters.SQLServerParameters.Port", a.ko.Spec.Parameters.SQLServerParameters.Port, b.ko.Spec.Parameters.SQLServerParameters.Port)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.StarburstParameters, b.ko.Spec.Parameters.StarburstParameters) {
+			delta.Add("Spec.Parameters.StarburstParameters", a.ko.Spec.Parameters.StarburstParameters, b.ko.Spec.Parameters.StarburstParameters)
+		} else if a.ko.Spec.Parameters.StarburstParameters != nil && b.ko.Spec.Parameters.StarburstParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.StarburstParameters.AuthenticationType, b.ko.Spec.Parameters.StarburstParameters.AuthenticationType) {
+				delta.Add("Spec.Parameters.StarburstParameters.AuthenticationType", a.ko.Spec.Parameters.StarburstParameters.AuthenticationType, b.ko.Spec.Parameters.StarburstParameters.AuthenticationType)
+			} else if a.ko.Spec.Parameters.StarburstParameters.AuthenticationType != nil && b.ko.Spec.Parameters.StarburstParameters.AuthenticationType != nil {
+				if *a.ko.Spec.Parameters.StarburstParameters.AuthenticationType != *b.ko.Spec.Parameters.StarburstParameters.AuthenticationType {
+					delta.Add("Spec.Parameters.StarburstParameters.AuthenticationType", a.ko.Spec.Parameters.StarburstParameters.AuthenticationType, b.ko.Spec.Parameters.StarburstParameters.AuthenticationType)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.StarburstParameters.Catalog, b.ko.Spec.Parameters.StarburstParameters.Catalog) {
+				delta.Add("Spec.Parameters.StarburstParameters.Catalog", a.ko.Spec.Parameters.StarburstParameters.Catalog, b.ko.Spec.Parameters.StarburstParameters.Catalog)
+			} else if a.ko.Spec.Parameters.StarburstParameters.Catalog != nil && b.ko.Spec.Parameters.StarburstParameters.Catalog != nil {
+				if *a.ko.Spec.Parameters.StarburstParameters.Catalog != *b.ko.Spec.Parameters.StarburstParameters.Catalog {
+					delta.Add("Spec.Parameters.StarburstParameters.Catalog", a.ko.Spec.Parameters.StarburstParameters.Catalog, b.ko.Spec.Parameters.StarburstParameters.Catalog)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.StarburstParameters.DatabaseAccessControlRole, b.ko.Spec.Parameters.StarburstParameters.DatabaseAccessControlRole) {
+				delta.Add("Spec.Parameters.StarburstParameters.DatabaseAccessControlRole", a.ko.Spec.Parameters.StarburstParameters.DatabaseAccessControlRole, b.ko.Spec.Parameters.StarburstParameters.DatabaseAccessControlRole)
+			} else if a.ko.Spec.Parameters.StarburstParameters.DatabaseAccessControlRole != nil && b.ko.Spec.Parameters.StarburstParameters.DatabaseAccessControlRole != nil {
+				if *a.ko.Spec.Parameters.StarburstParameters.DatabaseAccessControlRole != *b.ko.Spec.Parameters.StarburstParameters.DatabaseAccessControlRole {
+					delta.Add("Spec.Parameters.StarburstParameters.DatabaseAccessControlRole", a.ko.Spec.Parameters.StarburstParameters.DatabaseAccessControlRole, b.ko.Spec.Parameters.StarburstParameters.DatabaseAccessControlRole)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.StarburstParameters.Host, b.ko.Spec.Parameters.StarburstParameters.Host) {
+				delta.Add("Spec.Parameters.StarburstParameters.Host", a.ko.Spec.Parameters.StarburstParameters.Host, b.ko.Spec.Parameters.StarburstParameters.Host)
+			} else if a.ko.Spec.Parameters.StarburstParameters.Host != nil && b.ko.Spec.Parameters.StarburstParameters.Host != nil {
+				if *a.ko.Spec.Parameters.StarburstParameters.Host != *b.ko.Spec.Parameters.StarburstParameters.Host {
+					delta.Add("Spec.Parameters.StarburstParameters.Host", a.ko.Spec.Parameters.StarburstParameters.Host, b.ko.Spec.Parameters.StarburstParameters.Host)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.StarburstParameters.OAuthParameters, b.ko.Spec.Parameters.StarburstParameters.OAuthParameters) {
+				delta.Add("Spec.Parameters.StarburstParameters.OAuthParameters", a.ko.Spec.Parameters.StarburstParameters.OAuthParameters, b.ko.Spec.Parameters.StarburstParameters.OAuthParameters)
+			} else if a.ko.Spec.Parameters.StarburstParameters.OAuthParameters != nil && b.ko.Spec.Parameters.StarburstParameters.OAuthParameters != nil {
+				if ackcompare.HasNilDifference(a.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI, b.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI) {
+					delta.Add("Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI", a.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI, b.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI)
+				} else if a.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI != nil && b.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI != nil {
+					if *a.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI != *b.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI {
+						delta.Add("Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI", a.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI, b.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI)
+					}
+				}
+				if ackcompare.HasNilDifference(a.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties, b.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties) {
+					delta.Add("Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties", a.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties, b.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties)
+				} else if a.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties != nil && b.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties != nil {
+					if ackcompare.HasNilDifference(a.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN, b.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN) {
+						delta.Add("Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN", a.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN, b.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN)
+					} else if a.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN != nil && b.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN != nil {
+						if *a.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN != *b.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN {
+							delta.Add("Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN", a.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN, b.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN)
+						}
+					}
+				}
+				if ackcompare.HasNilDifference(a.ko.Spec.Parameters.StarburstParameters.OAuthParameters.OAuthScope, b.ko.Spec.Parameters.StarburstParameters.OAuthParameters.OAuthScope) {
+					delta.Add("Spec.Parameters.StarburstParameters.OAuthParameters.OAuthScope", a.ko.Spec.Parameters.StarburstParameters.OAuthParameters.OAuthScope, b.ko.Spec.Parameters.StarburstParameters.OAuthParameters.OAuthScope)
+				} else if a.ko.Spec.Parameters.StarburstParameters.OAuthParameters.OAuthScope != nil && b.ko.Spec.Parameters.StarburstParameters.OAuthParameters.OAuthScope != nil {
+					if *a.ko.Spec.Parameters.StarburstParameters.OAuthParameters.OAuthScope != *b.ko.Spec.Parameters.StarburstParameters.OAuthParameters.OAuthScope {
+						delta.Add("Spec.Parameters.StarburstParameters.OAuthParameters.OAuthScope", a.ko.Spec.Parameters.StarburstParameters.OAuthParameters.OAuthScope, b.ko.Spec.Parameters.StarburstParameters.OAuthParameters.OAuthScope)
+					}
+				}
+				if ackcompare.HasNilDifference(a.ko.Spec.Parameters.StarburstParameters.OAuthParameters.TokenProviderURL, b.ko.Spec.Parameters.StarburstParameters.OAuthParameters.TokenProviderURL) {
+					delta.Add("Spec.Parameters.StarburstParameters.OAuthParameters.TokenProviderURL", a.ko.Spec.Parameters.StarburstParameters.OAuthParameters.TokenProviderURL, b.ko.Spec.Parameters.StarburstParameters.OAuthParameters.TokenProviderURL)
+				} else if a.ko.Spec.Parameters.StarburstParameters.OAuthParameters.TokenProviderURL != nil && b.ko.Spec.Parameters.StarburstParameters.OAuthParameters.TokenProviderURL != nil {
+					if *a.ko.Spec.Parameters.StarburstParameters.OAuthParameters.TokenProviderURL != *b.ko.Spec.Parameters.StarburstParameters.OAuthParameters.TokenProviderURL {
+						delta.Add("Spec.Parameters.StarburstParameters.OAuthParameters.TokenProviderURL", a.ko.Spec.Parameters.StarburstParameters.OAuthParameters.TokenProviderURL, b.ko.Spec.Parameters.StarburstParameters.OAuthParameters.TokenProviderURL)
+					}
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.StarburstParameters.Port, b.ko.Spec.Parameters.StarburstParameters.Port) {
+				delta.Add("Spec.Parameters.StarburstParameters.Port", a.ko.Spec.Parameters.StarburstParameters.Port, b.ko.Spec.Parameters.StarburstParameters.Port)
+			} else if a.ko.Spec.Parameters.StarburstParameters.Port != nil && b.ko.Spec.Parameters.StarburstParameters.Port != nil {
+				if *a.ko.Spec.Parameters.StarburstParameters.Port != *b.ko.Spec.Parameters.StarburstParameters.Port {
+					delta.Add("Spec.Parameters.StarburstParameters.Port", a.ko.Spec.Parameters.StarburstParameters.Port, b.ko.Spec.Parameters.StarburstParameters.Port)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.StarburstParameters.ProductType, b.ko.Spec.Parameters.StarburstParameters.ProductType) {
+				delta.Add("Spec.Parameters.StarburstParameters.ProductType", a.ko.Spec.Parameters.StarburstParameters.ProductType, b.ko.Spec.Parameters.StarburstParameters.ProductType)
+			} else if a.ko.Spec.Parameters.StarburstParameters.ProductType != nil && b.ko.Spec.Parameters.StarburstParameters.ProductType != nil {
+				if *a.ko.Spec.Parameters.StarburstParameters.ProductType != *b.ko.Spec.Parameters.StarburstParameters.ProductType {
+					delta.Add("Spec.Parameters.StarburstParameters.ProductType", a.ko.Spec.Parameters.StarburstParameters.ProductType, b.ko.Spec.Parameters.StarburstParameters.ProductType)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.TeradataParameters, b.ko.Spec.Parameters.TeradataParameters) {
+			delta.Add("Spec.Parameters.TeradataParameters", a.ko.Spec.Parameters.TeradataParameters, b.ko.Spec.Parameters.TeradataParameters)
+		} else if a.ko.Spec.Parameters.TeradataParameters != nil && b.ko.Spec.Parameters.TeradataParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.TeradataParameters.Database, b.ko.Spec.Parameters.TeradataParameters.Database) {
+				delta.Add("Spec.Parameters.TeradataParameters.Database", a.ko.Spec.Parameters.TeradataParameters.Database, b.ko.Spec.Parameters.TeradataParameters.Database)
+			} else if a.ko.Spec.Parameters.TeradataParameters.Database != nil && b.ko.Spec.Parameters.TeradataParameters.Database != nil {
+				if *a.ko.Spec.Parameters.TeradataParameters.Database != *b.ko.Spec.Parameters.TeradataParameters.Database {
+					delta.Add("Spec.Parameters.TeradataParameters.Database", a.ko.Spec.Parameters.TeradataParameters.Database, b.ko.Spec.Parameters.TeradataParameters.Database)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.TeradataParameters.Host, b.ko.Spec.Parameters.TeradataParameters.Host) {
+				delta.Add("Spec.Parameters.TeradataParameters.Host", a.ko.Spec.Parameters.TeradataParameters.Host, b.ko.Spec.Parameters.TeradataParameters.Host)
+			} else if a.ko.Spec.Parameters.TeradataParameters.Host != nil && b.ko.Spec.Parameters.TeradataParameters.Host != nil {
+				if *a.ko.Spec.Parameters.TeradataParameters.Host != *b.ko.Spec.Parameters.TeradataParameters.Host {
+					delta.Add("Spec.Parameters.TeradataParameters.Host", a.ko.Spec.Parameters.TeradataParameters.Host, b.ko.Spec.Parameters.TeradataParameters.Host)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.TeradataParameters.Port, b.ko.Spec.Parameters.TeradataParameters.Port) {
+				delta.Add("Spec.Parameters.TeradataParameters.Port", a.ko.Spec.Parameters.TeradataParameters.Port, b.ko.Spec.Parameters.TeradataParameters.Port)
+			} else if a.ko.Spec.Parameters.TeradataParameters.Port != nil && b.ko.Spec.Parameters.TeradataParameters.Port != nil {
+				if *a.ko.Spec.Parameters.TeradataParameters.Port != *b.ko.Spec.Parameters.TeradataParameters.Port {
+					delta.Add("Spec.Parameters.TeradataParameters.Port", a.ko.Spec.Parameters.TeradataParameters.Port, b.ko.Spec.Parameters.TeradataParameters.Port)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.TrinoParameters, b.ko.Spec.Parameters.TrinoParameters) {
+			delta.Add("Spec.Parameters.TrinoParameters", a.ko.Spec.Parameters.TrinoParameters, b.ko.Spec.Parameters.TrinoParameters)
+		} else if a.ko.Spec.Parameters.TrinoParameters != nil && b.ko.Spec.Parameters.TrinoParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.TrinoParameters.Catalog, b.ko.Spec.Parameters.TrinoParameters.Catalog) {
+				delta.Add("Spec.Parameters.TrinoParameters.Catalog", a.ko.Spec.Parameters.TrinoParameters.Catalog, b.ko.Spec.Parameters.TrinoParameters.Catalog)
+			} else if a.ko.Spec.Parameters.TrinoParameters.Catalog != nil && b.ko.Spec.Parameters.TrinoParameters.Catalog != nil {
+				if *a.ko.Spec.Parameters.TrinoParameters.Catalog != *b.ko.Spec.Parameters.TrinoParameters.Catalog {
+					delta.Add("Spec.Parameters.TrinoParameters.Catalog", a.ko.Spec.Parameters.TrinoParameters.Catalog, b.ko.Spec.Parameters.TrinoParameters.Catalog)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.TrinoParameters.Host, b.ko.Spec.Parameters.TrinoParameters.Host) {
+				delta.Add("Spec.Parameters.TrinoParameters.Host", a.ko.Spec.Parameters.TrinoParameters.Host, b.ko.Spec.Parameters.TrinoParameters.Host)
+			} else if a.ko.Spec.Parameters.TrinoParameters.Host != nil && b.ko.Spec.Parameters.TrinoParameters.Host != nil {
+				if *a.ko.Spec.Parameters.TrinoParameters.Host != *b.ko.Spec.Parameters.TrinoParameters.Host {
+					delta.Add("Spec.Parameters.TrinoParameters.Host", a.ko.Spec.Parameters.TrinoParameters.Host, b.ko.Spec.Parameters.TrinoParameters.Host)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.TrinoParameters.Port, b.ko.Spec.Parameters.TrinoParameters.Port) {
+				delta.Add("Spec.Parameters.TrinoParameters.Port", a.ko.Spec.Parameters.TrinoParameters.Port, b.ko.Spec.Parameters.TrinoParameters.Port)
+			} else if a.ko.Spec.Parameters.TrinoParameters.Port != nil && b.ko.Spec.Parameters.TrinoParameters.Port != nil {
+				if *a.ko.Spec.Parameters.TrinoParameters.Port != *b.ko.Spec.Parameters.TrinoParameters.Port {
+					delta.Add("Spec.Parameters.TrinoParameters.Port", a.ko.Spec.Parameters.TrinoParameters.Port, b.ko.Spec.Parameters.TrinoParameters.Port)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.TwitterParameters, b.ko.Spec.Parameters.TwitterParameters) {
+			delta.Add("Spec.Parameters.TwitterParameters", a.ko.Spec.Parameters.TwitterParameters, b.ko.Spec.Parameters.TwitterParameters)
+		} else if a.ko.Spec.Parameters.TwitterParameters != nil && b.ko.Spec.Parameters.TwitterParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.TwitterParameters.MaxRows, b.ko.Spec.Parameters.TwitterParameters.MaxRows) {
+				delta.Add("Spec.Parameters.TwitterParameters.MaxRows", a.ko.Spec.Parameters.TwitterParameters.MaxRows, b.ko.Spec.Parameters.TwitterParameters.MaxRows)
+			} else if a.ko.Spec.Parameters.TwitterParameters.MaxRows != nil && b.ko.Spec.Parameters.TwitterParameters.MaxRows != nil {
+				if *a.ko.Spec.Parameters.TwitterParameters.MaxRows != *b.ko.Spec.Parameters.TwitterParameters.MaxRows {
+					delta.Add("Spec.Parameters.TwitterParameters.MaxRows", a.ko.Spec.Parameters.TwitterParameters.MaxRows, b.ko.Spec.Parameters.TwitterParameters.MaxRows)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.TwitterParameters.Query, b.ko.Spec.Parameters.TwitterParameters.Query) {
+				delta.Add("Spec.Parameters.TwitterParameters.Query", a.ko.Spec.Parameters.TwitterParameters.Query, b.ko.Spec.Parameters.TwitterParameters.Query)
+			} else if a.ko.Spec.Parameters.TwitterParameters.Query != nil && b.ko.Spec.Parameters.TwitterParameters.Query != nil {
+				if *a.ko.Spec.Parameters.TwitterParameters.Query != *b.ko.Spec.Parameters.TwitterParameters.Query {
+					delta.Add("Spec.Parameters.TwitterParameters.Query", a.ko.Spec.Parameters.TwitterParameters.Query, b.ko.Spec.Parameters.TwitterParameters.Query)
+				}
+			}
+		}
+		if ackcompare.HasNilDifference(a.ko.Spec.Parameters.WebCrawlerParameters, b.ko.Spec.Parameters.WebCrawlerParameters) {
+			delta.Add("Spec.Parameters.WebCrawlerParameters", a.ko.Spec.Parameters.WebCrawlerParameters, b.ko.Spec.Parameters.WebCrawlerParameters)
+		} else if a.ko.Spec.Parameters.WebCrawlerParameters != nil && b.ko.Spec.Parameters.WebCrawlerParameters != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.WebCrawlerParameters.LoginPageURL, b.ko.Spec.Parameters.WebCrawlerParameters.LoginPageURL) {
+				delta.Add("Spec.Parameters.WebCrawlerParameters.LoginPageURL", a.ko.Spec.Parameters.WebCrawlerParameters.LoginPageURL, b.ko.Spec.Parameters.WebCrawlerParameters.LoginPageURL)
+			} else if a.ko.Spec.Parameters.WebCrawlerParameters.LoginPageURL != nil && b.ko.Spec.Parameters.WebCrawlerParameters.LoginPageURL != nil {
+				if *a.ko.Spec.Parameters.WebCrawlerParameters.LoginPageURL != *b.ko.Spec.Parameters.WebCrawlerParameters.LoginPageURL {
+					delta.Add("Spec.Parameters.WebCrawlerParameters.LoginPageURL", a.ko.Spec.Parameters.WebCrawlerParameters.LoginPageURL, b.ko.Spec.Parameters.WebCrawlerParameters.LoginPageURL)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.WebCrawlerParameters.PasswordButtonXpath, b.ko.Spec.Parameters.WebCrawlerParameters.PasswordButtonXpath) {
+				delta.Add("Spec.Parameters.WebCrawlerParameters.PasswordButtonXpath", a.ko.Spec.Parameters.WebCrawlerParameters.PasswordButtonXpath, b.ko.Spec.Parameters.WebCrawlerParameters.PasswordButtonXpath)
+			} else if a.ko.Spec.Parameters.WebCrawlerParameters.PasswordButtonXpath != nil && b.ko.Spec.Parameters.WebCrawlerParameters.PasswordButtonXpath != nil {
+				if *a.ko.Spec.Parameters.WebCrawlerParameters.PasswordButtonXpath != *b.ko.Spec.Parameters.WebCrawlerParameters.PasswordButtonXpath {
+					delta.Add("Spec.Parameters.WebCrawlerParameters.PasswordButtonXpath", a.ko.Spec.Parameters.WebCrawlerParameters.PasswordButtonXpath, b.ko.Spec.Parameters.WebCrawlerParameters.PasswordButtonXpath)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.WebCrawlerParameters.PasswordFieldXpath, b.ko.Spec.Parameters.WebCrawlerParameters.PasswordFieldXpath) {
+				delta.Add("Spec.Parameters.WebCrawlerParameters.PasswordFieldXpath", a.ko.Spec.Parameters.WebCrawlerParameters.PasswordFieldXpath, b.ko.Spec.Parameters.WebCrawlerParameters.PasswordFieldXpath)
+			} else if a.ko.Spec.Parameters.WebCrawlerParameters.PasswordFieldXpath != nil && b.ko.Spec.Parameters.WebCrawlerParameters.PasswordFieldXpath != nil {
+				if *a.ko.Spec.Parameters.WebCrawlerParameters.PasswordFieldXpath != *b.ko.Spec.Parameters.WebCrawlerParameters.PasswordFieldXpath {
+					delta.Add("Spec.Parameters.WebCrawlerParameters.PasswordFieldXpath", a.ko.Spec.Parameters.WebCrawlerParameters.PasswordFieldXpath, b.ko.Spec.Parameters.WebCrawlerParameters.PasswordFieldXpath)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.WebCrawlerParameters.UsernameButtonXpath, b.ko.Spec.Parameters.WebCrawlerParameters.UsernameButtonXpath) {
+				delta.Add("Spec.Parameters.WebCrawlerParameters.UsernameButtonXpath", a.ko.Spec.Parameters.WebCrawlerParameters.UsernameButtonXpath, b.ko.Spec.Parameters.WebCrawlerParameters.UsernameButtonXpath)
+			} else if a.ko.Spec.Parameters.WebCrawlerParameters.UsernameButtonXpath != nil && b.ko.Spec.Parameters.WebCrawlerParameters.UsernameButtonXpath != nil {
+				if *a.ko.Spec.Parameters.WebCrawlerParameters.UsernameButtonXpath != *b.ko.Spec.Parameters.WebCrawlerParameters.UsernameButtonXpath {
+					delta.Add("Spec.Parameters.WebCrawlerParameters.UsernameButtonXpath", a.ko.Spec.Parameters.WebCrawlerParameters.UsernameButtonXpath, b.ko.Spec.Parameters.WebCrawlerParameters.UsernameButtonXpath)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.WebCrawlerParameters.UsernameFieldXpath, b.ko.Spec.Parameters.WebCrawlerParameters.UsernameFieldXpath) {
+				delta.Add("Spec.Parameters.WebCrawlerParameters.UsernameFieldXpath", a.ko.Spec.Parameters.WebCrawlerParameters.UsernameFieldXpath, b.ko.Spec.Parameters.WebCrawlerParameters.UsernameFieldXpath)
+			} else if a.ko.Spec.Parameters.WebCrawlerParameters.UsernameFieldXpath != nil && b.ko.Spec.Parameters.WebCrawlerParameters.UsernameFieldXpath != nil {
+				if *a.ko.Spec.Parameters.WebCrawlerParameters.UsernameFieldXpath != *b.ko.Spec.Parameters.WebCrawlerParameters.UsernameFieldXpath {
+					delta.Add("Spec.Parameters.WebCrawlerParameters.UsernameFieldXpath", a.ko.Spec.Parameters.WebCrawlerParameters.UsernameFieldXpath, b.ko.Spec.Parameters.WebCrawlerParameters.UsernameFieldXpath)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.WebCrawlerParameters.WebCrawlerAuthType, b.ko.Spec.Parameters.WebCrawlerParameters.WebCrawlerAuthType) {
+				delta.Add("Spec.Parameters.WebCrawlerParameters.WebCrawlerAuthType", a.ko.Spec.Parameters.WebCrawlerParameters.WebCrawlerAuthType, b.ko.Spec.Parameters.WebCrawlerParameters.WebCrawlerAuthType)
+			} else if a.ko.Spec.Parameters.WebCrawlerParameters.WebCrawlerAuthType != nil && b.ko.Spec.Parameters.WebCrawlerParameters.WebCrawlerAuthType != nil {
+				if *a.ko.Spec.Parameters.WebCrawlerParameters.WebCrawlerAuthType != *b.ko.Spec.Parameters.WebCrawlerParameters.WebCrawlerAuthType {
+					delta.Add("Spec.Parameters.WebCrawlerParameters.WebCrawlerAuthType", a.ko.Spec.Parameters.WebCrawlerParameters.WebCrawlerAuthType, b.ko.Spec.Parameters.WebCrawlerParameters.WebCrawlerAuthType)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.WebCrawlerParameters.WebProxyHostName, b.ko.Spec.Parameters.WebCrawlerParameters.WebProxyHostName) {
+				delta.Add("Spec.Parameters.WebCrawlerParameters.WebProxyHostName", a.ko.Spec.Parameters.WebCrawlerParameters.WebProxyHostName, b.ko.Spec.Parameters.WebCrawlerParameters.WebProxyHostName)
+			} else if a.ko.Spec.Parameters.WebCrawlerParameters.WebProxyHostName != nil && b.ko.Spec.Parameters.WebCrawlerParameters.WebProxyHostName != nil {
+				if *a.ko.Spec.Parameters.WebCrawlerParameters.WebProxyHostName != *b.ko.Spec.Parameters.WebCrawlerParameters.WebProxyHostName {
+					delta.Add("Spec.Parameters.WebCrawlerParameters.WebProxyHostName", a.ko.Spec.Parameters.WebCrawlerParameters.WebProxyHostName, b.ko.Spec.Parameters.WebCrawlerParameters.WebProxyHostName)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.Parameters.WebCrawlerParameters.WebProxyPortNumber, b.ko.Spec.Parameters.WebCrawlerParameters.WebProxyPortNumber) {
+				delta.Add("Spec.Parameters.WebCrawlerParameters.WebProxyPortNumber", a.ko.Spec.Parameters.WebCrawlerParameters.WebProxyPortNumber, b.ko.Spec.Parameters.WebCrawlerParameters.WebProxyPortNumber)
+			} else if a.ko.Spec.Parameters.WebCrawlerParameters.WebProxyPortNumber != nil && b.ko.Spec.Parameters.WebCrawlerParameters.WebProxyPortNumber != nil {
+				if *a.ko.Spec.Parameters.WebCrawlerParameters.WebProxyPortNumber != *b.ko.Spec.Parameters.WebCrawlerParameters.WebProxyPortNumber {
+					delta.Add("Spec.Parameters.WebCrawlerParameters.WebProxyPortNumber", a.ko.Spec.Parameters.WebCrawlerParameters.WebProxyPortNumber, b.ko.Spec.Parameters.WebCrawlerParameters.WebProxyPortNumber)
+				}
+			}
 		}
 	}
 	if len(a.ko.Spec.Permissions) != len(b.ko.Spec.Permissions) {

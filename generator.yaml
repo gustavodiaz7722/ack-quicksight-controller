@@ -49,13 +49,28 @@ resources:
     renames:
       operations:
         CreateDataSource:
+          input_fields:
+            DataSourceId: ID
+            DataSourceParameters: Parameters
           output_fields:
             CreationStatus: Status
         UpdateDataSource:
+          input_fields:
+            DataSourceId: ID
+            DataSourceParameters: Parameters
           output_fields:
             UpdateStatus: Status
+        DeleteDataSource:
+          input_fields:
+            DataSourceId: ID
+        DescribeDataSource:
+          input_fields:
+            DataSourceId: ID
+          output_fields:
+            DataSourceId: ID
+            DataSourceParameters: Parameters
     fields:
-      DataSourceId:
+      ID:
         is_primary_key: true
       AwsAccountId:
         is_immutable: true
@@ -85,22 +100,22 @@ resources:
           operation: DescribeDataSource
           path: DataSource.Status
       # Cross-resource references for IAM Roles
-      DataSourceParameters.AthenaParameters.RoleARN:
+      Parameters.AthenaParameters.RoleARN:
         references:
           service_name: iam
           resource: Role
           path: Status.ACKResourceMetadata.ARN
-      DataSourceParameters.S3Parameters.RoleARN:
+      Parameters.S3Parameters.RoleARN:
         references:
           service_name: iam
           resource: Role
           path: Status.ACKResourceMetadata.ARN
-      DataSourceParameters.S3KnowledgeBaseParameters.RoleARN:
+      Parameters.S3KnowledgeBaseParameters.RoleARN:
         references:
           service_name: iam
           resource: Role
           path: Status.ACKResourceMetadata.ARN
-      DataSourceParameters.RedshiftParameters.IAMParameters.RoleARN:
+      Parameters.RedshiftParameters.IAMParameters.RoleARN:
         references:
           service_name: iam
           resource: Role
@@ -112,13 +127,13 @@ resources:
           resource: Secret
           path: Status.ACKResourceMetadata.ARN
       # Cross-resource reference for RDS DBInstance
-      DataSourceParameters.RdsParameters.InstanceID:
+      Parameters.RdsParameters.InstanceID:
         references:
           service_name: rds
           resource: DBInstance
           path: Spec.DBInstanceIdentifier
       # Cross-resource reference for S3 Bucket
-      DataSourceParameters.S3Parameters.ManifestFileLocation.Bucket:
+      Parameters.S3Parameters.ManifestFileLocation.Bucket:
         references:
           service_name: s3
           resource: Bucket
@@ -137,12 +152,8 @@ resources:
         404:
           code: ResourceNotFoundException
       terminal_codes:
-        - ConflictException
         - InvalidParameterValueException
-        - ResourceExistsException
     hooks:
-      sdk_create_post_set_output:
-        template_path: hooks/data_source/sdk_create_post_set_output.go.tpl
       sdk_update_pre_build_request:
         template_path: hooks/data_source/sdk_update_pre_build_request.go.tpl
       sdk_read_one_post_set_output:

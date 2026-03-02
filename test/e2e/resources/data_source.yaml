@@ -4,10 +4,10 @@ metadata:
   name: $DATA_SOURCE_NAME
 spec:
   awsAccountID: "$AWS_ACCOUNT_ID"
-  dataSourceID: $DATA_SOURCE_ID
+  id: $DATA_SOURCE_ID
   name: $DATA_SOURCE_NAME
   type: $DATA_SOURCE_TYPE
-  dataSourceParameters:
+  parameters:
     s3Parameters:
       manifestFileLocation:
         bucket: $S3_BUCKET_NAME

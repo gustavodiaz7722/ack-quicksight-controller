@@ -2603,16 +2603,6 @@ func (in *DataSourceSpec) DeepCopyInto(out *DataSourceSpec) {
 		*out = new(DataSourceCredentials)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.DataSourceID != nil {
-		in, out := &in.DataSourceID, &out.DataSourceID
-		*out = new(string)
-		**out = **in
-	}
-	if in.DataSourceParameters != nil {
-		in, out := &in.DataSourceParameters, &out.DataSourceParameters
-		*out = new(DataSourceParameters)
-		(*in).DeepCopyInto(*out)
-	}
 	if in.FolderARNs != nil {
 		in, out := &in.FolderARNs, &out.FolderARNs
 		*out = make([]*string, len(*in))
@@ -2624,10 +2614,20 @@ func (in *DataSourceSpec) DeepCopyInto(out *DataSourceSpec) {
 			}
 		}
 	}
+	if in.ID != nil {
+		in, out := &in.ID, &out.ID
+		*out = new(string)
+		**out = **in
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
+	}
+	if in.Parameters != nil {
+		in, out := &in.Parameters, &out.Parameters
+		*out = new(DataSourceParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Permissions != nil {
 		in, out := &in.Permissions, &out.Permissions

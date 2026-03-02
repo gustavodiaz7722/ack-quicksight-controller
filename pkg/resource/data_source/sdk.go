@@ -104,9 +104,9 @@ func (rm *resourceManager) sdkFind(
 		ko.Status.CreatedTime = nil
 	}
 	if resp.DataSource.DataSourceId != nil {
-		ko.Spec.DataSourceID = resp.DataSource.DataSourceId
+		ko.Spec.ID = resp.DataSource.DataSourceId
 	} else {
-		ko.Spec.DataSourceID = nil
+		ko.Spec.ID = nil
 	}
 	if resp.DataSource.DataSourceParameters != nil {
 		f4 := &svcapitypes.DataSourceParameters{}
@@ -649,9 +649,9 @@ func (rm *resourceManager) sdkFind(
 				f4.WebCrawlerParameters = f4f31f31
 			}
 		}
-		ko.Spec.DataSourceParameters = f4
+		ko.Spec.Parameters = f4
 	} else {
-		ko.Spec.DataSourceParameters = nil
+		ko.Spec.Parameters = nil
 	}
 	if resp.DataSource.ErrorInfo != nil {
 		f5 := &svcapitypes.DataSourceErrorInfo{}
@@ -703,10 +703,11 @@ func (rm *resourceManager) sdkFind(
 	}
 
 	rm.setStatusDefaults(ko)
-
-	if ko.Status.ACKResourceMetadata != nil && ko.Status.ACKResourceMetadata.ARN != nil {
-		ko.Spec.Tags = rm.getTags(ctx, *ko.Status.ACKResourceMetadata.ARN)
+	ko.Spec.Tags, err = getTags(ctx, string(*ko.Status.ACKResourceMetadata.ARN), rm.sdkapi, rm.metrics)
+	if err != nil {
+		return &resource{ko}, err
 	}
+
 	return &resource{ko}, nil
 }
 
@@ -716,7 +717,7 @@ func (rm *resourceManager) sdkFind(
 func (rm *resourceManager) requiredFieldsMissingFromReadOneInput(
 	r *resource,
 ) bool {
-	return r.ko.Spec.AWSAccountID == nil || r.ko.Spec.DataSourceID == nil
+	return r.ko.Spec.AWSAccountID == nil || r.ko.Spec.ID == nil
 
 }
 
@@ -730,8 +731,8 @@ func (rm *resourceManager) newDescribeRequestPayload(
 	if r.ko.Spec.AWSAccountID != nil {
 		res.AwsAccountId = r.ko.Spec.AWSAccountID
 	}
-	if r.ko.Spec.DataSourceID != nil {
-		res.DataSourceId = r.ko.Spec.DataSourceID
+	if r.ko.Spec.ID != nil {
+		res.DataSourceId = r.ko.Spec.ID
 	}
 
 	return res, nil
@@ -778,17 +779,12 @@ func (rm *resourceManager) sdkCreate(
 		ko.Status.Status = nil
 	}
 	if resp.DataSourceId != nil {
-		ko.Spec.DataSourceID = resp.DataSourceId
+		ko.Spec.ID = resp.DataSourceId
 	} else {
-		ko.Spec.DataSourceID = nil
+		ko.Spec.ID = nil
 	}
 
 	rm.setStatusDefaults(ko)
-
-	if ko.Spec.Tags != nil {
-		ackcondition.SetSynced(&resource{ko}, corev1.ConditionFalse, nil, nil)
-	}
-
 	return &resource{ko}, nil
 }
 
@@ -1624,75 +1620,75 @@ func (rm *resourceManager) newCreateRequestPayload(
 		}
 		res.Credentials = f1
 	}
-	if r.ko.Spec.DataSourceID != nil {
-		res.DataSourceId = r.ko.Spec.DataSourceID
+	if r.ko.Spec.ID != nil {
+		res.DataSourceId = r.ko.Spec.ID
 	}
-	if r.ko.Spec.DataSourceParameters != nil {
+	if r.ko.Spec.Parameters != nil {
 		var f3 svcsdktypes.DataSourceParameters
 		isInterfaceSet := false
-		if r.ko.Spec.DataSourceParameters.AmazonElasticsearchParameters != nil {
+		if r.ko.Spec.Parameters.AmazonElasticsearchParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for AmazonElasticsearchParameters"))
 			}
 			f3f0Parent := &svcsdktypes.DataSourceParametersMemberAmazonElasticsearchParameters{}
 			f3f0 := &svcsdktypes.AmazonElasticsearchParameters{}
-			if r.ko.Spec.DataSourceParameters.AmazonElasticsearchParameters.Domain != nil {
-				f3f0.Domain = r.ko.Spec.DataSourceParameters.AmazonElasticsearchParameters.Domain
+			if r.ko.Spec.Parameters.AmazonElasticsearchParameters.Domain != nil {
+				f3f0.Domain = r.ko.Spec.Parameters.AmazonElasticsearchParameters.Domain
 			}
 			f3f0Parent.Value = *f3f0
 			f3 = f3f0Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.AmazonOpenSearchParameters != nil {
+		if r.ko.Spec.Parameters.AmazonOpenSearchParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for AmazonOpenSearchParameters"))
 			}
 			f3f1Parent := &svcsdktypes.DataSourceParametersMemberAmazonOpenSearchParameters{}
 			f3f1 := &svcsdktypes.AmazonOpenSearchParameters{}
-			if r.ko.Spec.DataSourceParameters.AmazonOpenSearchParameters.Domain != nil {
-				f3f1.Domain = r.ko.Spec.DataSourceParameters.AmazonOpenSearchParameters.Domain
+			if r.ko.Spec.Parameters.AmazonOpenSearchParameters.Domain != nil {
+				f3f1.Domain = r.ko.Spec.Parameters.AmazonOpenSearchParameters.Domain
 			}
 			f3f1Parent.Value = *f3f1
 			f3 = f3f1Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.AthenaParameters != nil {
+		if r.ko.Spec.Parameters.AthenaParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for AthenaParameters"))
 			}
 			f3f2Parent := &svcsdktypes.DataSourceParametersMemberAthenaParameters{}
 			f3f2 := &svcsdktypes.AthenaParameters{}
-			if r.ko.Spec.DataSourceParameters.AthenaParameters.IdentityCenterConfiguration != nil {
+			if r.ko.Spec.Parameters.AthenaParameters.IdentityCenterConfiguration != nil {
 				f3f2f0 := &svcsdktypes.IdentityCenterConfiguration{}
-				if r.ko.Spec.DataSourceParameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation != nil {
-					f3f2f0.EnableIdentityPropagation = r.ko.Spec.DataSourceParameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation
+				if r.ko.Spec.Parameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation != nil {
+					f3f2f0.EnableIdentityPropagation = r.ko.Spec.Parameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation
 				}
 				f3f2.IdentityCenterConfiguration = f3f2f0
 			}
-			if r.ko.Spec.DataSourceParameters.AthenaParameters.RoleARN != nil {
-				f3f2.RoleArn = r.ko.Spec.DataSourceParameters.AthenaParameters.RoleARN
+			if r.ko.Spec.Parameters.AthenaParameters.RoleARN != nil {
+				f3f2.RoleArn = r.ko.Spec.Parameters.AthenaParameters.RoleARN
 			}
-			if r.ko.Spec.DataSourceParameters.AthenaParameters.WorkGroup != nil {
-				f3f2.WorkGroup = r.ko.Spec.DataSourceParameters.AthenaParameters.WorkGroup
+			if r.ko.Spec.Parameters.AthenaParameters.WorkGroup != nil {
+				f3f2.WorkGroup = r.ko.Spec.Parameters.AthenaParameters.WorkGroup
 			}
 			f3f2Parent.Value = *f3f2
 			f3 = f3f2Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.AuroraParameters != nil {
+		if r.ko.Spec.Parameters.AuroraParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for AuroraParameters"))
 			}
 			f3f3Parent := &svcsdktypes.DataSourceParametersMemberAuroraParameters{}
 			f3f3 := &svcsdktypes.AuroraParameters{}
-			if r.ko.Spec.DataSourceParameters.AuroraParameters.Database != nil {
-				f3f3.Database = r.ko.Spec.DataSourceParameters.AuroraParameters.Database
+			if r.ko.Spec.Parameters.AuroraParameters.Database != nil {
+				f3f3.Database = r.ko.Spec.Parameters.AuroraParameters.Database
 			}
-			if r.ko.Spec.DataSourceParameters.AuroraParameters.Host != nil {
-				f3f3.Host = r.ko.Spec.DataSourceParameters.AuroraParameters.Host
+			if r.ko.Spec.Parameters.AuroraParameters.Host != nil {
+				f3f3.Host = r.ko.Spec.Parameters.AuroraParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.AuroraParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.AuroraParameters.Port
+			if r.ko.Spec.Parameters.AuroraParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.AuroraParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
@@ -1703,20 +1699,20 @@ func (rm *resourceManager) newCreateRequestPayload(
 			f3 = f3f3Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters != nil {
+		if r.ko.Spec.Parameters.AuroraPostgreSQLParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for AuroraPostgreSqlParameters"))
 			}
 			f3f4Parent := &svcsdktypes.DataSourceParametersMemberAuroraPostgreSqlParameters{}
 			f3f4 := &svcsdktypes.AuroraPostgreSqlParameters{}
-			if r.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Database != nil {
-				f3f4.Database = r.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Database
+			if r.ko.Spec.Parameters.AuroraPostgreSQLParameters.Database != nil {
+				f3f4.Database = r.ko.Spec.Parameters.AuroraPostgreSQLParameters.Database
 			}
-			if r.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Host != nil {
-				f3f4.Host = r.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Host
+			if r.ko.Spec.Parameters.AuroraPostgreSQLParameters.Host != nil {
+				f3f4.Host = r.ko.Spec.Parameters.AuroraPostgreSQLParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Port
+			if r.ko.Spec.Parameters.AuroraPostgreSQLParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.AuroraPostgreSQLParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
@@ -1727,96 +1723,96 @@ func (rm *resourceManager) newCreateRequestPayload(
 			f3 = f3f4Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.AWSIOtAnalyticsParameters != nil {
+		if r.ko.Spec.Parameters.AWSIOtAnalyticsParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for AwsIotAnalyticsParameters"))
 			}
 			f3f5Parent := &svcsdktypes.DataSourceParametersMemberAwsIotAnalyticsParameters{}
 			f3f5 := &svcsdktypes.AwsIotAnalyticsParameters{}
-			if r.ko.Spec.DataSourceParameters.AWSIOtAnalyticsParameters.DataSetName != nil {
-				f3f5.DataSetName = r.ko.Spec.DataSourceParameters.AWSIOtAnalyticsParameters.DataSetName
+			if r.ko.Spec.Parameters.AWSIOtAnalyticsParameters.DataSetName != nil {
+				f3f5.DataSetName = r.ko.Spec.Parameters.AWSIOtAnalyticsParameters.DataSetName
 			}
 			f3f5Parent.Value = *f3f5
 			f3 = f3f5Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.BigQueryParameters != nil {
+		if r.ko.Spec.Parameters.BigQueryParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for BigQueryParameters"))
 			}
 			f3f6Parent := &svcsdktypes.DataSourceParametersMemberBigQueryParameters{}
 			f3f6 := &svcsdktypes.BigQueryParameters{}
-			if r.ko.Spec.DataSourceParameters.BigQueryParameters.DataSetRegion != nil {
-				f3f6.DataSetRegion = r.ko.Spec.DataSourceParameters.BigQueryParameters.DataSetRegion
+			if r.ko.Spec.Parameters.BigQueryParameters.DataSetRegion != nil {
+				f3f6.DataSetRegion = r.ko.Spec.Parameters.BigQueryParameters.DataSetRegion
 			}
-			if r.ko.Spec.DataSourceParameters.BigQueryParameters.ProjectID != nil {
-				f3f6.ProjectId = r.ko.Spec.DataSourceParameters.BigQueryParameters.ProjectID
+			if r.ko.Spec.Parameters.BigQueryParameters.ProjectID != nil {
+				f3f6.ProjectId = r.ko.Spec.Parameters.BigQueryParameters.ProjectID
 			}
 			f3f6Parent.Value = *f3f6
 			f3 = f3f6Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.ConfluenceParameters != nil {
+		if r.ko.Spec.Parameters.ConfluenceParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for ConfluenceParameters"))
 			}
 			f3f7Parent := &svcsdktypes.DataSourceParametersMemberConfluenceParameters{}
 			f3f7 := &svcsdktypes.ConfluenceParameters{}
-			if r.ko.Spec.DataSourceParameters.ConfluenceParameters.ConfluenceURL != nil {
-				f3f7.ConfluenceUrl = r.ko.Spec.DataSourceParameters.ConfluenceParameters.ConfluenceURL
+			if r.ko.Spec.Parameters.ConfluenceParameters.ConfluenceURL != nil {
+				f3f7.ConfluenceUrl = r.ko.Spec.Parameters.ConfluenceParameters.ConfluenceURL
 			}
 			f3f7Parent.Value = *f3f7
 			f3 = f3f7Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.CustomConnectionParameters != nil {
+		if r.ko.Spec.Parameters.CustomConnectionParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for CustomConnectionParameters"))
 			}
 			f3f8Parent := &svcsdktypes.DataSourceParametersMemberCustomConnectionParameters{}
 			f3f8 := &svcsdktypes.CustomConnectionParameters{}
-			if r.ko.Spec.DataSourceParameters.CustomConnectionParameters.ConnectionType != nil {
-				f3f8.ConnectionType = r.ko.Spec.DataSourceParameters.CustomConnectionParameters.ConnectionType
+			if r.ko.Spec.Parameters.CustomConnectionParameters.ConnectionType != nil {
+				f3f8.ConnectionType = r.ko.Spec.Parameters.CustomConnectionParameters.ConnectionType
 			}
 			f3f8Parent.Value = *f3f8
 			f3 = f3f8Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.DatabricksParameters != nil {
+		if r.ko.Spec.Parameters.DatabricksParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for DatabricksParameters"))
 			}
 			f3f9Parent := &svcsdktypes.DataSourceParametersMemberDatabricksParameters{}
 			f3f9 := &svcsdktypes.DatabricksParameters{}
-			if r.ko.Spec.DataSourceParameters.DatabricksParameters.Host != nil {
-				f3f9.Host = r.ko.Spec.DataSourceParameters.DatabricksParameters.Host
+			if r.ko.Spec.Parameters.DatabricksParameters.Host != nil {
+				f3f9.Host = r.ko.Spec.Parameters.DatabricksParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.DatabricksParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.DatabricksParameters.Port
+			if r.ko.Spec.Parameters.DatabricksParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.DatabricksParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
 				portCopy := int32(portCopy0)
 				f3f9.Port = &portCopy
 			}
-			if r.ko.Spec.DataSourceParameters.DatabricksParameters.SQLEndpointPath != nil {
-				f3f9.SqlEndpointPath = r.ko.Spec.DataSourceParameters.DatabricksParameters.SQLEndpointPath
+			if r.ko.Spec.Parameters.DatabricksParameters.SQLEndpointPath != nil {
+				f3f9.SqlEndpointPath = r.ko.Spec.Parameters.DatabricksParameters.SQLEndpointPath
 			}
 			f3f9Parent.Value = *f3f9
 			f3 = f3f9Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.ExasolParameters != nil {
+		if r.ko.Spec.Parameters.ExasolParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for ExasolParameters"))
 			}
 			f3f10Parent := &svcsdktypes.DataSourceParametersMemberExasolParameters{}
 			f3f10 := &svcsdktypes.ExasolParameters{}
-			if r.ko.Spec.DataSourceParameters.ExasolParameters.Host != nil {
-				f3f10.Host = r.ko.Spec.DataSourceParameters.ExasolParameters.Host
+			if r.ko.Spec.Parameters.ExasolParameters.Host != nil {
+				f3f10.Host = r.ko.Spec.Parameters.ExasolParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.ExasolParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.ExasolParameters.Port
+			if r.ko.Spec.Parameters.ExasolParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.ExasolParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
@@ -1827,60 +1823,60 @@ func (rm *resourceManager) newCreateRequestPayload(
 			f3 = f3f10Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.ImpalaParameters != nil {
+		if r.ko.Spec.Parameters.ImpalaParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for ImpalaParameters"))
 			}
 			f3f11Parent := &svcsdktypes.DataSourceParametersMemberImpalaParameters{}
 			f3f11 := &svcsdktypes.ImpalaParameters{}
-			if r.ko.Spec.DataSourceParameters.ImpalaParameters.Database != nil {
-				f3f11.Database = r.ko.Spec.DataSourceParameters.ImpalaParameters.Database
+			if r.ko.Spec.Parameters.ImpalaParameters.Database != nil {
+				f3f11.Database = r.ko.Spec.Parameters.ImpalaParameters.Database
 			}
-			if r.ko.Spec.DataSourceParameters.ImpalaParameters.Host != nil {
-				f3f11.Host = r.ko.Spec.DataSourceParameters.ImpalaParameters.Host
+			if r.ko.Spec.Parameters.ImpalaParameters.Host != nil {
+				f3f11.Host = r.ko.Spec.Parameters.ImpalaParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.ImpalaParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.ImpalaParameters.Port
+			if r.ko.Spec.Parameters.ImpalaParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.ImpalaParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
 				portCopy := int32(portCopy0)
 				f3f11.Port = &portCopy
 			}
-			if r.ko.Spec.DataSourceParameters.ImpalaParameters.SQLEndpointPath != nil {
-				f3f11.SqlEndpointPath = r.ko.Spec.DataSourceParameters.ImpalaParameters.SQLEndpointPath
+			if r.ko.Spec.Parameters.ImpalaParameters.SQLEndpointPath != nil {
+				f3f11.SqlEndpointPath = r.ko.Spec.Parameters.ImpalaParameters.SQLEndpointPath
 			}
 			f3f11Parent.Value = *f3f11
 			f3 = f3f11Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.JiraParameters != nil {
+		if r.ko.Spec.Parameters.JiraParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for JiraParameters"))
 			}
 			f3f12Parent := &svcsdktypes.DataSourceParametersMemberJiraParameters{}
 			f3f12 := &svcsdktypes.JiraParameters{}
-			if r.ko.Spec.DataSourceParameters.JiraParameters.SiteBaseURL != nil {
-				f3f12.SiteBaseUrl = r.ko.Spec.DataSourceParameters.JiraParameters.SiteBaseURL
+			if r.ko.Spec.Parameters.JiraParameters.SiteBaseURL != nil {
+				f3f12.SiteBaseUrl = r.ko.Spec.Parameters.JiraParameters.SiteBaseURL
 			}
 			f3f12Parent.Value = *f3f12
 			f3 = f3f12Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.MariaDBParameters != nil {
+		if r.ko.Spec.Parameters.MariaDBParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for MariaDbParameters"))
 			}
 			f3f13Parent := &svcsdktypes.DataSourceParametersMemberMariaDbParameters{}
 			f3f13 := &svcsdktypes.MariaDbParameters{}
-			if r.ko.Spec.DataSourceParameters.MariaDBParameters.Database != nil {
-				f3f13.Database = r.ko.Spec.DataSourceParameters.MariaDBParameters.Database
+			if r.ko.Spec.Parameters.MariaDBParameters.Database != nil {
+				f3f13.Database = r.ko.Spec.Parameters.MariaDBParameters.Database
 			}
-			if r.ko.Spec.DataSourceParameters.MariaDBParameters.Host != nil {
-				f3f13.Host = r.ko.Spec.DataSourceParameters.MariaDBParameters.Host
+			if r.ko.Spec.Parameters.MariaDBParameters.Host != nil {
+				f3f13.Host = r.ko.Spec.Parameters.MariaDBParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.MariaDBParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.MariaDBParameters.Port
+			if r.ko.Spec.Parameters.MariaDBParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.MariaDBParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
@@ -1891,20 +1887,20 @@ func (rm *resourceManager) newCreateRequestPayload(
 			f3 = f3f13Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.MySQLParameters != nil {
+		if r.ko.Spec.Parameters.MySQLParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for MySqlParameters"))
 			}
 			f3f14Parent := &svcsdktypes.DataSourceParametersMemberMySqlParameters{}
 			f3f14 := &svcsdktypes.MySqlParameters{}
-			if r.ko.Spec.DataSourceParameters.MySQLParameters.Database != nil {
-				f3f14.Database = r.ko.Spec.DataSourceParameters.MySQLParameters.Database
+			if r.ko.Spec.Parameters.MySQLParameters.Database != nil {
+				f3f14.Database = r.ko.Spec.Parameters.MySQLParameters.Database
 			}
-			if r.ko.Spec.DataSourceParameters.MySQLParameters.Host != nil {
-				f3f14.Host = r.ko.Spec.DataSourceParameters.MySQLParameters.Host
+			if r.ko.Spec.Parameters.MySQLParameters.Host != nil {
+				f3f14.Host = r.ko.Spec.Parameters.MySQLParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.MySQLParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.MySQLParameters.Port
+			if r.ko.Spec.Parameters.MySQLParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.MySQLParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
@@ -1915,47 +1911,47 @@ func (rm *resourceManager) newCreateRequestPayload(
 			f3 = f3f14Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.OracleParameters != nil {
+		if r.ko.Spec.Parameters.OracleParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for OracleParameters"))
 			}
 			f3f15Parent := &svcsdktypes.DataSourceParametersMemberOracleParameters{}
 			f3f15 := &svcsdktypes.OracleParameters{}
-			if r.ko.Spec.DataSourceParameters.OracleParameters.Database != nil {
-				f3f15.Database = r.ko.Spec.DataSourceParameters.OracleParameters.Database
+			if r.ko.Spec.Parameters.OracleParameters.Database != nil {
+				f3f15.Database = r.ko.Spec.Parameters.OracleParameters.Database
 			}
-			if r.ko.Spec.DataSourceParameters.OracleParameters.Host != nil {
-				f3f15.Host = r.ko.Spec.DataSourceParameters.OracleParameters.Host
+			if r.ko.Spec.Parameters.OracleParameters.Host != nil {
+				f3f15.Host = r.ko.Spec.Parameters.OracleParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.OracleParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.OracleParameters.Port
+			if r.ko.Spec.Parameters.OracleParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.OracleParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
 				portCopy := int32(portCopy0)
 				f3f15.Port = &portCopy
 			}
-			if r.ko.Spec.DataSourceParameters.OracleParameters.UseServiceName != nil {
-				f3f15.UseServiceName = *r.ko.Spec.DataSourceParameters.OracleParameters.UseServiceName
+			if r.ko.Spec.Parameters.OracleParameters.UseServiceName != nil {
+				f3f15.UseServiceName = *r.ko.Spec.Parameters.OracleParameters.UseServiceName
 			}
 			f3f15Parent.Value = *f3f15
 			f3 = f3f15Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.PostgreSQLParameters != nil {
+		if r.ko.Spec.Parameters.PostgreSQLParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for PostgreSqlParameters"))
 			}
 			f3f16Parent := &svcsdktypes.DataSourceParametersMemberPostgreSqlParameters{}
 			f3f16 := &svcsdktypes.PostgreSqlParameters{}
-			if r.ko.Spec.DataSourceParameters.PostgreSQLParameters.Database != nil {
-				f3f16.Database = r.ko.Spec.DataSourceParameters.PostgreSQLParameters.Database
+			if r.ko.Spec.Parameters.PostgreSQLParameters.Database != nil {
+				f3f16.Database = r.ko.Spec.Parameters.PostgreSQLParameters.Database
 			}
-			if r.ko.Spec.DataSourceParameters.PostgreSQLParameters.Host != nil {
-				f3f16.Host = r.ko.Spec.DataSourceParameters.PostgreSQLParameters.Host
+			if r.ko.Spec.Parameters.PostgreSQLParameters.Host != nil {
+				f3f16.Host = r.ko.Spec.Parameters.PostgreSQLParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.PostgreSQLParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.PostgreSQLParameters.Port
+			if r.ko.Spec.Parameters.PostgreSQLParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.PostgreSQLParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
@@ -1966,20 +1962,20 @@ func (rm *resourceManager) newCreateRequestPayload(
 			f3 = f3f16Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.PrestoParameters != nil {
+		if r.ko.Spec.Parameters.PrestoParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for PrestoParameters"))
 			}
 			f3f17Parent := &svcsdktypes.DataSourceParametersMemberPrestoParameters{}
 			f3f17 := &svcsdktypes.PrestoParameters{}
-			if r.ko.Spec.DataSourceParameters.PrestoParameters.Catalog != nil {
-				f3f17.Catalog = r.ko.Spec.DataSourceParameters.PrestoParameters.Catalog
+			if r.ko.Spec.Parameters.PrestoParameters.Catalog != nil {
+				f3f17.Catalog = r.ko.Spec.Parameters.PrestoParameters.Catalog
 			}
-			if r.ko.Spec.DataSourceParameters.PrestoParameters.Host != nil {
-				f3f17.Host = r.ko.Spec.DataSourceParameters.PrestoParameters.Host
+			if r.ko.Spec.Parameters.PrestoParameters.Host != nil {
+				f3f17.Host = r.ko.Spec.Parameters.PrestoParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.PrestoParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.PrestoParameters.Port
+			if r.ko.Spec.Parameters.PrestoParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.PrestoParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
@@ -1990,75 +1986,75 @@ func (rm *resourceManager) newCreateRequestPayload(
 			f3 = f3f17Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.QBusinessParameters != nil {
+		if r.ko.Spec.Parameters.QBusinessParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for QBusinessParameters"))
 			}
 			f3f18Parent := &svcsdktypes.DataSourceParametersMemberQBusinessParameters{}
 			f3f18 := &svcsdktypes.QBusinessParameters{}
-			if r.ko.Spec.DataSourceParameters.QBusinessParameters.ApplicationARN != nil {
-				f3f18.ApplicationArn = r.ko.Spec.DataSourceParameters.QBusinessParameters.ApplicationARN
+			if r.ko.Spec.Parameters.QBusinessParameters.ApplicationARN != nil {
+				f3f18.ApplicationArn = r.ko.Spec.Parameters.QBusinessParameters.ApplicationARN
 			}
 			f3f18Parent.Value = *f3f18
 			f3 = f3f18Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.RdsParameters != nil {
+		if r.ko.Spec.Parameters.RdsParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for RdsParameters"))
 			}
 			f3f19Parent := &svcsdktypes.DataSourceParametersMemberRdsParameters{}
 			f3f19 := &svcsdktypes.RdsParameters{}
-			if r.ko.Spec.DataSourceParameters.RdsParameters.Database != nil {
-				f3f19.Database = r.ko.Spec.DataSourceParameters.RdsParameters.Database
+			if r.ko.Spec.Parameters.RdsParameters.Database != nil {
+				f3f19.Database = r.ko.Spec.Parameters.RdsParameters.Database
 			}
-			if r.ko.Spec.DataSourceParameters.RdsParameters.InstanceID != nil {
-				f3f19.InstanceId = r.ko.Spec.DataSourceParameters.RdsParameters.InstanceID
+			if r.ko.Spec.Parameters.RdsParameters.InstanceID != nil {
+				f3f19.InstanceId = r.ko.Spec.Parameters.RdsParameters.InstanceID
 			}
 			f3f19Parent.Value = *f3f19
 			f3 = f3f19Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.RedshiftParameters != nil {
+		if r.ko.Spec.Parameters.RedshiftParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for RedshiftParameters"))
 			}
 			f3f20Parent := &svcsdktypes.DataSourceParametersMemberRedshiftParameters{}
 			f3f20 := &svcsdktypes.RedshiftParameters{}
-			if r.ko.Spec.DataSourceParameters.RedshiftParameters.ClusterID != nil {
-				f3f20.ClusterId = r.ko.Spec.DataSourceParameters.RedshiftParameters.ClusterID
+			if r.ko.Spec.Parameters.RedshiftParameters.ClusterID != nil {
+				f3f20.ClusterId = r.ko.Spec.Parameters.RedshiftParameters.ClusterID
 			}
-			if r.ko.Spec.DataSourceParameters.RedshiftParameters.Database != nil {
-				f3f20.Database = r.ko.Spec.DataSourceParameters.RedshiftParameters.Database
+			if r.ko.Spec.Parameters.RedshiftParameters.Database != nil {
+				f3f20.Database = r.ko.Spec.Parameters.RedshiftParameters.Database
 			}
-			if r.ko.Spec.DataSourceParameters.RedshiftParameters.Host != nil {
-				f3f20.Host = r.ko.Spec.DataSourceParameters.RedshiftParameters.Host
+			if r.ko.Spec.Parameters.RedshiftParameters.Host != nil {
+				f3f20.Host = r.ko.Spec.Parameters.RedshiftParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters != nil {
+			if r.ko.Spec.Parameters.RedshiftParameters.IAMParameters != nil {
 				f3f20f3 := &svcsdktypes.RedshiftIAMParameters{}
-				if r.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser != nil {
-					f3f20f3.AutoCreateDatabaseUser = *r.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser
+				if r.ko.Spec.Parameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser != nil {
+					f3f20f3.AutoCreateDatabaseUser = *r.ko.Spec.Parameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser
 				}
-				if r.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseGroups != nil {
-					f3f20f3.DatabaseGroups = aws.ToStringSlice(r.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseGroups)
+				if r.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseGroups != nil {
+					f3f20f3.DatabaseGroups = aws.ToStringSlice(r.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseGroups)
 				}
-				if r.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseUser != nil {
-					f3f20f3.DatabaseUser = r.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseUser
+				if r.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseUser != nil {
+					f3f20f3.DatabaseUser = r.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseUser
 				}
-				if r.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.RoleARN != nil {
-					f3f20f3.RoleArn = r.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.RoleARN
+				if r.ko.Spec.Parameters.RedshiftParameters.IAMParameters.RoleARN != nil {
+					f3f20f3.RoleArn = r.ko.Spec.Parameters.RedshiftParameters.IAMParameters.RoleARN
 				}
 				f3f20.IAMParameters = f3f20f3
 			}
-			if r.ko.Spec.DataSourceParameters.RedshiftParameters.IdentityCenterConfiguration != nil {
+			if r.ko.Spec.Parameters.RedshiftParameters.IdentityCenterConfiguration != nil {
 				f3f20f4 := &svcsdktypes.IdentityCenterConfiguration{}
-				if r.ko.Spec.DataSourceParameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation != nil {
-					f3f20f4.EnableIdentityPropagation = r.ko.Spec.DataSourceParameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation
+				if r.ko.Spec.Parameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation != nil {
+					f3f20f4.EnableIdentityPropagation = r.ko.Spec.Parameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation
 				}
 				f3f20.IdentityCenterConfiguration = f3f20f4
 			}
-			if r.ko.Spec.DataSourceParameters.RedshiftParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.RedshiftParameters.Port
+			if r.ko.Spec.Parameters.RedshiftParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.RedshiftParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
@@ -2069,117 +2065,117 @@ func (rm *resourceManager) newCreateRequestPayload(
 			f3 = f3f20Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters != nil {
+		if r.ko.Spec.Parameters.S3KnowledgeBaseParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for S3KnowledgeBaseParameters"))
 			}
 			f3f21Parent := &svcsdktypes.DataSourceParametersMemberS3KnowledgeBaseParameters{}
 			f3f21 := &svcsdktypes.S3KnowledgeBaseParameters{}
-			if r.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.BucketURL != nil {
-				f3f21.BucketUrl = r.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.BucketURL
+			if r.ko.Spec.Parameters.S3KnowledgeBaseParameters.BucketURL != nil {
+				f3f21.BucketUrl = r.ko.Spec.Parameters.S3KnowledgeBaseParameters.BucketURL
 			}
-			if r.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.MetadataFilesLocation != nil {
-				f3f21.MetadataFilesLocation = r.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.MetadataFilesLocation
+			if r.ko.Spec.Parameters.S3KnowledgeBaseParameters.MetadataFilesLocation != nil {
+				f3f21.MetadataFilesLocation = r.ko.Spec.Parameters.S3KnowledgeBaseParameters.MetadataFilesLocation
 			}
-			if r.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.RoleARN != nil {
-				f3f21.RoleArn = r.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.RoleARN
+			if r.ko.Spec.Parameters.S3KnowledgeBaseParameters.RoleARN != nil {
+				f3f21.RoleArn = r.ko.Spec.Parameters.S3KnowledgeBaseParameters.RoleARN
 			}
 			f3f21Parent.Value = *f3f21
 			f3 = f3f21Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.S3Parameters != nil {
+		if r.ko.Spec.Parameters.S3Parameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for S3Parameters"))
 			}
 			f3f22Parent := &svcsdktypes.DataSourceParametersMemberS3Parameters{}
 			f3f22 := &svcsdktypes.S3Parameters{}
-			if r.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation != nil {
+			if r.ko.Spec.Parameters.S3Parameters.ManifestFileLocation != nil {
 				f3f22f0 := &svcsdktypes.ManifestFileLocation{}
-				if r.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Bucket != nil {
-					f3f22f0.Bucket = r.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Bucket
+				if r.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Bucket != nil {
+					f3f22f0.Bucket = r.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Bucket
 				}
-				if r.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Key != nil {
-					f3f22f0.Key = r.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Key
+				if r.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Key != nil {
+					f3f22f0.Key = r.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Key
 				}
 				f3f22.ManifestFileLocation = f3f22f0
 			}
-			if r.ko.Spec.DataSourceParameters.S3Parameters.RoleARN != nil {
-				f3f22.RoleArn = r.ko.Spec.DataSourceParameters.S3Parameters.RoleARN
+			if r.ko.Spec.Parameters.S3Parameters.RoleARN != nil {
+				f3f22.RoleArn = r.ko.Spec.Parameters.S3Parameters.RoleARN
 			}
 			f3f22Parent.Value = *f3f22
 			f3 = f3f22Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.ServiceNowParameters != nil {
+		if r.ko.Spec.Parameters.ServiceNowParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for ServiceNowParameters"))
 			}
 			f3f23Parent := &svcsdktypes.DataSourceParametersMemberServiceNowParameters{}
 			f3f23 := &svcsdktypes.ServiceNowParameters{}
-			if r.ko.Spec.DataSourceParameters.ServiceNowParameters.SiteBaseURL != nil {
-				f3f23.SiteBaseUrl = r.ko.Spec.DataSourceParameters.ServiceNowParameters.SiteBaseURL
+			if r.ko.Spec.Parameters.ServiceNowParameters.SiteBaseURL != nil {
+				f3f23.SiteBaseUrl = r.ko.Spec.Parameters.ServiceNowParameters.SiteBaseURL
 			}
 			f3f23Parent.Value = *f3f23
 			f3 = f3f23Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.SnowflakeParameters != nil {
+		if r.ko.Spec.Parameters.SnowflakeParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for SnowflakeParameters"))
 			}
 			f3f24Parent := &svcsdktypes.DataSourceParametersMemberSnowflakeParameters{}
 			f3f24 := &svcsdktypes.SnowflakeParameters{}
-			if r.ko.Spec.DataSourceParameters.SnowflakeParameters.AuthenticationType != nil {
-				f3f24.AuthenticationType = svcsdktypes.AuthenticationType(*r.ko.Spec.DataSourceParameters.SnowflakeParameters.AuthenticationType)
+			if r.ko.Spec.Parameters.SnowflakeParameters.AuthenticationType != nil {
+				f3f24.AuthenticationType = svcsdktypes.AuthenticationType(*r.ko.Spec.Parameters.SnowflakeParameters.AuthenticationType)
 			}
-			if r.ko.Spec.DataSourceParameters.SnowflakeParameters.Database != nil {
-				f3f24.Database = r.ko.Spec.DataSourceParameters.SnowflakeParameters.Database
+			if r.ko.Spec.Parameters.SnowflakeParameters.Database != nil {
+				f3f24.Database = r.ko.Spec.Parameters.SnowflakeParameters.Database
 			}
-			if r.ko.Spec.DataSourceParameters.SnowflakeParameters.DatabaseAccessControlRole != nil {
-				f3f24.DatabaseAccessControlRole = r.ko.Spec.DataSourceParameters.SnowflakeParameters.DatabaseAccessControlRole
+			if r.ko.Spec.Parameters.SnowflakeParameters.DatabaseAccessControlRole != nil {
+				f3f24.DatabaseAccessControlRole = r.ko.Spec.Parameters.SnowflakeParameters.DatabaseAccessControlRole
 			}
-			if r.ko.Spec.DataSourceParameters.SnowflakeParameters.Host != nil {
-				f3f24.Host = r.ko.Spec.DataSourceParameters.SnowflakeParameters.Host
+			if r.ko.Spec.Parameters.SnowflakeParameters.Host != nil {
+				f3f24.Host = r.ko.Spec.Parameters.SnowflakeParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters != nil {
+			if r.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters != nil {
 				f3f24f4 := &svcsdktypes.OAuthParameters{}
-				if r.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI != nil {
-					f3f24f4.IdentityProviderResourceUri = r.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI
+				if r.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI != nil {
+					f3f24f4.IdentityProviderResourceUri = r.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI
 				}
-				if r.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties != nil {
+				if r.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties != nil {
 					f3f24f4f1 := &svcsdktypes.VpcConnectionProperties{}
-					if r.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN != nil {
-						f3f24f4f1.VpcConnectionArn = r.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN
+					if r.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN != nil {
+						f3f24f4f1.VpcConnectionArn = r.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN
 					}
 					f3f24f4.IdentityProviderVpcConnectionProperties = f3f24f4f1
 				}
-				if r.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.OAuthScope != nil {
-					f3f24f4.OAuthScope = r.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.OAuthScope
+				if r.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.OAuthScope != nil {
+					f3f24f4.OAuthScope = r.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.OAuthScope
 				}
-				if r.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.TokenProviderURL != nil {
-					f3f24f4.TokenProviderUrl = r.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.TokenProviderURL
+				if r.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.TokenProviderURL != nil {
+					f3f24f4.TokenProviderUrl = r.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.TokenProviderURL
 				}
 				f3f24.OAuthParameters = f3f24f4
 			}
-			if r.ko.Spec.DataSourceParameters.SnowflakeParameters.Warehouse != nil {
-				f3f24.Warehouse = r.ko.Spec.DataSourceParameters.SnowflakeParameters.Warehouse
+			if r.ko.Spec.Parameters.SnowflakeParameters.Warehouse != nil {
+				f3f24.Warehouse = r.ko.Spec.Parameters.SnowflakeParameters.Warehouse
 			}
 			f3f24Parent.Value = *f3f24
 			f3 = f3f24Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.SparkParameters != nil {
+		if r.ko.Spec.Parameters.SparkParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for SparkParameters"))
 			}
 			f3f25Parent := &svcsdktypes.DataSourceParametersMemberSparkParameters{}
 			f3f25 := &svcsdktypes.SparkParameters{}
-			if r.ko.Spec.DataSourceParameters.SparkParameters.Host != nil {
-				f3f25.Host = r.ko.Spec.DataSourceParameters.SparkParameters.Host
+			if r.ko.Spec.Parameters.SparkParameters.Host != nil {
+				f3f25.Host = r.ko.Spec.Parameters.SparkParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.SparkParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.SparkParameters.Port
+			if r.ko.Spec.Parameters.SparkParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.SparkParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
@@ -2190,20 +2186,20 @@ func (rm *resourceManager) newCreateRequestPayload(
 			f3 = f3f25Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.SQLServerParameters != nil {
+		if r.ko.Spec.Parameters.SQLServerParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for SqlServerParameters"))
 			}
 			f3f26Parent := &svcsdktypes.DataSourceParametersMemberSqlServerParameters{}
 			f3f26 := &svcsdktypes.SqlServerParameters{}
-			if r.ko.Spec.DataSourceParameters.SQLServerParameters.Database != nil {
-				f3f26.Database = r.ko.Spec.DataSourceParameters.SQLServerParameters.Database
+			if r.ko.Spec.Parameters.SQLServerParameters.Database != nil {
+				f3f26.Database = r.ko.Spec.Parameters.SQLServerParameters.Database
 			}
-			if r.ko.Spec.DataSourceParameters.SQLServerParameters.Host != nil {
-				f3f26.Host = r.ko.Spec.DataSourceParameters.SQLServerParameters.Host
+			if r.ko.Spec.Parameters.SQLServerParameters.Host != nil {
+				f3f26.Host = r.ko.Spec.Parameters.SQLServerParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.SQLServerParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.SQLServerParameters.Port
+			if r.ko.Spec.Parameters.SQLServerParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.SQLServerParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
@@ -2214,73 +2210,73 @@ func (rm *resourceManager) newCreateRequestPayload(
 			f3 = f3f26Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.StarburstParameters != nil {
+		if r.ko.Spec.Parameters.StarburstParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for StarburstParameters"))
 			}
 			f3f27Parent := &svcsdktypes.DataSourceParametersMemberStarburstParameters{}
 			f3f27 := &svcsdktypes.StarburstParameters{}
-			if r.ko.Spec.DataSourceParameters.StarburstParameters.AuthenticationType != nil {
-				f3f27.AuthenticationType = svcsdktypes.AuthenticationType(*r.ko.Spec.DataSourceParameters.StarburstParameters.AuthenticationType)
+			if r.ko.Spec.Parameters.StarburstParameters.AuthenticationType != nil {
+				f3f27.AuthenticationType = svcsdktypes.AuthenticationType(*r.ko.Spec.Parameters.StarburstParameters.AuthenticationType)
 			}
-			if r.ko.Spec.DataSourceParameters.StarburstParameters.Catalog != nil {
-				f3f27.Catalog = r.ko.Spec.DataSourceParameters.StarburstParameters.Catalog
+			if r.ko.Spec.Parameters.StarburstParameters.Catalog != nil {
+				f3f27.Catalog = r.ko.Spec.Parameters.StarburstParameters.Catalog
 			}
-			if r.ko.Spec.DataSourceParameters.StarburstParameters.DatabaseAccessControlRole != nil {
-				f3f27.DatabaseAccessControlRole = r.ko.Spec.DataSourceParameters.StarburstParameters.DatabaseAccessControlRole
+			if r.ko.Spec.Parameters.StarburstParameters.DatabaseAccessControlRole != nil {
+				f3f27.DatabaseAccessControlRole = r.ko.Spec.Parameters.StarburstParameters.DatabaseAccessControlRole
 			}
-			if r.ko.Spec.DataSourceParameters.StarburstParameters.Host != nil {
-				f3f27.Host = r.ko.Spec.DataSourceParameters.StarburstParameters.Host
+			if r.ko.Spec.Parameters.StarburstParameters.Host != nil {
+				f3f27.Host = r.ko.Spec.Parameters.StarburstParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters != nil {
+			if r.ko.Spec.Parameters.StarburstParameters.OAuthParameters != nil {
 				f3f27f4 := &svcsdktypes.OAuthParameters{}
-				if r.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI != nil {
-					f3f27f4.IdentityProviderResourceUri = r.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI
+				if r.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI != nil {
+					f3f27f4.IdentityProviderResourceUri = r.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI
 				}
-				if r.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties != nil {
+				if r.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties != nil {
 					f3f27f4f1 := &svcsdktypes.VpcConnectionProperties{}
-					if r.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN != nil {
-						f3f27f4f1.VpcConnectionArn = r.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN
+					if r.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN != nil {
+						f3f27f4f1.VpcConnectionArn = r.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN
 					}
 					f3f27f4.IdentityProviderVpcConnectionProperties = f3f27f4f1
 				}
-				if r.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.OAuthScope != nil {
-					f3f27f4.OAuthScope = r.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.OAuthScope
+				if r.ko.Spec.Parameters.StarburstParameters.OAuthParameters.OAuthScope != nil {
+					f3f27f4.OAuthScope = r.ko.Spec.Parameters.StarburstParameters.OAuthParameters.OAuthScope
 				}
-				if r.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.TokenProviderURL != nil {
-					f3f27f4.TokenProviderUrl = r.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.TokenProviderURL
+				if r.ko.Spec.Parameters.StarburstParameters.OAuthParameters.TokenProviderURL != nil {
+					f3f27f4.TokenProviderUrl = r.ko.Spec.Parameters.StarburstParameters.OAuthParameters.TokenProviderURL
 				}
 				f3f27.OAuthParameters = f3f27f4
 			}
-			if r.ko.Spec.DataSourceParameters.StarburstParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.StarburstParameters.Port
+			if r.ko.Spec.Parameters.StarburstParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.StarburstParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
 				portCopy := int32(portCopy0)
 				f3f27.Port = &portCopy
 			}
-			if r.ko.Spec.DataSourceParameters.StarburstParameters.ProductType != nil {
-				f3f27.ProductType = svcsdktypes.StarburstProductType(*r.ko.Spec.DataSourceParameters.StarburstParameters.ProductType)
+			if r.ko.Spec.Parameters.StarburstParameters.ProductType != nil {
+				f3f27.ProductType = svcsdktypes.StarburstProductType(*r.ko.Spec.Parameters.StarburstParameters.ProductType)
 			}
 			f3f27Parent.Value = *f3f27
 			f3 = f3f27Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.TeradataParameters != nil {
+		if r.ko.Spec.Parameters.TeradataParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for TeradataParameters"))
 			}
 			f3f28Parent := &svcsdktypes.DataSourceParametersMemberTeradataParameters{}
 			f3f28 := &svcsdktypes.TeradataParameters{}
-			if r.ko.Spec.DataSourceParameters.TeradataParameters.Database != nil {
-				f3f28.Database = r.ko.Spec.DataSourceParameters.TeradataParameters.Database
+			if r.ko.Spec.Parameters.TeradataParameters.Database != nil {
+				f3f28.Database = r.ko.Spec.Parameters.TeradataParameters.Database
 			}
-			if r.ko.Spec.DataSourceParameters.TeradataParameters.Host != nil {
-				f3f28.Host = r.ko.Spec.DataSourceParameters.TeradataParameters.Host
+			if r.ko.Spec.Parameters.TeradataParameters.Host != nil {
+				f3f28.Host = r.ko.Spec.Parameters.TeradataParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.TeradataParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.TeradataParameters.Port
+			if r.ko.Spec.Parameters.TeradataParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.TeradataParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
@@ -2291,20 +2287,20 @@ func (rm *resourceManager) newCreateRequestPayload(
 			f3 = f3f28Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.TrinoParameters != nil {
+		if r.ko.Spec.Parameters.TrinoParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for TrinoParameters"))
 			}
 			f3f29Parent := &svcsdktypes.DataSourceParametersMemberTrinoParameters{}
 			f3f29 := &svcsdktypes.TrinoParameters{}
-			if r.ko.Spec.DataSourceParameters.TrinoParameters.Catalog != nil {
-				f3f29.Catalog = r.ko.Spec.DataSourceParameters.TrinoParameters.Catalog
+			if r.ko.Spec.Parameters.TrinoParameters.Catalog != nil {
+				f3f29.Catalog = r.ko.Spec.Parameters.TrinoParameters.Catalog
 			}
-			if r.ko.Spec.DataSourceParameters.TrinoParameters.Host != nil {
-				f3f29.Host = r.ko.Spec.DataSourceParameters.TrinoParameters.Host
+			if r.ko.Spec.Parameters.TrinoParameters.Host != nil {
+				f3f29.Host = r.ko.Spec.Parameters.TrinoParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.TrinoParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.TrinoParameters.Port
+			if r.ko.Spec.Parameters.TrinoParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.TrinoParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
@@ -2315,56 +2311,56 @@ func (rm *resourceManager) newCreateRequestPayload(
 			f3 = f3f29Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.TwitterParameters != nil {
+		if r.ko.Spec.Parameters.TwitterParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for TwitterParameters"))
 			}
 			f3f30Parent := &svcsdktypes.DataSourceParametersMemberTwitterParameters{}
 			f3f30 := &svcsdktypes.TwitterParameters{}
-			if r.ko.Spec.DataSourceParameters.TwitterParameters.MaxRows != nil {
-				maxRowsCopy0 := *r.ko.Spec.DataSourceParameters.TwitterParameters.MaxRows
+			if r.ko.Spec.Parameters.TwitterParameters.MaxRows != nil {
+				maxRowsCopy0 := *r.ko.Spec.Parameters.TwitterParameters.MaxRows
 				if maxRowsCopy0 > math.MaxInt32 || maxRowsCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field MaxRows is of type int32")
 				}
 				maxRowsCopy := int32(maxRowsCopy0)
 				f3f30.MaxRows = &maxRowsCopy
 			}
-			if r.ko.Spec.DataSourceParameters.TwitterParameters.Query != nil {
-				f3f30.Query = r.ko.Spec.DataSourceParameters.TwitterParameters.Query
+			if r.ko.Spec.Parameters.TwitterParameters.Query != nil {
+				f3f30.Query = r.ko.Spec.Parameters.TwitterParameters.Query
 			}
 			f3f30Parent.Value = *f3f30
 			f3 = f3f30Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.WebCrawlerParameters != nil {
+		if r.ko.Spec.Parameters.WebCrawlerParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for WebCrawlerParameters"))
 			}
 			f3f31Parent := &svcsdktypes.DataSourceParametersMemberWebCrawlerParameters{}
 			f3f31 := &svcsdktypes.WebCrawlerParameters{}
-			if r.ko.Spec.DataSourceParameters.WebCrawlerParameters.LoginPageURL != nil {
-				f3f31.LoginPageUrl = r.ko.Spec.DataSourceParameters.WebCrawlerParameters.LoginPageURL
+			if r.ko.Spec.Parameters.WebCrawlerParameters.LoginPageURL != nil {
+				f3f31.LoginPageUrl = r.ko.Spec.Parameters.WebCrawlerParameters.LoginPageURL
 			}
-			if r.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordButtonXpath != nil {
-				f3f31.PasswordButtonXpath = r.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordButtonXpath
+			if r.ko.Spec.Parameters.WebCrawlerParameters.PasswordButtonXpath != nil {
+				f3f31.PasswordButtonXpath = r.ko.Spec.Parameters.WebCrawlerParameters.PasswordButtonXpath
 			}
-			if r.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordFieldXpath != nil {
-				f3f31.PasswordFieldXpath = r.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordFieldXpath
+			if r.ko.Spec.Parameters.WebCrawlerParameters.PasswordFieldXpath != nil {
+				f3f31.PasswordFieldXpath = r.ko.Spec.Parameters.WebCrawlerParameters.PasswordFieldXpath
 			}
-			if r.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameButtonXpath != nil {
-				f3f31.UsernameButtonXpath = r.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameButtonXpath
+			if r.ko.Spec.Parameters.WebCrawlerParameters.UsernameButtonXpath != nil {
+				f3f31.UsernameButtonXpath = r.ko.Spec.Parameters.WebCrawlerParameters.UsernameButtonXpath
 			}
-			if r.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameFieldXpath != nil {
-				f3f31.UsernameFieldXpath = r.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameFieldXpath
+			if r.ko.Spec.Parameters.WebCrawlerParameters.UsernameFieldXpath != nil {
+				f3f31.UsernameFieldXpath = r.ko.Spec.Parameters.WebCrawlerParameters.UsernameFieldXpath
 			}
-			if r.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebCrawlerAuthType != nil {
-				f3f31.WebCrawlerAuthType = svcsdktypes.WebCrawlerAuthType(*r.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebCrawlerAuthType)
+			if r.ko.Spec.Parameters.WebCrawlerParameters.WebCrawlerAuthType != nil {
+				f3f31.WebCrawlerAuthType = svcsdktypes.WebCrawlerAuthType(*r.ko.Spec.Parameters.WebCrawlerParameters.WebCrawlerAuthType)
 			}
-			if r.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyHostName != nil {
-				f3f31.WebProxyHostName = r.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyHostName
+			if r.ko.Spec.Parameters.WebCrawlerParameters.WebProxyHostName != nil {
+				f3f31.WebProxyHostName = r.ko.Spec.Parameters.WebCrawlerParameters.WebProxyHostName
 			}
-			if r.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyPortNumber != nil {
-				webProxyPortNumberCopy0 := *r.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyPortNumber
+			if r.ko.Spec.Parameters.WebCrawlerParameters.WebProxyPortNumber != nil {
+				webProxyPortNumberCopy0 := *r.ko.Spec.Parameters.WebCrawlerParameters.WebProxyPortNumber
 				if webProxyPortNumberCopy0 > math.MaxInt32 || webProxyPortNumberCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field WebProxyPortNumber is of type int32")
 				}
@@ -2445,15 +2441,20 @@ func (rm *resourceManager) sdkUpdate(
 	defer func() {
 		exit(err)
 	}()
+	desired.SetStatus(latest)
+	if !(datasourceIsCreationSuccessful(desired) || datasourceIsUpdateSuccessful(desired) || datasourceIsUpdateFailed(desired) || datasourceIsCreationFailed(desired)) {
+		return desired, ackrequeue.Needed(fmt.Errorf("resource is %s", *desired.ko.Status.Status))
+	}
 
 	if delta.DifferentAt("Spec.Tags") {
-		err := rm.syncTags(
+		arn := string(*latest.ko.Status.ACKResourceMetadata.ARN)
+		err = syncTags(
 			ctx,
-			latest,
-			desired,
+			desired.ko.Spec.Tags, latest.ko.Spec.Tags,
+			&arn, convertToOrderedACKTags, rm.sdkapi, rm.metrics,
 		)
 		if err != nil {
-			return nil, err
+			return desired, err
 		}
 	}
 	if !delta.DifferentExcept("Spec.Tags") {
@@ -2483,9 +2484,9 @@ func (rm *resourceManager) sdkUpdate(
 		ko.Status.ACKResourceMetadata.ARN = &arn
 	}
 	if resp.DataSourceId != nil {
-		ko.Spec.DataSourceID = resp.DataSourceId
+		ko.Spec.ID = resp.DataSourceId
 	} else {
-		ko.Spec.DataSourceID = nil
+		ko.Spec.ID = nil
 	}
 	if resp.UpdateStatus != "" {
 		ko.Status.Status = aws.String(string(resp.UpdateStatus))
@@ -3330,75 +3331,75 @@ func (rm *resourceManager) newUpdateRequestPayload(
 		}
 		res.Credentials = f1
 	}
-	if r.ko.Spec.DataSourceID != nil {
-		res.DataSourceId = r.ko.Spec.DataSourceID
+	if r.ko.Spec.ID != nil {
+		res.DataSourceId = r.ko.Spec.ID
 	}
-	if r.ko.Spec.DataSourceParameters != nil {
+	if r.ko.Spec.Parameters != nil {
 		var f3 svcsdktypes.DataSourceParameters
 		isInterfaceSet := false
-		if r.ko.Spec.DataSourceParameters.AmazonElasticsearchParameters != nil {
+		if r.ko.Spec.Parameters.AmazonElasticsearchParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for AmazonElasticsearchParameters"))
 			}
 			f3f0Parent := &svcsdktypes.DataSourceParametersMemberAmazonElasticsearchParameters{}
 			f3f0 := &svcsdktypes.AmazonElasticsearchParameters{}
-			if r.ko.Spec.DataSourceParameters.AmazonElasticsearchParameters.Domain != nil {
-				f3f0.Domain = r.ko.Spec.DataSourceParameters.AmazonElasticsearchParameters.Domain
+			if r.ko.Spec.Parameters.AmazonElasticsearchParameters.Domain != nil {
+				f3f0.Domain = r.ko.Spec.Parameters.AmazonElasticsearchParameters.Domain
 			}
 			f3f0Parent.Value = *f3f0
 			f3 = f3f0Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.AmazonOpenSearchParameters != nil {
+		if r.ko.Spec.Parameters.AmazonOpenSearchParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for AmazonOpenSearchParameters"))
 			}
 			f3f1Parent := &svcsdktypes.DataSourceParametersMemberAmazonOpenSearchParameters{}
 			f3f1 := &svcsdktypes.AmazonOpenSearchParameters{}
-			if r.ko.Spec.DataSourceParameters.AmazonOpenSearchParameters.Domain != nil {
-				f3f1.Domain = r.ko.Spec.DataSourceParameters.AmazonOpenSearchParameters.Domain
+			if r.ko.Spec.Parameters.AmazonOpenSearchParameters.Domain != nil {
+				f3f1.Domain = r.ko.Spec.Parameters.AmazonOpenSearchParameters.Domain
 			}
 			f3f1Parent.Value = *f3f1
 			f3 = f3f1Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.AthenaParameters != nil {
+		if r.ko.Spec.Parameters.AthenaParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for AthenaParameters"))
 			}
 			f3f2Parent := &svcsdktypes.DataSourceParametersMemberAthenaParameters{}
 			f3f2 := &svcsdktypes.AthenaParameters{}
-			if r.ko.Spec.DataSourceParameters.AthenaParameters.IdentityCenterConfiguration != nil {
+			if r.ko.Spec.Parameters.AthenaParameters.IdentityCenterConfiguration != nil {
 				f3f2f0 := &svcsdktypes.IdentityCenterConfiguration{}
-				if r.ko.Spec.DataSourceParameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation != nil {
-					f3f2f0.EnableIdentityPropagation = r.ko.Spec.DataSourceParameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation
+				if r.ko.Spec.Parameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation != nil {
+					f3f2f0.EnableIdentityPropagation = r.ko.Spec.Parameters.AthenaParameters.IdentityCenterConfiguration.EnableIdentityPropagation
 				}
 				f3f2.IdentityCenterConfiguration = f3f2f0
 			}
-			if r.ko.Spec.DataSourceParameters.AthenaParameters.RoleARN != nil {
-				f3f2.RoleArn = r.ko.Spec.DataSourceParameters.AthenaParameters.RoleARN
+			if r.ko.Spec.Parameters.AthenaParameters.RoleARN != nil {
+				f3f2.RoleArn = r.ko.Spec.Parameters.AthenaParameters.RoleARN
 			}
-			if r.ko.Spec.DataSourceParameters.AthenaParameters.WorkGroup != nil {
-				f3f2.WorkGroup = r.ko.Spec.DataSourceParameters.AthenaParameters.WorkGroup
+			if r.ko.Spec.Parameters.AthenaParameters.WorkGroup != nil {
+				f3f2.WorkGroup = r.ko.Spec.Parameters.AthenaParameters.WorkGroup
 			}
 			f3f2Parent.Value = *f3f2
 			f3 = f3f2Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.AuroraParameters != nil {
+		if r.ko.Spec.Parameters.AuroraParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for AuroraParameters"))
 			}
 			f3f3Parent := &svcsdktypes.DataSourceParametersMemberAuroraParameters{}
 			f3f3 := &svcsdktypes.AuroraParameters{}
-			if r.ko.Spec.DataSourceParameters.AuroraParameters.Database != nil {
-				f3f3.Database = r.ko.Spec.DataSourceParameters.AuroraParameters.Database
+			if r.ko.Spec.Parameters.AuroraParameters.Database != nil {
+				f3f3.Database = r.ko.Spec.Parameters.AuroraParameters.Database
 			}
-			if r.ko.Spec.DataSourceParameters.AuroraParameters.Host != nil {
-				f3f3.Host = r.ko.Spec.DataSourceParameters.AuroraParameters.Host
+			if r.ko.Spec.Parameters.AuroraParameters.Host != nil {
+				f3f3.Host = r.ko.Spec.Parameters.AuroraParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.AuroraParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.AuroraParameters.Port
+			if r.ko.Spec.Parameters.AuroraParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.AuroraParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
@@ -3409,20 +3410,20 @@ func (rm *resourceManager) newUpdateRequestPayload(
 			f3 = f3f3Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters != nil {
+		if r.ko.Spec.Parameters.AuroraPostgreSQLParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for AuroraPostgreSqlParameters"))
 			}
 			f3f4Parent := &svcsdktypes.DataSourceParametersMemberAuroraPostgreSqlParameters{}
 			f3f4 := &svcsdktypes.AuroraPostgreSqlParameters{}
-			if r.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Database != nil {
-				f3f4.Database = r.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Database
+			if r.ko.Spec.Parameters.AuroraPostgreSQLParameters.Database != nil {
+				f3f4.Database = r.ko.Spec.Parameters.AuroraPostgreSQLParameters.Database
 			}
-			if r.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Host != nil {
-				f3f4.Host = r.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Host
+			if r.ko.Spec.Parameters.AuroraPostgreSQLParameters.Host != nil {
+				f3f4.Host = r.ko.Spec.Parameters.AuroraPostgreSQLParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.AuroraPostgreSQLParameters.Port
+			if r.ko.Spec.Parameters.AuroraPostgreSQLParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.AuroraPostgreSQLParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
@@ -3433,96 +3434,96 @@ func (rm *resourceManager) newUpdateRequestPayload(
 			f3 = f3f4Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.AWSIOtAnalyticsParameters != nil {
+		if r.ko.Spec.Parameters.AWSIOtAnalyticsParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for AwsIotAnalyticsParameters"))
 			}
 			f3f5Parent := &svcsdktypes.DataSourceParametersMemberAwsIotAnalyticsParameters{}
 			f3f5 := &svcsdktypes.AwsIotAnalyticsParameters{}
-			if r.ko.Spec.DataSourceParameters.AWSIOtAnalyticsParameters.DataSetName != nil {
-				f3f5.DataSetName = r.ko.Spec.DataSourceParameters.AWSIOtAnalyticsParameters.DataSetName
+			if r.ko.Spec.Parameters.AWSIOtAnalyticsParameters.DataSetName != nil {
+				f3f5.DataSetName = r.ko.Spec.Parameters.AWSIOtAnalyticsParameters.DataSetName
 			}
 			f3f5Parent.Value = *f3f5
 			f3 = f3f5Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.BigQueryParameters != nil {
+		if r.ko.Spec.Parameters.BigQueryParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for BigQueryParameters"))
 			}
 			f3f6Parent := &svcsdktypes.DataSourceParametersMemberBigQueryParameters{}
 			f3f6 := &svcsdktypes.BigQueryParameters{}
-			if r.ko.Spec.DataSourceParameters.BigQueryParameters.DataSetRegion != nil {
-				f3f6.DataSetRegion = r.ko.Spec.DataSourceParameters.BigQueryParameters.DataSetRegion
+			if r.ko.Spec.Parameters.BigQueryParameters.DataSetRegion != nil {
+				f3f6.DataSetRegion = r.ko.Spec.Parameters.BigQueryParameters.DataSetRegion
 			}
-			if r.ko.Spec.DataSourceParameters.BigQueryParameters.ProjectID != nil {
-				f3f6.ProjectId = r.ko.Spec.DataSourceParameters.BigQueryParameters.ProjectID
+			if r.ko.Spec.Parameters.BigQueryParameters.ProjectID != nil {
+				f3f6.ProjectId = r.ko.Spec.Parameters.BigQueryParameters.ProjectID
 			}
 			f3f6Parent.Value = *f3f6
 			f3 = f3f6Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.ConfluenceParameters != nil {
+		if r.ko.Spec.Parameters.ConfluenceParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for ConfluenceParameters"))
 			}
 			f3f7Parent := &svcsdktypes.DataSourceParametersMemberConfluenceParameters{}
 			f3f7 := &svcsdktypes.ConfluenceParameters{}
-			if r.ko.Spec.DataSourceParameters.ConfluenceParameters.ConfluenceURL != nil {
-				f3f7.ConfluenceUrl = r.ko.Spec.DataSourceParameters.ConfluenceParameters.ConfluenceURL
+			if r.ko.Spec.Parameters.ConfluenceParameters.ConfluenceURL != nil {
+				f3f7.ConfluenceUrl = r.ko.Spec.Parameters.ConfluenceParameters.ConfluenceURL
 			}
 			f3f7Parent.Value = *f3f7
 			f3 = f3f7Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.CustomConnectionParameters != nil {
+		if r.ko.Spec.Parameters.CustomConnectionParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for CustomConnectionParameters"))
 			}
 			f3f8Parent := &svcsdktypes.DataSourceParametersMemberCustomConnectionParameters{}
 			f3f8 := &svcsdktypes.CustomConnectionParameters{}
-			if r.ko.Spec.DataSourceParameters.CustomConnectionParameters.ConnectionType != nil {
-				f3f8.ConnectionType = r.ko.Spec.DataSourceParameters.CustomConnectionParameters.ConnectionType
+			if r.ko.Spec.Parameters.CustomConnectionParameters.ConnectionType != nil {
+				f3f8.ConnectionType = r.ko.Spec.Parameters.CustomConnectionParameters.ConnectionType
 			}
 			f3f8Parent.Value = *f3f8
 			f3 = f3f8Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.DatabricksParameters != nil {
+		if r.ko.Spec.Parameters.DatabricksParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for DatabricksParameters"))
 			}
 			f3f9Parent := &svcsdktypes.DataSourceParametersMemberDatabricksParameters{}
 			f3f9 := &svcsdktypes.DatabricksParameters{}
-			if r.ko.Spec.DataSourceParameters.DatabricksParameters.Host != nil {
-				f3f9.Host = r.ko.Spec.DataSourceParameters.DatabricksParameters.Host
+			if r.ko.Spec.Parameters.DatabricksParameters.Host != nil {
+				f3f9.Host = r.ko.Spec.Parameters.DatabricksParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.DatabricksParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.DatabricksParameters.Port
+			if r.ko.Spec.Parameters.DatabricksParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.DatabricksParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
 				portCopy := int32(portCopy0)
 				f3f9.Port = &portCopy
 			}
-			if r.ko.Spec.DataSourceParameters.DatabricksParameters.SQLEndpointPath != nil {
-				f3f9.SqlEndpointPath = r.ko.Spec.DataSourceParameters.DatabricksParameters.SQLEndpointPath
+			if r.ko.Spec.Parameters.DatabricksParameters.SQLEndpointPath != nil {
+				f3f9.SqlEndpointPath = r.ko.Spec.Parameters.DatabricksParameters.SQLEndpointPath
 			}
 			f3f9Parent.Value = *f3f9
 			f3 = f3f9Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.ExasolParameters != nil {
+		if r.ko.Spec.Parameters.ExasolParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for ExasolParameters"))
 			}
 			f3f10Parent := &svcsdktypes.DataSourceParametersMemberExasolParameters{}
 			f3f10 := &svcsdktypes.ExasolParameters{}
-			if r.ko.Spec.DataSourceParameters.ExasolParameters.Host != nil {
-				f3f10.Host = r.ko.Spec.DataSourceParameters.ExasolParameters.Host
+			if r.ko.Spec.Parameters.ExasolParameters.Host != nil {
+				f3f10.Host = r.ko.Spec.Parameters.ExasolParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.ExasolParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.ExasolParameters.Port
+			if r.ko.Spec.Parameters.ExasolParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.ExasolParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
@@ -3533,60 +3534,60 @@ func (rm *resourceManager) newUpdateRequestPayload(
 			f3 = f3f10Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.ImpalaParameters != nil {
+		if r.ko.Spec.Parameters.ImpalaParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for ImpalaParameters"))
 			}
 			f3f11Parent := &svcsdktypes.DataSourceParametersMemberImpalaParameters{}
 			f3f11 := &svcsdktypes.ImpalaParameters{}
-			if r.ko.Spec.DataSourceParameters.ImpalaParameters.Database != nil {
-				f3f11.Database = r.ko.Spec.DataSourceParameters.ImpalaParameters.Database
+			if r.ko.Spec.Parameters.ImpalaParameters.Database != nil {
+				f3f11.Database = r.ko.Spec.Parameters.ImpalaParameters.Database
 			}
-			if r.ko.Spec.DataSourceParameters.ImpalaParameters.Host != nil {
-				f3f11.Host = r.ko.Spec.DataSourceParameters.ImpalaParameters.Host
+			if r.ko.Spec.Parameters.ImpalaParameters.Host != nil {
+				f3f11.Host = r.ko.Spec.Parameters.ImpalaParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.ImpalaParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.ImpalaParameters.Port
+			if r.ko.Spec.Parameters.ImpalaParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.ImpalaParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
 				portCopy := int32(portCopy0)
 				f3f11.Port = &portCopy
 			}
-			if r.ko.Spec.DataSourceParameters.ImpalaParameters.SQLEndpointPath != nil {
-				f3f11.SqlEndpointPath = r.ko.Spec.DataSourceParameters.ImpalaParameters.SQLEndpointPath
+			if r.ko.Spec.Parameters.ImpalaParameters.SQLEndpointPath != nil {
+				f3f11.SqlEndpointPath = r.ko.Spec.Parameters.ImpalaParameters.SQLEndpointPath
 			}
 			f3f11Parent.Value = *f3f11
 			f3 = f3f11Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.JiraParameters != nil {
+		if r.ko.Spec.Parameters.JiraParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for JiraParameters"))
 			}
 			f3f12Parent := &svcsdktypes.DataSourceParametersMemberJiraParameters{}
 			f3f12 := &svcsdktypes.JiraParameters{}
-			if r.ko.Spec.DataSourceParameters.JiraParameters.SiteBaseURL != nil {
-				f3f12.SiteBaseUrl = r.ko.Spec.DataSourceParameters.JiraParameters.SiteBaseURL
+			if r.ko.Spec.Parameters.JiraParameters.SiteBaseURL != nil {
+				f3f12.SiteBaseUrl = r.ko.Spec.Parameters.JiraParameters.SiteBaseURL
 			}
 			f3f12Parent.Value = *f3f12
 			f3 = f3f12Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.MariaDBParameters != nil {
+		if r.ko.Spec.Parameters.MariaDBParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for MariaDbParameters"))
 			}
 			f3f13Parent := &svcsdktypes.DataSourceParametersMemberMariaDbParameters{}
 			f3f13 := &svcsdktypes.MariaDbParameters{}
-			if r.ko.Spec.DataSourceParameters.MariaDBParameters.Database != nil {
-				f3f13.Database = r.ko.Spec.DataSourceParameters.MariaDBParameters.Database
+			if r.ko.Spec.Parameters.MariaDBParameters.Database != nil {
+				f3f13.Database = r.ko.Spec.Parameters.MariaDBParameters.Database
 			}
-			if r.ko.Spec.DataSourceParameters.MariaDBParameters.Host != nil {
-				f3f13.Host = r.ko.Spec.DataSourceParameters.MariaDBParameters.Host
+			if r.ko.Spec.Parameters.MariaDBParameters.Host != nil {
+				f3f13.Host = r.ko.Spec.Parameters.MariaDBParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.MariaDBParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.MariaDBParameters.Port
+			if r.ko.Spec.Parameters.MariaDBParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.MariaDBParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
@@ -3597,20 +3598,20 @@ func (rm *resourceManager) newUpdateRequestPayload(
 			f3 = f3f13Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.MySQLParameters != nil {
+		if r.ko.Spec.Parameters.MySQLParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for MySqlParameters"))
 			}
 			f3f14Parent := &svcsdktypes.DataSourceParametersMemberMySqlParameters{}
 			f3f14 := &svcsdktypes.MySqlParameters{}
-			if r.ko.Spec.DataSourceParameters.MySQLParameters.Database != nil {
-				f3f14.Database = r.ko.Spec.DataSourceParameters.MySQLParameters.Database
+			if r.ko.Spec.Parameters.MySQLParameters.Database != nil {
+				f3f14.Database = r.ko.Spec.Parameters.MySQLParameters.Database
 			}
-			if r.ko.Spec.DataSourceParameters.MySQLParameters.Host != nil {
-				f3f14.Host = r.ko.Spec.DataSourceParameters.MySQLParameters.Host
+			if r.ko.Spec.Parameters.MySQLParameters.Host != nil {
+				f3f14.Host = r.ko.Spec.Parameters.MySQLParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.MySQLParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.MySQLParameters.Port
+			if r.ko.Spec.Parameters.MySQLParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.MySQLParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
@@ -3621,47 +3622,47 @@ func (rm *resourceManager) newUpdateRequestPayload(
 			f3 = f3f14Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.OracleParameters != nil {
+		if r.ko.Spec.Parameters.OracleParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for OracleParameters"))
 			}
 			f3f15Parent := &svcsdktypes.DataSourceParametersMemberOracleParameters{}
 			f3f15 := &svcsdktypes.OracleParameters{}
-			if r.ko.Spec.DataSourceParameters.OracleParameters.Database != nil {
-				f3f15.Database = r.ko.Spec.DataSourceParameters.OracleParameters.Database
+			if r.ko.Spec.Parameters.OracleParameters.Database != nil {
+				f3f15.Database = r.ko.Spec.Parameters.OracleParameters.Database
 			}
-			if r.ko.Spec.DataSourceParameters.OracleParameters.Host != nil {
-				f3f15.Host = r.ko.Spec.DataSourceParameters.OracleParameters.Host
+			if r.ko.Spec.Parameters.OracleParameters.Host != nil {
+				f3f15.Host = r.ko.Spec.Parameters.OracleParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.OracleParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.OracleParameters.Port
+			if r.ko.Spec.Parameters.OracleParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.OracleParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
 				portCopy := int32(portCopy0)
 				f3f15.Port = &portCopy
 			}
-			if r.ko.Spec.DataSourceParameters.OracleParameters.UseServiceName != nil {
-				f3f15.UseServiceName = *r.ko.Spec.DataSourceParameters.OracleParameters.UseServiceName
+			if r.ko.Spec.Parameters.OracleParameters.UseServiceName != nil {
+				f3f15.UseServiceName = *r.ko.Spec.Parameters.OracleParameters.UseServiceName
 			}
 			f3f15Parent.Value = *f3f15
 			f3 = f3f15Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.PostgreSQLParameters != nil {
+		if r.ko.Spec.Parameters.PostgreSQLParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for PostgreSqlParameters"))
 			}
 			f3f16Parent := &svcsdktypes.DataSourceParametersMemberPostgreSqlParameters{}
 			f3f16 := &svcsdktypes.PostgreSqlParameters{}
-			if r.ko.Spec.DataSourceParameters.PostgreSQLParameters.Database != nil {
-				f3f16.Database = r.ko.Spec.DataSourceParameters.PostgreSQLParameters.Database
+			if r.ko.Spec.Parameters.PostgreSQLParameters.Database != nil {
+				f3f16.Database = r.ko.Spec.Parameters.PostgreSQLParameters.Database
 			}
-			if r.ko.Spec.DataSourceParameters.PostgreSQLParameters.Host != nil {
-				f3f16.Host = r.ko.Spec.DataSourceParameters.PostgreSQLParameters.Host
+			if r.ko.Spec.Parameters.PostgreSQLParameters.Host != nil {
+				f3f16.Host = r.ko.Spec.Parameters.PostgreSQLParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.PostgreSQLParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.PostgreSQLParameters.Port
+			if r.ko.Spec.Parameters.PostgreSQLParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.PostgreSQLParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
@@ -3672,20 +3673,20 @@ func (rm *resourceManager) newUpdateRequestPayload(
 			f3 = f3f16Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.PrestoParameters != nil {
+		if r.ko.Spec.Parameters.PrestoParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for PrestoParameters"))
 			}
 			f3f17Parent := &svcsdktypes.DataSourceParametersMemberPrestoParameters{}
 			f3f17 := &svcsdktypes.PrestoParameters{}
-			if r.ko.Spec.DataSourceParameters.PrestoParameters.Catalog != nil {
-				f3f17.Catalog = r.ko.Spec.DataSourceParameters.PrestoParameters.Catalog
+			if r.ko.Spec.Parameters.PrestoParameters.Catalog != nil {
+				f3f17.Catalog = r.ko.Spec.Parameters.PrestoParameters.Catalog
 			}
-			if r.ko.Spec.DataSourceParameters.PrestoParameters.Host != nil {
-				f3f17.Host = r.ko.Spec.DataSourceParameters.PrestoParameters.Host
+			if r.ko.Spec.Parameters.PrestoParameters.Host != nil {
+				f3f17.Host = r.ko.Spec.Parameters.PrestoParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.PrestoParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.PrestoParameters.Port
+			if r.ko.Spec.Parameters.PrestoParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.PrestoParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
@@ -3696,75 +3697,75 @@ func (rm *resourceManager) newUpdateRequestPayload(
 			f3 = f3f17Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.QBusinessParameters != nil {
+		if r.ko.Spec.Parameters.QBusinessParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for QBusinessParameters"))
 			}
 			f3f18Parent := &svcsdktypes.DataSourceParametersMemberQBusinessParameters{}
 			f3f18 := &svcsdktypes.QBusinessParameters{}
-			if r.ko.Spec.DataSourceParameters.QBusinessParameters.ApplicationARN != nil {
-				f3f18.ApplicationArn = r.ko.Spec.DataSourceParameters.QBusinessParameters.ApplicationARN
+			if r.ko.Spec.Parameters.QBusinessParameters.ApplicationARN != nil {
+				f3f18.ApplicationArn = r.ko.Spec.Parameters.QBusinessParameters.ApplicationARN
 			}
 			f3f18Parent.Value = *f3f18
 			f3 = f3f18Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.RdsParameters != nil {
+		if r.ko.Spec.Parameters.RdsParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for RdsParameters"))
 			}
 			f3f19Parent := &svcsdktypes.DataSourceParametersMemberRdsParameters{}
 			f3f19 := &svcsdktypes.RdsParameters{}
-			if r.ko.Spec.DataSourceParameters.RdsParameters.Database != nil {
-				f3f19.Database = r.ko.Spec.DataSourceParameters.RdsParameters.Database
+			if r.ko.Spec.Parameters.RdsParameters.Database != nil {
+				f3f19.Database = r.ko.Spec.Parameters.RdsParameters.Database
 			}
-			if r.ko.Spec.DataSourceParameters.RdsParameters.InstanceID != nil {
-				f3f19.InstanceId = r.ko.Spec.DataSourceParameters.RdsParameters.InstanceID
+			if r.ko.Spec.Parameters.RdsParameters.InstanceID != nil {
+				f3f19.InstanceId = r.ko.Spec.Parameters.RdsParameters.InstanceID
 			}
 			f3f19Parent.Value = *f3f19
 			f3 = f3f19Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.RedshiftParameters != nil {
+		if r.ko.Spec.Parameters.RedshiftParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for RedshiftParameters"))
 			}
 			f3f20Parent := &svcsdktypes.DataSourceParametersMemberRedshiftParameters{}
 			f3f20 := &svcsdktypes.RedshiftParameters{}
-			if r.ko.Spec.DataSourceParameters.RedshiftParameters.ClusterID != nil {
-				f3f20.ClusterId = r.ko.Spec.DataSourceParameters.RedshiftParameters.ClusterID
+			if r.ko.Spec.Parameters.RedshiftParameters.ClusterID != nil {
+				f3f20.ClusterId = r.ko.Spec.Parameters.RedshiftParameters.ClusterID
 			}
-			if r.ko.Spec.DataSourceParameters.RedshiftParameters.Database != nil {
-				f3f20.Database = r.ko.Spec.DataSourceParameters.RedshiftParameters.Database
+			if r.ko.Spec.Parameters.RedshiftParameters.Database != nil {
+				f3f20.Database = r.ko.Spec.Parameters.RedshiftParameters.Database
 			}
-			if r.ko.Spec.DataSourceParameters.RedshiftParameters.Host != nil {
-				f3f20.Host = r.ko.Spec.DataSourceParameters.RedshiftParameters.Host
+			if r.ko.Spec.Parameters.RedshiftParameters.Host != nil {
+				f3f20.Host = r.ko.Spec.Parameters.RedshiftParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters != nil {
+			if r.ko.Spec.Parameters.RedshiftParameters.IAMParameters != nil {
 				f3f20f3 := &svcsdktypes.RedshiftIAMParameters{}
-				if r.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser != nil {
-					f3f20f3.AutoCreateDatabaseUser = *r.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser
+				if r.ko.Spec.Parameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser != nil {
+					f3f20f3.AutoCreateDatabaseUser = *r.ko.Spec.Parameters.RedshiftParameters.IAMParameters.AutoCreateDatabaseUser
 				}
-				if r.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseGroups != nil {
-					f3f20f3.DatabaseGroups = aws.ToStringSlice(r.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseGroups)
+				if r.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseGroups != nil {
+					f3f20f3.DatabaseGroups = aws.ToStringSlice(r.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseGroups)
 				}
-				if r.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseUser != nil {
-					f3f20f3.DatabaseUser = r.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.DatabaseUser
+				if r.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseUser != nil {
+					f3f20f3.DatabaseUser = r.ko.Spec.Parameters.RedshiftParameters.IAMParameters.DatabaseUser
 				}
-				if r.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.RoleARN != nil {
-					f3f20f3.RoleArn = r.ko.Spec.DataSourceParameters.RedshiftParameters.IAMParameters.RoleARN
+				if r.ko.Spec.Parameters.RedshiftParameters.IAMParameters.RoleARN != nil {
+					f3f20f3.RoleArn = r.ko.Spec.Parameters.RedshiftParameters.IAMParameters.RoleARN
 				}
 				f3f20.IAMParameters = f3f20f3
 			}
-			if r.ko.Spec.DataSourceParameters.RedshiftParameters.IdentityCenterConfiguration != nil {
+			if r.ko.Spec.Parameters.RedshiftParameters.IdentityCenterConfiguration != nil {
 				f3f20f4 := &svcsdktypes.IdentityCenterConfiguration{}
-				if r.ko.Spec.DataSourceParameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation != nil {
-					f3f20f4.EnableIdentityPropagation = r.ko.Spec.DataSourceParameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation
+				if r.ko.Spec.Parameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation != nil {
+					f3f20f4.EnableIdentityPropagation = r.ko.Spec.Parameters.RedshiftParameters.IdentityCenterConfiguration.EnableIdentityPropagation
 				}
 				f3f20.IdentityCenterConfiguration = f3f20f4
 			}
-			if r.ko.Spec.DataSourceParameters.RedshiftParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.RedshiftParameters.Port
+			if r.ko.Spec.Parameters.RedshiftParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.RedshiftParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
@@ -3775,117 +3776,117 @@ func (rm *resourceManager) newUpdateRequestPayload(
 			f3 = f3f20Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters != nil {
+		if r.ko.Spec.Parameters.S3KnowledgeBaseParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for S3KnowledgeBaseParameters"))
 			}
 			f3f21Parent := &svcsdktypes.DataSourceParametersMemberS3KnowledgeBaseParameters{}
 			f3f21 := &svcsdktypes.S3KnowledgeBaseParameters{}
-			if r.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.BucketURL != nil {
-				f3f21.BucketUrl = r.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.BucketURL
+			if r.ko.Spec.Parameters.S3KnowledgeBaseParameters.BucketURL != nil {
+				f3f21.BucketUrl = r.ko.Spec.Parameters.S3KnowledgeBaseParameters.BucketURL
 			}
-			if r.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.MetadataFilesLocation != nil {
-				f3f21.MetadataFilesLocation = r.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.MetadataFilesLocation
+			if r.ko.Spec.Parameters.S3KnowledgeBaseParameters.MetadataFilesLocation != nil {
+				f3f21.MetadataFilesLocation = r.ko.Spec.Parameters.S3KnowledgeBaseParameters.MetadataFilesLocation
 			}
-			if r.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.RoleARN != nil {
-				f3f21.RoleArn = r.ko.Spec.DataSourceParameters.S3KnowledgeBaseParameters.RoleARN
+			if r.ko.Spec.Parameters.S3KnowledgeBaseParameters.RoleARN != nil {
+				f3f21.RoleArn = r.ko.Spec.Parameters.S3KnowledgeBaseParameters.RoleARN
 			}
 			f3f21Parent.Value = *f3f21
 			f3 = f3f21Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.S3Parameters != nil {
+		if r.ko.Spec.Parameters.S3Parameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for S3Parameters"))
 			}
 			f3f22Parent := &svcsdktypes.DataSourceParametersMemberS3Parameters{}
 			f3f22 := &svcsdktypes.S3Parameters{}
-			if r.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation != nil {
+			if r.ko.Spec.Parameters.S3Parameters.ManifestFileLocation != nil {
 				f3f22f0 := &svcsdktypes.ManifestFileLocation{}
-				if r.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Bucket != nil {
-					f3f22f0.Bucket = r.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Bucket
+				if r.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Bucket != nil {
+					f3f22f0.Bucket = r.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Bucket
 				}
-				if r.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Key != nil {
-					f3f22f0.Key = r.ko.Spec.DataSourceParameters.S3Parameters.ManifestFileLocation.Key
+				if r.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Key != nil {
+					f3f22f0.Key = r.ko.Spec.Parameters.S3Parameters.ManifestFileLocation.Key
 				}
 				f3f22.ManifestFileLocation = f3f22f0
 			}
-			if r.ko.Spec.DataSourceParameters.S3Parameters.RoleARN != nil {
-				f3f22.RoleArn = r.ko.Spec.DataSourceParameters.S3Parameters.RoleARN
+			if r.ko.Spec.Parameters.S3Parameters.RoleARN != nil {
+				f3f22.RoleArn = r.ko.Spec.Parameters.S3Parameters.RoleARN
 			}
 			f3f22Parent.Value = *f3f22
 			f3 = f3f22Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.ServiceNowParameters != nil {
+		if r.ko.Spec.Parameters.ServiceNowParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for ServiceNowParameters"))
 			}
 			f3f23Parent := &svcsdktypes.DataSourceParametersMemberServiceNowParameters{}
 			f3f23 := &svcsdktypes.ServiceNowParameters{}
-			if r.ko.Spec.DataSourceParameters.ServiceNowParameters.SiteBaseURL != nil {
-				f3f23.SiteBaseUrl = r.ko.Spec.DataSourceParameters.ServiceNowParameters.SiteBaseURL
+			if r.ko.Spec.Parameters.ServiceNowParameters.SiteBaseURL != nil {
+				f3f23.SiteBaseUrl = r.ko.Spec.Parameters.ServiceNowParameters.SiteBaseURL
 			}
 			f3f23Parent.Value = *f3f23
 			f3 = f3f23Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.SnowflakeParameters != nil {
+		if r.ko.Spec.Parameters.SnowflakeParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for SnowflakeParameters"))
 			}
 			f3f24Parent := &svcsdktypes.DataSourceParametersMemberSnowflakeParameters{}
 			f3f24 := &svcsdktypes.SnowflakeParameters{}
-			if r.ko.Spec.DataSourceParameters.SnowflakeParameters.AuthenticationType != nil {
-				f3f24.AuthenticationType = svcsdktypes.AuthenticationType(*r.ko.Spec.DataSourceParameters.SnowflakeParameters.AuthenticationType)
+			if r.ko.Spec.Parameters.SnowflakeParameters.AuthenticationType != nil {
+				f3f24.AuthenticationType = svcsdktypes.AuthenticationType(*r.ko.Spec.Parameters.SnowflakeParameters.AuthenticationType)
 			}
-			if r.ko.Spec.DataSourceParameters.SnowflakeParameters.Database != nil {
-				f3f24.Database = r.ko.Spec.DataSourceParameters.SnowflakeParameters.Database
+			if r.ko.Spec.Parameters.SnowflakeParameters.Database != nil {
+				f3f24.Database = r.ko.Spec.Parameters.SnowflakeParameters.Database
 			}
-			if r.ko.Spec.DataSourceParameters.SnowflakeParameters.DatabaseAccessControlRole != nil {
-				f3f24.DatabaseAccessControlRole = r.ko.Spec.DataSourceParameters.SnowflakeParameters.DatabaseAccessControlRole
+			if r.ko.Spec.Parameters.SnowflakeParameters.DatabaseAccessControlRole != nil {
+				f3f24.DatabaseAccessControlRole = r.ko.Spec.Parameters.SnowflakeParameters.DatabaseAccessControlRole
 			}
-			if r.ko.Spec.DataSourceParameters.SnowflakeParameters.Host != nil {
-				f3f24.Host = r.ko.Spec.DataSourceParameters.SnowflakeParameters.Host
+			if r.ko.Spec.Parameters.SnowflakeParameters.Host != nil {
+				f3f24.Host = r.ko.Spec.Parameters.SnowflakeParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters != nil {
+			if r.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters != nil {
 				f3f24f4 := &svcsdktypes.OAuthParameters{}
-				if r.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI != nil {
-					f3f24f4.IdentityProviderResourceUri = r.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI
+				if r.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI != nil {
+					f3f24f4.IdentityProviderResourceUri = r.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderResourceURI
 				}
-				if r.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties != nil {
+				if r.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties != nil {
 					f3f24f4f1 := &svcsdktypes.VpcConnectionProperties{}
-					if r.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN != nil {
-						f3f24f4f1.VpcConnectionArn = r.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN
+					if r.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN != nil {
+						f3f24f4f1.VpcConnectionArn = r.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN
 					}
 					f3f24f4.IdentityProviderVpcConnectionProperties = f3f24f4f1
 				}
-				if r.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.OAuthScope != nil {
-					f3f24f4.OAuthScope = r.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.OAuthScope
+				if r.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.OAuthScope != nil {
+					f3f24f4.OAuthScope = r.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.OAuthScope
 				}
-				if r.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.TokenProviderURL != nil {
-					f3f24f4.TokenProviderUrl = r.ko.Spec.DataSourceParameters.SnowflakeParameters.OAuthParameters.TokenProviderURL
+				if r.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.TokenProviderURL != nil {
+					f3f24f4.TokenProviderUrl = r.ko.Spec.Parameters.SnowflakeParameters.OAuthParameters.TokenProviderURL
 				}
 				f3f24.OAuthParameters = f3f24f4
 			}
-			if r.ko.Spec.DataSourceParameters.SnowflakeParameters.Warehouse != nil {
-				f3f24.Warehouse = r.ko.Spec.DataSourceParameters.SnowflakeParameters.Warehouse
+			if r.ko.Spec.Parameters.SnowflakeParameters.Warehouse != nil {
+				f3f24.Warehouse = r.ko.Spec.Parameters.SnowflakeParameters.Warehouse
 			}
 			f3f24Parent.Value = *f3f24
 			f3 = f3f24Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.SparkParameters != nil {
+		if r.ko.Spec.Parameters.SparkParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for SparkParameters"))
 			}
 			f3f25Parent := &svcsdktypes.DataSourceParametersMemberSparkParameters{}
 			f3f25 := &svcsdktypes.SparkParameters{}
-			if r.ko.Spec.DataSourceParameters.SparkParameters.Host != nil {
-				f3f25.Host = r.ko.Spec.DataSourceParameters.SparkParameters.Host
+			if r.ko.Spec.Parameters.SparkParameters.Host != nil {
+				f3f25.Host = r.ko.Spec.Parameters.SparkParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.SparkParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.SparkParameters.Port
+			if r.ko.Spec.Parameters.SparkParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.SparkParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
@@ -3896,20 +3897,20 @@ func (rm *resourceManager) newUpdateRequestPayload(
 			f3 = f3f25Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.SQLServerParameters != nil {
+		if r.ko.Spec.Parameters.SQLServerParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for SqlServerParameters"))
 			}
 			f3f26Parent := &svcsdktypes.DataSourceParametersMemberSqlServerParameters{}
 			f3f26 := &svcsdktypes.SqlServerParameters{}
-			if r.ko.Spec.DataSourceParameters.SQLServerParameters.Database != nil {
-				f3f26.Database = r.ko.Spec.DataSourceParameters.SQLServerParameters.Database
+			if r.ko.Spec.Parameters.SQLServerParameters.Database != nil {
+				f3f26.Database = r.ko.Spec.Parameters.SQLServerParameters.Database
 			}
-			if r.ko.Spec.DataSourceParameters.SQLServerParameters.Host != nil {
-				f3f26.Host = r.ko.Spec.DataSourceParameters.SQLServerParameters.Host
+			if r.ko.Spec.Parameters.SQLServerParameters.Host != nil {
+				f3f26.Host = r.ko.Spec.Parameters.SQLServerParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.SQLServerParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.SQLServerParameters.Port
+			if r.ko.Spec.Parameters.SQLServerParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.SQLServerParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
@@ -3920,73 +3921,73 @@ func (rm *resourceManager) newUpdateRequestPayload(
 			f3 = f3f26Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.StarburstParameters != nil {
+		if r.ko.Spec.Parameters.StarburstParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for StarburstParameters"))
 			}
 			f3f27Parent := &svcsdktypes.DataSourceParametersMemberStarburstParameters{}
 			f3f27 := &svcsdktypes.StarburstParameters{}
-			if r.ko.Spec.DataSourceParameters.StarburstParameters.AuthenticationType != nil {
-				f3f27.AuthenticationType = svcsdktypes.AuthenticationType(*r.ko.Spec.DataSourceParameters.StarburstParameters.AuthenticationType)
+			if r.ko.Spec.Parameters.StarburstParameters.AuthenticationType != nil {
+				f3f27.AuthenticationType = svcsdktypes.AuthenticationType(*r.ko.Spec.Parameters.StarburstParameters.AuthenticationType)
 			}
-			if r.ko.Spec.DataSourceParameters.StarburstParameters.Catalog != nil {
-				f3f27.Catalog = r.ko.Spec.DataSourceParameters.StarburstParameters.Catalog
+			if r.ko.Spec.Parameters.StarburstParameters.Catalog != nil {
+				f3f27.Catalog = r.ko.Spec.Parameters.StarburstParameters.Catalog
 			}
-			if r.ko.Spec.DataSourceParameters.StarburstParameters.DatabaseAccessControlRole != nil {
-				f3f27.DatabaseAccessControlRole = r.ko.Spec.DataSourceParameters.StarburstParameters.DatabaseAccessControlRole
+			if r.ko.Spec.Parameters.StarburstParameters.DatabaseAccessControlRole != nil {
+				f3f27.DatabaseAccessControlRole = r.ko.Spec.Parameters.StarburstParameters.DatabaseAccessControlRole
 			}
-			if r.ko.Spec.DataSourceParameters.StarburstParameters.Host != nil {
-				f3f27.Host = r.ko.Spec.DataSourceParameters.StarburstParameters.Host
+			if r.ko.Spec.Parameters.StarburstParameters.Host != nil {
+				f3f27.Host = r.ko.Spec.Parameters.StarburstParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters != nil {
+			if r.ko.Spec.Parameters.StarburstParameters.OAuthParameters != nil {
 				f3f27f4 := &svcsdktypes.OAuthParameters{}
-				if r.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI != nil {
-					f3f27f4.IdentityProviderResourceUri = r.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI
+				if r.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI != nil {
+					f3f27f4.IdentityProviderResourceUri = r.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderResourceURI
 				}
-				if r.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties != nil {
+				if r.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties != nil {
 					f3f27f4f1 := &svcsdktypes.VpcConnectionProperties{}
-					if r.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN != nil {
-						f3f27f4f1.VpcConnectionArn = r.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN
+					if r.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN != nil {
+						f3f27f4f1.VpcConnectionArn = r.ko.Spec.Parameters.StarburstParameters.OAuthParameters.IdentityProviderVPCConnectionProperties.VPCConnectionARN
 					}
 					f3f27f4.IdentityProviderVpcConnectionProperties = f3f27f4f1
 				}
-				if r.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.OAuthScope != nil {
-					f3f27f4.OAuthScope = r.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.OAuthScope
+				if r.ko.Spec.Parameters.StarburstParameters.OAuthParameters.OAuthScope != nil {
+					f3f27f4.OAuthScope = r.ko.Spec.Parameters.StarburstParameters.OAuthParameters.OAuthScope
 				}
-				if r.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.TokenProviderURL != nil {
-					f3f27f4.TokenProviderUrl = r.ko.Spec.DataSourceParameters.StarburstParameters.OAuthParameters.TokenProviderURL
+				if r.ko.Spec.Parameters.StarburstParameters.OAuthParameters.TokenProviderURL != nil {
+					f3f27f4.TokenProviderUrl = r.ko.Spec.Parameters.StarburstParameters.OAuthParameters.TokenProviderURL
 				}
 				f3f27.OAuthParameters = f3f27f4
 			}
-			if r.ko.Spec.DataSourceParameters.StarburstParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.StarburstParameters.Port
+			if r.ko.Spec.Parameters.StarburstParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.StarburstParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
 				portCopy := int32(portCopy0)
 				f3f27.Port = &portCopy
 			}
-			if r.ko.Spec.DataSourceParameters.StarburstParameters.ProductType != nil {
-				f3f27.ProductType = svcsdktypes.StarburstProductType(*r.ko.Spec.DataSourceParameters.StarburstParameters.ProductType)
+			if r.ko.Spec.Parameters.StarburstParameters.ProductType != nil {
+				f3f27.ProductType = svcsdktypes.StarburstProductType(*r.ko.Spec.Parameters.StarburstParameters.ProductType)
 			}
 			f3f27Parent.Value = *f3f27
 			f3 = f3f27Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.TeradataParameters != nil {
+		if r.ko.Spec.Parameters.TeradataParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for TeradataParameters"))
 			}
 			f3f28Parent := &svcsdktypes.DataSourceParametersMemberTeradataParameters{}
 			f3f28 := &svcsdktypes.TeradataParameters{}
-			if r.ko.Spec.DataSourceParameters.TeradataParameters.Database != nil {
-				f3f28.Database = r.ko.Spec.DataSourceParameters.TeradataParameters.Database
+			if r.ko.Spec.Parameters.TeradataParameters.Database != nil {
+				f3f28.Database = r.ko.Spec.Parameters.TeradataParameters.Database
 			}
-			if r.ko.Spec.DataSourceParameters.TeradataParameters.Host != nil {
-				f3f28.Host = r.ko.Spec.DataSourceParameters.TeradataParameters.Host
+			if r.ko.Spec.Parameters.TeradataParameters.Host != nil {
+				f3f28.Host = r.ko.Spec.Parameters.TeradataParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.TeradataParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.TeradataParameters.Port
+			if r.ko.Spec.Parameters.TeradataParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.TeradataParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
@@ -3997,20 +3998,20 @@ func (rm *resourceManager) newUpdateRequestPayload(
 			f3 = f3f28Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.TrinoParameters != nil {
+		if r.ko.Spec.Parameters.TrinoParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for TrinoParameters"))
 			}
 			f3f29Parent := &svcsdktypes.DataSourceParametersMemberTrinoParameters{}
 			f3f29 := &svcsdktypes.TrinoParameters{}
-			if r.ko.Spec.DataSourceParameters.TrinoParameters.Catalog != nil {
-				f3f29.Catalog = r.ko.Spec.DataSourceParameters.TrinoParameters.Catalog
+			if r.ko.Spec.Parameters.TrinoParameters.Catalog != nil {
+				f3f29.Catalog = r.ko.Spec.Parameters.TrinoParameters.Catalog
 			}
-			if r.ko.Spec.DataSourceParameters.TrinoParameters.Host != nil {
-				f3f29.Host = r.ko.Spec.DataSourceParameters.TrinoParameters.Host
+			if r.ko.Spec.Parameters.TrinoParameters.Host != nil {
+				f3f29.Host = r.ko.Spec.Parameters.TrinoParameters.Host
 			}
-			if r.ko.Spec.DataSourceParameters.TrinoParameters.Port != nil {
-				portCopy0 := *r.ko.Spec.DataSourceParameters.TrinoParameters.Port
+			if r.ko.Spec.Parameters.TrinoParameters.Port != nil {
+				portCopy0 := *r.ko.Spec.Parameters.TrinoParameters.Port
 				if portCopy0 > math.MaxInt32 || portCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field Port is of type int32")
 				}
@@ -4021,56 +4022,56 @@ func (rm *resourceManager) newUpdateRequestPayload(
 			f3 = f3f29Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.TwitterParameters != nil {
+		if r.ko.Spec.Parameters.TwitterParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for TwitterParameters"))
 			}
 			f3f30Parent := &svcsdktypes.DataSourceParametersMemberTwitterParameters{}
 			f3f30 := &svcsdktypes.TwitterParameters{}
-			if r.ko.Spec.DataSourceParameters.TwitterParameters.MaxRows != nil {
-				maxRowsCopy0 := *r.ko.Spec.DataSourceParameters.TwitterParameters.MaxRows
+			if r.ko.Spec.Parameters.TwitterParameters.MaxRows != nil {
+				maxRowsCopy0 := *r.ko.Spec.Parameters.TwitterParameters.MaxRows
 				if maxRowsCopy0 > math.MaxInt32 || maxRowsCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field MaxRows is of type int32")
 				}
 				maxRowsCopy := int32(maxRowsCopy0)
 				f3f30.MaxRows = &maxRowsCopy
 			}
-			if r.ko.Spec.DataSourceParameters.TwitterParameters.Query != nil {
-				f3f30.Query = r.ko.Spec.DataSourceParameters.TwitterParameters.Query
+			if r.ko.Spec.Parameters.TwitterParameters.Query != nil {
+				f3f30.Query = r.ko.Spec.Parameters.TwitterParameters.Query
 			}
 			f3f30Parent.Value = *f3f30
 			f3 = f3f30Parent
 			isInterfaceSet = true
 		}
-		if r.ko.Spec.DataSourceParameters.WebCrawlerParameters != nil {
+		if r.ko.Spec.Parameters.WebCrawlerParameters != nil {
 			if isInterfaceSet {
 				return nil, ackerr.NewTerminalError(fmt.Errorf("can only set one of the members for WebCrawlerParameters"))
 			}
 			f3f31Parent := &svcsdktypes.DataSourceParametersMemberWebCrawlerParameters{}
 			f3f31 := &svcsdktypes.WebCrawlerParameters{}
-			if r.ko.Spec.DataSourceParameters.WebCrawlerParameters.LoginPageURL != nil {
-				f3f31.LoginPageUrl = r.ko.Spec.DataSourceParameters.WebCrawlerParameters.LoginPageURL
+			if r.ko.Spec.Parameters.WebCrawlerParameters.LoginPageURL != nil {
+				f3f31.LoginPageUrl = r.ko.Spec.Parameters.WebCrawlerParameters.LoginPageURL
 			}
-			if r.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordButtonXpath != nil {
-				f3f31.PasswordButtonXpath = r.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordButtonXpath
+			if r.ko.Spec.Parameters.WebCrawlerParameters.PasswordButtonXpath != nil {
+				f3f31.PasswordButtonXpath = r.ko.Spec.Parameters.WebCrawlerParameters.PasswordButtonXpath
 			}
-			if r.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordFieldXpath != nil {
-				f3f31.PasswordFieldXpath = r.ko.Spec.DataSourceParameters.WebCrawlerParameters.PasswordFieldXpath
+			if r.ko.Spec.Parameters.WebCrawlerParameters.PasswordFieldXpath != nil {
+				f3f31.PasswordFieldXpath = r.ko.Spec.Parameters.WebCrawlerParameters.PasswordFieldXpath
 			}
-			if r.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameButtonXpath != nil {
-				f3f31.UsernameButtonXpath = r.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameButtonXpath
+			if r.ko.Spec.Parameters.WebCrawlerParameters.UsernameButtonXpath != nil {
+				f3f31.UsernameButtonXpath = r.ko.Spec.Parameters.WebCrawlerParameters.UsernameButtonXpath
 			}
-			if r.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameFieldXpath != nil {
-				f3f31.UsernameFieldXpath = r.ko.Spec.DataSourceParameters.WebCrawlerParameters.UsernameFieldXpath
+			if r.ko.Spec.Parameters.WebCrawlerParameters.UsernameFieldXpath != nil {
+				f3f31.UsernameFieldXpath = r.ko.Spec.Parameters.WebCrawlerParameters.UsernameFieldXpath
 			}
-			if r.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebCrawlerAuthType != nil {
-				f3f31.WebCrawlerAuthType = svcsdktypes.WebCrawlerAuthType(*r.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebCrawlerAuthType)
+			if r.ko.Spec.Parameters.WebCrawlerParameters.WebCrawlerAuthType != nil {
+				f3f31.WebCrawlerAuthType = svcsdktypes.WebCrawlerAuthType(*r.ko.Spec.Parameters.WebCrawlerParameters.WebCrawlerAuthType)
 			}
-			if r.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyHostName != nil {
-				f3f31.WebProxyHostName = r.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyHostName
+			if r.ko.Spec.Parameters.WebCrawlerParameters.WebProxyHostName != nil {
+				f3f31.WebProxyHostName = r.ko.Spec.Parameters.WebCrawlerParameters.WebProxyHostName
 			}
-			if r.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyPortNumber != nil {
-				webProxyPortNumberCopy0 := *r.ko.Spec.DataSourceParameters.WebCrawlerParameters.WebProxyPortNumber
+			if r.ko.Spec.Parameters.WebCrawlerParameters.WebProxyPortNumber != nil {
+				webProxyPortNumberCopy0 := *r.ko.Spec.Parameters.WebCrawlerParameters.WebProxyPortNumber
 				if webProxyPortNumberCopy0 > math.MaxInt32 || webProxyPortNumberCopy0 < math.MinInt32 {
 					return nil, fmt.Errorf("error: field WebProxyPortNumber is of type int32")
 				}
@@ -4135,8 +4136,8 @@ func (rm *resourceManager) newDeleteRequestPayload(
 	if r.ko.Spec.AWSAccountID != nil {
 		res.AwsAccountId = r.ko.Spec.AWSAccountID
 	}
-	if r.ko.Spec.DataSourceID != nil {
-		res.DataSourceId = r.ko.Spec.DataSourceID
+	if r.ko.Spec.ID != nil {
+		res.DataSourceId = r.ko.Spec.ID
 	}
 
 	return res, nil
@@ -4250,9 +4251,7 @@ func (rm *resourceManager) terminalAWSError(err error) bool {
 		return false
 	}
 	switch terminalErr.ErrorCode() {
-	case "ConflictException",
-		"InvalidParameterValueException",
-		"ResourceExistsException":
+	case "InvalidParameterValueException":
 		return true
 	default:
 		return false

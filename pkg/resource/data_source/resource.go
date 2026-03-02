@@ -91,7 +91,7 @@ func (r *resource) SetIdentifiers(identifier *ackv1alpha1.AWSIdentifiers) error 
 	if identifier.NameOrID == "" {
 		return ackerrors.MissingNameIdentifier
 	}
-	r.ko.Spec.DataSourceID = &identifier.NameOrID
+	r.ko.Spec.ID = &identifier.NameOrID
 
 	f0, f0ok := identifier.AdditionalKeys["awsAccountID"]
 	if f0ok {
@@ -103,11 +103,11 @@ func (r *resource) SetIdentifiers(identifier *ackv1alpha1.AWSIdentifiers) error 
 
 // PopulateResourceFromAnnotation populates the fields passed from adoption annotation
 func (r *resource) PopulateResourceFromAnnotation(fields map[string]string) error {
-	primaryKey, ok := fields["dataSourceID"]
+	primaryKey, ok := fields["id"]
 	if !ok {
-		return ackerrors.NewTerminalError(fmt.Errorf("required field missing: dataSourceID"))
+		return ackerrors.NewTerminalError(fmt.Errorf("required field missing: id"))
 	}
-	r.ko.Spec.DataSourceID = &primaryKey
+	r.ko.Spec.ID = &primaryKey
 	f0, ok := fields["awsAccountID"]
 	if !ok {
 		return ackerrors.NewTerminalError(fmt.Errorf("required field missing: awsAccountID"))

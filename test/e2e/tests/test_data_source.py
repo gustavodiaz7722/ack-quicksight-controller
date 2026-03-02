@@ -101,7 +101,7 @@ class TestDataSource:
         assert k8s.wait_on_condition(ref, "ACK.ResourceSynced", "True", wait_periods=5)
         
         # Verify the resource exists in AWS
-        data_source_id = cr["spec"]["dataSourceID"]
+        data_source_id = cr["spec"]["id"]
         
         response = quicksight_client.describe_data_source(
             AwsAccountId=aws_account_id,
@@ -133,7 +133,7 @@ class TestDataSource:
         # Wait for initial sync
         assert k8s.wait_on_condition(ref, "ACK.ResourceSynced", "True", wait_periods=5)
         
-        data_source_id = cr["spec"]["dataSourceID"]
+        data_source_id = cr["spec"]["id"]
         
         # Get initial name
         response = quicksight_client.describe_data_source(
@@ -178,7 +178,7 @@ class TestDataSource:
         # Wait for initial sync
         assert k8s.wait_on_condition(ref, "ACK.ResourceSynced", "True", wait_periods=5)
         
-        data_source_id = cr["spec"]["dataSourceID"]
+        data_source_id = cr["spec"]["id"]
         
         # Create a new IAM role for testing role update
         new_role = QuickSightTestRole()
@@ -191,7 +191,7 @@ class TestDataSource:
             # Update role ARN
             updates = {
                 "spec": {
-                    "dataSourceParameters": {
+                    "parameters": {
                         "s3Parameters": {
                             "roleARN": new_role.role_arn
                         }
@@ -316,7 +316,7 @@ class TestDataSource:
         assert cr is not None
         assert k8s.wait_on_condition(ref, "ACK.ResourceSynced", "True", wait_periods=5)
         
-        data_source_id = cr["spec"]["dataSourceID"]
+        data_source_id = cr["spec"]["id"]
         
         # Verify the DataSource exists in AWS
         response = quicksight_client.describe_data_source(

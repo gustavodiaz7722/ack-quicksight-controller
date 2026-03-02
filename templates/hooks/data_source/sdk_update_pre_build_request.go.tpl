@@ -1,17 +1,19 @@
-{{/* 
-  This hook is called before building the UpdateDataSource API request.
-  It handles tag synchronization when tags are changed.
-*/}}
-if delta.DifferentAt("Spec.Tags") {
-    err := rm.syncTags(
-        ctx,
-        latest,
-        desired,
-    )
-    if err != nil {
-        return nil, err
-    }
-}
-if !delta.DifferentExcept("Spec.Tags") {
-    return desired, nil
-}
+	desired.SetStatus(latest)
+	if !(datasourceIsCreationSuccessful(desired) ||  datasourceIsUpdateSuccessful(desired) || datasourceIsUpdateFailed(desired) || datasourceIsCreationFailed(desired)){
+		return desired, ackrequeue.Needed(fmt.Errorf("resource is %s", *desired.ko.Status.Status))
+	}	
+    
+    if delta.DifferentAt("Spec.Tags") {
+		arn := string(*latest.ko.Status.ACKResourceMetadata.ARN)
+		err = syncTags(
+			ctx, 
+			desired.ko.Spec.Tags, latest.ko.Spec.Tags, 
+			&arn, convertToOrderedACKTags, rm.sdkapi, rm.metrics,
+		)
+		if err != nil {
+			return desired, err
+		}
+	}
+	if !delta.DifferentExcept("Spec.Tags") {
+		return desired, nil
+	}
