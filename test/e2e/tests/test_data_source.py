@@ -1,0 +1,348 @@
+# Copyright Amazon.com Inc. or its affiliates. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License"). You may
+# not use this file except in compliance with the License. A copy of the
+# License is located at
+#
+# 	 http://aws.amazon.com/apache2.0/
+#
+# or in the "license" file accompanying this file. This file is distributed
+# on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+# express or implied. See the License for the specific language governing
+# permissions and limitations under the License.
+
+"""Integration tests for the QuickSight DataSource resource.
+"""
+
+import pytest
+import time
+import logging
+
+from acktest.resources import random_suffix_name
+from acktest.k8s import resource as k8s
+from acktest import tags
+from acktest.aws.identity import get_account_id
+from e2e import service_marker, CRD_GROUP, CRD_VERSION, load_resource
+from e2e.replacement_values import REPLACEMENT_VALUES
+from e2e.bootstrap_resources import get_bootstrap_resources
+from e2e.quicksight_iam import QuickSightTestRole
+
+RESOURCE_PLURAL = "datasources"
+
+MODIFY_WAIT_AFTER_SECONDS = 10
+
+
+def _create_data_source(resource_name: str):
+    """Helper to create a DataSource CR and return (ref, cr, aws_account_id)."""
+    aws_account_id = get_account_id()
+    
+    bootstrap_resources = get_bootstrap_resources()
+    bucket = bootstrap_resources.DataSourceBucket
+    qs_role = bootstrap_resources.QuickSightS3Role
+    
+    if bucket is None or qs_role is None:
+        pytest.skip("Bootstrap resources not available. Run service_bootstrap.py first.")
+    
+    replacements = REPLACEMENT_VALUES.copy()
+    replacements["DATA_SOURCE_NAME"] = resource_name
+    replacements["DATA_SOURCE_ID"] = resource_name
+    replacements["AWS_ACCOUNT_ID"] = aws_account_id
+    replacements["DATA_SOURCE_TYPE"] = "S3"
+    replacements["S3_BUCKET_NAME"] = bucket.name
+    replacements["S3_MANIFEST_KEY"] = "manifest.json"
+    replacements["ROLE_ARN"] = qs_role.arn
+    
+    resource_data = load_resource(
+        "data_source",
+        additional_replacements=replacements,
+    )
+    
+    ref = k8s.CustomResourceReference(
+        CRD_GROUP, CRD_VERSION, RESOURCE_PLURAL,
+        resource_name, namespace="default",
+    )
+    k8s.create_custom_resource(ref, resource_data)
+    cr = k8s.wait_resource_consumed_by_controller(ref)
+    
+    return (ref, cr, aws_account_id)
+
+
+@pytest.fixture(scope="module")
+def simple_data_source(quicksight_client):
+    """Creates a simple S3 DataSource for testing.
+    
+    Uses bootstrapped S3 bucket and IAM role (created once during bootstrap).
+    """
+    resource_name = random_suffix_name("ack-test-ds", 24)
+    
+    (ref, cr, aws_account_id) = _create_data_source(resource_name)
+    logging.debug(cr)
+
+    assert cr is not None
+    assert k8s.get_resource_exists(ref)
+
+    yield (ref, cr, aws_account_id)
+
+    # Teardown
+    try:
+        _, deleted = k8s.delete_custom_resource(ref, 3, 10)
+        assert deleted
+    except:
+        pass
+
+
+@service_marker
+@pytest.mark.canary
+class TestDataSource:
+    def test_create_delete(self, quicksight_client, simple_data_source):
+        (ref, cr, aws_account_id) = simple_data_source
+
+        # Wait for the resource to be synced
+        assert k8s.wait_on_condition(ref, "ACK.ResourceSynced", "True", wait_periods=5)
+        
+        # Verify the resource exists in AWS
+        data_source_id = cr["spec"]["id"]
+        
+        response = quicksight_client.describe_data_source(
+            AwsAccountId=aws_account_id,
+            DataSourceId=data_source_id
+        )
+        
+        ds = response["DataSource"]
+        
+        # Verify basic properties
+        assert ds["DataSourceId"] == data_source_id
+        assert ds["Type"] == "S3"
+        assert "DataSourceParameters" in ds
+        assert "S3Parameters" in ds["DataSourceParameters"]
+        
+        # Verify status fields are populated
+        cr = k8s.get_resource(ref)
+        assert "status" in cr
+        assert "ackResourceMetadata" in cr["status"]
+        assert "arn" in cr["status"]["ackResourceMetadata"]
+        
+        cr_status = cr["status"]["status"]
+        aws_status = ds["Status"]
+        assert cr_status == aws_status, f"CR status '{cr_status}' should match AWS status '{aws_status}'"
+        assert aws_status in ["CREATION_SUCCESSFUL", "UPDATE_SUCCESSFUL"], f"Expected successful status, got '{aws_status}'"
+
+    def test_update_name(self, quicksight_client, simple_data_source):
+        (ref, cr, aws_account_id) = simple_data_source
+        
+        # Wait for initial sync
+        assert k8s.wait_on_condition(ref, "ACK.ResourceSynced", "True", wait_periods=5)
+        
+        data_source_id = cr["spec"]["id"]
+        
+        # Get initial name
+        response = quicksight_client.describe_data_source(
+            AwsAccountId=aws_account_id,
+            DataSourceId=data_source_id
+        )
+        initial_name = response["DataSource"]["Name"]
+        
+        # Update display name
+        new_name = "updated-" + initial_name
+        updates = {
+            "spec": {
+                "name": new_name
+            }
+        }
+        
+        k8s.patch_custom_resource(ref, updates)
+        time.sleep(MODIFY_WAIT_AFTER_SECONDS)
+        
+        # Wait for the update to sync
+        assert k8s.wait_on_condition(ref, "ACK.ResourceSynced", "True", wait_periods=5)
+        cr = k8s.get_resource(ref)
+        
+        # Verify the update in AWS
+        response = quicksight_client.describe_data_source(
+            AwsAccountId=aws_account_id,
+            DataSourceId=data_source_id
+        )
+        
+        assert response["DataSource"]["Name"] == new_name
+        assert response["DataSource"]["Name"] != initial_name
+        
+        ds = response["DataSource"]
+        cr_status = cr["status"]["status"]
+        aws_status = ds["Status"]
+        assert cr_status == aws_status, f"CR status '{cr_status}' should match AWS status '{aws_status}'"
+        assert aws_status in ["CREATION_SUCCESSFUL", "UPDATE_SUCCESSFUL"], f"Expected successful status, got '{aws_status}'"
+
+    def test_update_role_arn(self, quicksight_client, simple_data_source):
+        (ref, cr, aws_account_id) = simple_data_source
+        
+        # Wait for initial sync
+        assert k8s.wait_on_condition(ref, "ACK.ResourceSynced", "True", wait_periods=5)
+        
+        data_source_id = cr["spec"]["id"]
+        
+        # Create a new IAM role for testing role update
+        new_role = QuickSightTestRole()
+        try:
+            new_role.bootstrap()
+        except Exception as e:
+            pytest.skip(f"Failed to create QuickSight test role: {e}")
+        
+        try:
+            # Update role ARN
+            updates = {
+                "spec": {
+                    "parameters": {
+                        "s3Parameters": {
+                            "roleARN": new_role.role_arn
+                        }
+                    }
+                }
+            }
+            
+            k8s.patch_custom_resource(ref, updates)
+            time.sleep(MODIFY_WAIT_AFTER_SECONDS)
+            
+            # Wait for the update to sync
+            assert k8s.wait_on_condition(ref, "ACK.ResourceSynced", "True", wait_periods=5)
+            
+            # Verify the update in AWS
+            response = quicksight_client.describe_data_source(
+                AwsAccountId=aws_account_id,
+                DataSourceId=data_source_id
+            )
+            
+            assert response["DataSource"]["DataSourceParameters"]["S3Parameters"]["RoleArn"] == new_role.role_arn
+        finally:
+            # Cleanup the temporary test role
+            new_role.cleanup()
+
+    def test_create_delete_tags(self, quicksight_client, simple_data_source):
+        (ref, cr, aws_account_id) = simple_data_source
+        
+        # Wait for initial sync
+        assert k8s.wait_on_condition(ref, "ACK.ResourceSynced", "True", wait_periods=5)
+        
+        # Get DataSource ARN
+        cr = k8s.get_resource(ref)
+        data_source_arn = cr["status"]["ackResourceMetadata"]["arn"]
+        
+        # Test 1: Verify initial tags
+        response = quicksight_client.list_tags_for_resource(ResourceArn=data_source_arn)
+        initial_tags = response["Tags"]
+        
+        tags.assert_ack_system_tags(tags=initial_tags)
+        
+        # Test 2: Add new tag
+        updates = {
+            "spec": {
+                "tags": [
+                    {
+                        "key": "environment",
+                        "value": "test",
+                    },
+                    {
+                        "key": "team",
+                        "value": "data-analytics",
+                    }
+                ]
+            }
+        }
+        
+        k8s.patch_custom_resource(ref, updates)
+        time.sleep(MODIFY_WAIT_AFTER_SECONDS)
+        
+        assert k8s.wait_on_condition(ref, "ACK.ResourceSynced", "True", wait_periods=5)
+        
+        response = quicksight_client.list_tags_for_resource(ResourceArn=data_source_arn)
+        latest_tags = response["Tags"]
+        expected_tags = {"environment": "test", "team": "data-analytics"}
+        
+        tags.assert_ack_system_tags(tags=latest_tags)
+        tags.assert_equal_without_ack_tags(expected=expected_tags, actual=latest_tags)
+        
+        # Test 3: Update tag value
+        updates = {
+            "spec": {
+                "tags": [
+                    {
+                        "key": "environment",
+                        "value": "production",
+                    },
+                    {
+                        "key": "team",
+                        "value": "data-analytics",
+                    }
+                ]
+            }
+        }
+        
+        k8s.patch_custom_resource(ref, updates)
+        time.sleep(MODIFY_WAIT_AFTER_SECONDS)
+        
+        assert k8s.wait_on_condition(ref, "ACK.ResourceSynced", "True", wait_periods=5)
+        
+        response = quicksight_client.list_tags_for_resource(ResourceArn=data_source_arn)
+        latest_tags = response["Tags"]
+        expected_tags = {"environment": "production", "team": "data-analytics"}
+        
+        tags.assert_ack_system_tags(tags=latest_tags)
+        tags.assert_equal_without_ack_tags(expected=expected_tags, actual=latest_tags)
+        
+        # Test 4: Delete all user tags
+        updates = {
+            "spec": {
+                "tags": []
+            }
+        }
+        
+        k8s.patch_custom_resource(ref, updates)
+        time.sleep(MODIFY_WAIT_AFTER_SECONDS)
+        
+        assert k8s.wait_on_condition(ref, "ACK.ResourceSynced", "True", wait_periods=5)
+        
+        response = quicksight_client.list_tags_for_resource(ResourceArn=data_source_arn)
+        latest_tags = response["Tags"]
+        expected_tags = {}
+        
+        tags.assert_ack_system_tags(tags=latest_tags)
+        tags.assert_equal_without_ack_tags(expected=expected_tags, actual=latest_tags)
+
+    def test_delete(self, quicksight_client):
+        """Test that deleting the K8s resource deletes the AWS DataSource."""
+        resource_name = random_suffix_name("ack-test-ds-del", 24)
+        
+        (ref, cr, aws_account_id) = _create_data_source(resource_name)
+        
+        assert cr is not None
+        assert k8s.wait_on_condition(ref, "ACK.ResourceSynced", "True", wait_periods=5)
+        
+        data_source_id = cr["spec"]["id"]
+        
+        # Verify the DataSource exists in AWS
+        response = quicksight_client.describe_data_source(
+            AwsAccountId=aws_account_id,
+            DataSourceId=data_source_id
+        )
+        assert response["DataSource"] is not None
+        
+        # Delete the K8s resource
+        _, deleted = k8s.delete_custom_resource(ref, 3, 10)
+        assert deleted
+        
+        # Poll for AWS deletion to complete
+        max_wait_periods = 30
+        wait_period_length = 5
+        
+        for _ in range(max_wait_periods):
+            time.sleep(wait_period_length)
+            
+            try:
+                quicksight_client.describe_data_source(
+                    AwsAccountId=aws_account_id,
+                    DataSourceId=data_source_id
+                )
+            except quicksight_client.exceptions.ResourceNotFoundException:
+                # Successfully deleted
+                return
+        
+        assert False, f"DataSource {data_source_id} was not deleted from AWS after {max_wait_periods * wait_period_length} seconds"

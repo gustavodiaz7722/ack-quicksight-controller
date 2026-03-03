@@ -5,7 +5,6 @@ ignore:
       - Analysis
       - Dashboard
       - DataSet
-      - DataSource
       - Folder
       - FolderMembership
       - Group
@@ -24,3 +23,138 @@ ignore:
       - VPCConnection
       - Brand
       - ActionConnector
+  field_paths:
+      # RequestId is just the AWS API request ID for tracking, not resource data
+      - CreateDataSourceOutput.RequestId
+      - UpdateDataSourceOutput.RequestId
+      - DeleteDataSourceOutput.RequestId
+      # HTTP status codes are not useful for users
+      - CreateDataSourceOutput.Status
+      - UpdateDataSourceOutput.Status
+      - DeleteDataSourceOutput.Status
+      - DescribeDataSourceOutput.Status
+
+operations:
+  DescribeDataSource:
+    output_wrapper_field_path: DataSource
+
+resources:
+  DataSource:
+    synced:
+      when:
+        - path: Status.Status
+          in:
+            - CREATION_SUCCESSFUL
+            - UPDATE_SUCCESSFUL
+    renames:
+      operations:
+        CreateDataSource:
+          input_fields:
+            DataSourceId: ID
+            DataSourceParameters: Parameters
+          output_fields:
+            CreationStatus: Status
+        UpdateDataSource:
+          input_fields:
+            DataSourceId: ID
+            DataSourceParameters: Parameters
+          output_fields:
+            UpdateStatus: Status
+        DeleteDataSource:
+          input_fields:
+            DataSourceId: ID
+        DescribeDataSource:
+          input_fields:
+            DataSourceId: ID
+          output_fields:
+            DataSourceId: ID
+            DataSourceParameters: Parameters
+    fields:
+      ID:
+        is_primary_key: true
+      AwsAccountId:
+        is_immutable: true
+      Type:
+        is_immutable: true
+        go_tag: json:"type,omitempty"
+      CreatedTime:
+        is_read_only: true
+        from:
+          operation: DescribeDataSource
+          path: DataSource.CreatedTime
+      LastUpdatedTime:
+        is_read_only: true
+        from:
+          operation: DescribeDataSource
+          path: DataSource.LastUpdatedTime
+      ErrorInfo:
+        is_read_only: true
+        from:
+          operation: DescribeDataSource
+          path: DataSource.ErrorInfo
+      ErrorInfo.Type:
+        go_tag: json:"type,omitempty"
+      Status:
+        is_read_only: true
+        from:
+          operation: DescribeDataSource
+          path: DataSource.Status
+      # Cross-resource references for IAM Roles
+      Parameters.AthenaParameters.RoleARN:
+        references:
+          service_name: iam
+          resource: Role
+          path: Status.ACKResourceMetadata.ARN
+      Parameters.S3Parameters.RoleARN:
+        references:
+          service_name: iam
+          resource: Role
+          path: Status.ACKResourceMetadata.ARN
+      Parameters.S3KnowledgeBaseParameters.RoleARN:
+        references:
+          service_name: iam
+          resource: Role
+          path: Status.ACKResourceMetadata.ARN
+      Parameters.RedshiftParameters.IAMParameters.RoleARN:
+        references:
+          service_name: iam
+          resource: Role
+          path: Status.ACKResourceMetadata.ARN
+      # Cross-resource reference for Secrets Manager
+      Credentials.SecretARN:
+        references:
+          service_name: secretsmanager
+          resource: Secret
+          path: Status.ACKResourceMetadata.ARN
+      # Cross-resource reference for RDS DBInstance
+      Parameters.RdsParameters.InstanceID:
+        references:
+          service_name: rds
+          resource: DBInstance
+          path: Spec.DBInstanceIdentifier
+      # Cross-resource reference for S3 Bucket
+      Parameters.S3Parameters.ManifestFileLocation.Bucket:
+        references:
+          service_name: s3
+          resource: Bucket
+          path: Spec.Name
+      # Secret fields - sensitive credentials that should be stored in K8s Secrets
+      Credentials.CredentialPair.Password:
+        is_secret: true
+      Credentials.KeyPairCredentials.PrivateKey:
+        is_secret: true
+      Credentials.KeyPairCredentials.PrivateKeyPassphrase:
+        is_secret: true
+      Credentials.WebProxyCredentials.WebProxyPassword:
+        is_secret: true
+    exceptions:
+      errors:
+        404:
+          code: ResourceNotFoundException
+      terminal_codes:
+        - InvalidParameterValueException
+    hooks:
+      sdk_update_pre_build_request:
+        template_path: hooks/data_source/sdk_update_pre_build_request.go.tpl
+      sdk_read_one_post_set_output:
+        template_path: hooks/data_source/sdk_read_one_post_set_output.go.tpl
