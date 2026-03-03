@@ -52,3 +52,7 @@ func datasourceIsUpdateFailed(desired *resource) bool {
 
 	return false
 }
+
+func isDataSourceUpdateReady(desired *resource) bool {
+	return !(datasourceIsCreationSuccessful(desired) || datasourceIsUpdateSuccessful(desired) || datasourceIsUpdateFailed(desired) || datasourceIsCreationFailed(desired))
+}

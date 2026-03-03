@@ -1,6 +1,6 @@
 	desired.SetStatus(latest)
-	if !(datasourceIsCreationSuccessful(desired) ||  datasourceIsUpdateSuccessful(desired) || datasourceIsUpdateFailed(desired) || datasourceIsCreationFailed(desired)){
-		return desired, ackrequeue.Needed(fmt.Errorf("resource is %s", *desired.ko.Status.Status))
+	if isDataSourceUpdateReady(desired){
+		return desired, ackrequeue.NeededAfter(fmt.Errorf("resource is %s", *desired.ko.Status.Status), time.Duration(5)*time.Second)
 	}	
     
     if delta.DifferentAt("Spec.Tags") {
